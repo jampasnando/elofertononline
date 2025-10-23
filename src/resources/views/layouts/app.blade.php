@@ -1,0 +1,357 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>@yield('title', 'Mi Proyecto Laravel')</title>
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Bootstrap Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+  <style>
+    .icon-btn {
+      background: none;
+      border: none;
+      font-size: 1.25rem;
+      margin-left: 10px;
+    }
+    .geo-btn {
+    color: red;                     /* color del icono */
+    font-size: 1.5rem;              /* tamaño del icono */
+    padding: 8px;                   /* espacio dentro del círculo */
+    border-radius: 50%;             /* círculo */
+    transition: all 0.3s ease;      /* transición suave */
+    cursor: pointer;                /* puntero al pasar el mouse */
+}
+
+/* Hover */
+.geo-btn:hover {
+    background-color: rgba(255,0,0,0.1); /* fondo circular rojo suave */
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2); /* sombra sutil */
+    transform: scale(1.2);                  /* pequeño zoom */
+}
+  </style>
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container">
+
+    <!-- Botón hamburguesa (solo visible en móvil) -->
+    <button class="navbar-toggler order-1" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContenido">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- Izquierda: Logo + Menú (colapsable) -->
+    <div class="collapse navbar-collapse order-lg-1 order-2" id="navbarContenido">
+      <a class="navbar-brand d-lg-block d-none me-3" href="{{ route('market.index') }}">
+        <img src="{{asset('imagenes/logo.png')}}" alt="Logo" class="d-inline-block align-text-top" style="height: 2em;">
+      </a>
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link" href="#" style="font-weight: bold;font-size: 0.8em;" data-bs-toggle="modal" data-bs-target="#mapModal">
+            <i class="bi bi-geo-alt-fill text-danger geo-btn"></i>
+            Estás en Cochabamba
+          </a>
+        </li>
+        <!-- <li class="nav-item">
+          <a class="nav-link" href="#">Productos</a>
+        </li> -->
+      </ul>
+    </div>
+
+    <!-- Centro: Buscador (siempre visible) -->
+    <form class="d-flex flex-grow-1 justify-content-center order-3 order-lg-2 mx-2" action="{{route('market.buscar')}}" method="GET">
+        @csrf  
+    <input class="form-control w-100 w-lg-75" type="search" placeholder="Buscar..." aria-label="Buscar" style="border-radius: 20px;" required name="buscar" value="{{ request('buscar') }}">
+    <button class="icon-btn" aria-label="Perfil" type="submit">
+            <i class="bi bi-search"></i>
+        </button>
+    </form>
+    
+    <!-- Derecha: Íconos (colapsable) -->
+    <div class="collapse navbar-collapse justify-content-end order-lg-3 order-4" id="navbarContenido">
+      <div class="d-flex align-items-center ms-auto mt-2 mt-lg-0">
+        <button class="icon-btn" aria-label="Likes">
+            <i class="bi bi-house"></i>
+        </button>
+        <button class="icon-btn position-relative" aria-label="Carrito" data-bs-toggle="modal" data-bs-target="#modalCarrito">
+            <i class="bi bi-cart"></i>
+            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger cartCount">
+              0
+            </span>
+        </button>
+        <button class="icon-btn" aria-label="Perfil">
+            <i class="bi bi-person-circle"></i>
+        </button>
+        
+      </div>
+    </div>
+
+  </div>
+</nav>
+    <div class="bg-light border-bottom py-1">
+        <div class="container d-flex justify-content-between align-items-center">
+            <!-- Select de categorías -->
+            <div class="dropdown">
+                <button class="btn btn-sm btn-warning dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" style="border-radius: 15px;padding: 5px 20px;">
+                    <i class="bi bi-list"></i>
+                    Categorías
+                </button>
+                <ul class="dropdown-menu shadow-sm">
+                    <li><a class="dropdown-item" href="#">Herramientas</a></li>
+                    <li><a class="dropdown-item" href="#">Jardinería</a></li>
+                    <li><a class="dropdown-item" href="#">Cerrajería</a></li>
+                    <li><a class="dropdown-item" href="#">Carpintería</a></li>
+                    <li><a class="dropdown-item" href="#">Otros</a></li>
+                </ul>
+            </div>
+
+            <!-- Opciones de texto -->
+            <div class="d-none d-lg-flex gap-5">
+            <a href="#" class="text-decoration-none text-dark small">Hogar</a>
+            <a href="#" class="text-decoration-none text-dark small">Jardinería</a>
+            <a href="#" class="text-decoration-none text-dark small">Herramientas</a>
+            <a href="#" class="text-decoration-none text-dark small">Cerrajería</a>
+            <a href="#" class="text-decoration-none text-dark small">Carpintería</a>
+            <a href="#" class="text-decoration-none text-dark small">Otros</a>
+            </div>
+            <div class="d-block d-lg-none">
+              <button class="icon-btn position-relative" aria-label="Carrito" data-bs-toggle="modal" data-bs-target="#modalCarrito">
+                  <i class="bi bi-cart"></i>
+                  <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger cartCount">
+                    0
+                  </span>
+              </button>
+            </div>
+
+        </div>
+    </div>
+  <main class="container-fluid px-0 py-2">
+    @yield('content')
+  </main>
+
+ <footer class="bg-secondary bg-gradient text-center py-3 text-white mt-4">
+        <small>&copy; {{ date('Y') }} - El Ofertón</small>
+
+<!-- Modal con mapa -->
+<div class="modal fade" id="mapModal" tabindex="-1" aria-labelledby="mapModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title text-dark" id="mapModalLabel">Ubicación en Cochabamba</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+      </div>
+      <div class="modal-body p-0">
+        <div id="map" style="height: 500px; width: 100%;"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- popup aÑadir al carrito -->
+<div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+    <div id="toastCarrito" class="toast align-items-center text-bg-success border-0" role="alert">
+        <div class="d-flex">
+            <div class="toast-body">
+                Producto añadido al carrito 🛒
+            </div>
+            <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
+        </div>
+    </div>
+</div>
+
+<!-- modal para ver el carrito -->
+<div class="modal fade" id="modalCarrito" tabindex="-1">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title text-dark">🛒 Carrito de Compras</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body" id="carritoDetalles">
+        <p>Tu carrito está vacío.</p>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-outline-danger" data-bs-dismiss="modal">Cerrar</button>
+        <button class="btn btn-success">Finalizar Compra</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+</footer>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  <!-- Leaflet JS -->
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+    const elementos = document.querySelectorAll('.slide-up');
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('show');
+                observer.unobserve(entry.target); // opcional, solo animar 1 vez
+            }
+        });
+    }, { threshold: 0.1 });
+
+    elementos.forEach(el => observer.observe(el));
+
+    // Cuando el modal del mapa se abre, inicializamos el mapa
+    var map;
+    var modal = document.getElementById('mapModal');
+    modal.addEventListener('shown.bs.modal', function () {
+      if (!map) {
+        // Coordenadas de Cochabamba, Bolivia
+        var cochabambaCoords = [-17.3895, -66.1568];
+
+        map = L.map('map').setView(cochabambaCoords, 13);
+
+        // Capa de mapa (OpenStreetMap)
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+          attribution: '&copy; OpenStreetMap contributors'
+        }).addTo(map);
+
+        // Icono centrado en Cochabamba
+        L.marker(cochabambaCoords).addTo(map)
+          .bindPopup("📍 El Ofertón")
+          .openPopup();
+      }
+    });
+
+      let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+
+  function actualizarContador() {
+    const elements = document.querySelectorAll('.cartCount');
+    elements.forEach(el => el.innerText = carrito.length);
+    // const el = document.getElementById('cartCount');
+    // if (el) el.innerText = carrito.length;
+  }
+
+  function guardarYActualizar() {
+    localStorage.setItem('carrito', JSON.stringify(carrito));
+    actualizarContador();
+  }
+
+  function renderizarCarrito() {
+    const cont = document.getElementById('carritoDetalles');
+    if (!cont) return;
+
+    if (carrito.length === 0) {
+      cont.innerHTML = '<p>Tu carrito está vacío.</p>';
+      return;
+    }
+
+    let total = 0;
+    let html = '<ul class="list-group">';
+    carrito.forEach((p, i) => {
+      const subtotal = p.precio * p.cantidad;
+      total += subtotal;
+      html += `
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+          <button class="btn btn-sm btn-light btn-remove" data-index="${i}">❌</button>
+          <div class="flex-grow-1 mx-2 text-truncate">
+            <span >${p.nombre}</span><br>
+            <small style="font-size:0.8em;color:gray;width:150px;display:flex;justify-content:space-between;align-items:center;">
+              <button class="btn btn-sm btn-outline-secondary btn-restar" data-index="${i}">-</button>
+              <span style="font-size:1.3em;font-wieght:bold;"> ${p.cantidad} </span>
+              <button class="btn btn-sm btn-outline-secondary btn-sumar" data-index="${i}">+</button>
+              x Bs.${p.precio}
+            </small>
+            
+          </div>
+          <div>
+            <strong>Bs.${subtotal}</strong>
+            
+          </div>
+        </li>`;
+    });
+    html += `</ul>
+      <div class="mt-3 text-end fw-bold">
+        <ul class="list-group">
+          <li class="list-group-item d-flex justify-content-between align-items-center" style="color:green;">
+            <span>Total a pagar:</span>
+            <span>Bs.${total}</span>
+          </li>
+        </ul>
+      </div>`;
+
+    cont.innerHTML = html;
+
+    // listeners dinámicos
+    cont.querySelectorAll('.btn-remove').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const idx = btn.dataset.index;
+        carrito.splice(idx, 1);
+        guardarYActualizar();
+        renderizarCarrito();
+      });
+    });
+
+    cont.querySelectorAll('.btn-sumar').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const idx = btn.dataset.index;
+        carrito[idx].cantidad++;
+        guardarYActualizar();
+        renderizarCarrito();
+      });
+    });
+
+    cont.querySelectorAll('.btn-restar').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const idx = btn.dataset.index;
+        if (carrito[idx].cantidad > 1) {
+          carrito[idx].cantidad--;
+        } else {
+          carrito.splice(idx, 1);
+        }
+        guardarYActualizar();
+        renderizarCarrito();
+      });
+    });
+  }
+
+  // añadir al carrito
+  document.querySelectorAll('.btn-add-to-cart').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const id = btn.dataset.id;
+      const nombre = btn.dataset.nombre;
+      const precio = parseFloat(btn.dataset.precio);
+
+      // Buscar si ya está en carrito
+      const index = carrito.findIndex(p => p.id === id);
+      if (index >= 0) {
+        carrito[index].cantidad += 1;
+      } else {
+        carrito.push({ id, nombre, precio, cantidad: 1 });
+      }
+
+      guardarYActualizar();
+
+      const toast = new bootstrap.Toast(document.getElementById('toastCarrito'));
+      toast.show();
+    });
+  });
+
+  // show modal -> renderizar
+  const modalCarrito = document.getElementById('modalCarrito');
+  if (modalCarrito) modalCarrito.addEventListener('show.bs.modal', renderizarCarrito);
+
+  // init
+  actualizarContador();
+
+});
+
+
+
+
+</script>
+
+</body>
+</html>
