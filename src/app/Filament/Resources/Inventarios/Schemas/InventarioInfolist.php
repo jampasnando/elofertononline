@@ -34,8 +34,6 @@ class InventarioInfolist
                 ImageEntry::make('img1')
                 ->disk('public')
                 ->visibility('public'),
-                // ->height(200),
-                // ->circular(false),
                 ImageEntry::make('img2')
                 ->disk('public'),
                 // ->height(200),
