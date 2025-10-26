@@ -24,7 +24,7 @@ class Destacado2Form
     ->components([
         // Primera sección (titulox + imgx1..imgx4)x
         ColorPicker::make('color')
-            ->label('Color de fondo')
+            ->label('Color de fondox')
             ->columnSpanFull(),
         Section::make('Sección X')
             ->schema([
