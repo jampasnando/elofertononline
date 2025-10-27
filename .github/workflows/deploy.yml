@@ -1,4 +1,4 @@
-ame: 🚀 Deploy Laravel src to Hestia
+name: 🚀 Deploy Laravel src to Hestia
 
 # Se ejecuta cuando hay push a main
 on:
