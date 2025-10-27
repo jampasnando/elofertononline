@@ -22,7 +22,7 @@ class Destacado2Form
         })->toArray();
         return $schema
     ->components([
-        // Primera sección (titulox + imgx1..imgx4)x
+        // Primera sección (titulox + imgx1..imgx4)xy
         ColorPicker::make('color')
             ->label('Color de fondox')
             ->columnSpanFull(),
