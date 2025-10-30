@@ -10,6 +10,7 @@ use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Table;
+use App\Models\Inventario;
 
 class DestacadosTable
 {
@@ -23,16 +24,24 @@ class DestacadosTable
                     ->numeric()
                     ->sortable(),
                 ImageColumn::make('imgdestacada')
-                    ->label('Imagen')
+                    ->label('Destacada')
                     ->disk('public')
                     ->visibility('public')
                     ->square() // opcional: recorta cuadrado
                     ->size(80)
                     ->url(fn ($record) => asset('storage/' . $record->imgdestacada)) // link directo a la imagen
                     ->openUrlInNewTab(), // tamaño del
-                TextColumn::make('prod1')
-                    ->tooltip('www')
-                    ->searchable(),
+                ImageColumn::make('prod1')
+                    ->label('Prod1')
+                    ->disk('public')
+                    ->visibility('public')
+                    ->square() // opcional: recorta cuadrado
+                    ->size(55)
+                    ->url(function ($record)  {
+                        $producto = Inventario::find($record->prod1);
+                        return $producto ? asset('storage/' . $producto->img1) : null;
+                    }) // link directo a la imagen
+                    ->openUrlInNewTab(),
                 TextColumn::make('prod2')
                     ->searchable(),
                 TextColumn::make('prod3')
