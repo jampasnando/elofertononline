@@ -164,7 +164,7 @@
 
         {{-- Izquierda: imagen 3:4 --}}
         <div class="col-12 col-lg-4">
-            <div class="featured-img-wrapper"><img src="{{asset('storage/'.$imagen_destacada)}}" alt="Destacado" class="img-fluid rounded featured-img" style="aspect-ratio: 3/4; object-fit: cover; width: 100%;"></div>
+            <div class="featured-img-wrapper"><img src="{{asset('storage/'.$imagen_destacada)}}" alt="Destacado" class="img-fluid rounded featured-img" style="aspect-ratio: 3/4; width: 100%;"></div>
         </div>
 
         {{-- Derecha: grid de productos --}}

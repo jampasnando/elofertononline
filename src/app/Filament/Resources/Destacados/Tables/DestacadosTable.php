@@ -11,6 +11,7 @@ use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Table;
 use App\Models\Inventario;
+use Illuminate\Support\Facades\Log;
 
 class DestacadosTable
 {
@@ -35,33 +36,81 @@ class DestacadosTable
                     ->label('Prod1')
                     ->disk('public')
                     ->visibility('public')
-                    ->square() // opcional: recorta cuadrado
                     ->size(55)
+                    ->getStateUsing(function ($record)  {
+                        $producto = Inventario::find($record->prod1);
+                        return $producto ? $producto->img1 : null;
+                    })
                     ->url(function ($record)  {
                         $producto = Inventario::find($record->prod1);
                         return $producto ? asset('storage/' . $producto->img1) : null;
                     }) // link directo a la imagen
                     ->openUrlInNewTab(),
-                TextColumn::make('prod2')
-                    ->searchable(),
-                TextColumn::make('prod3')
-                    ->searchable(),
-                TextColumn::make('prod4')
-                    ->searchable(),
-                TextColumn::make('prod5')
-                    ->searchable(),
-                TextColumn::make('prod6')
-                    ->searchable(),
-                IconColumn::make('estado')
-                    ->boolean(),
-                TextColumn::make('created_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                TextColumn::make('updated_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
+                ImageColumn::make('prod2')
+                    ->disk('public')
+                    ->visibility('public')
+                    ->size(55)
+                    ->getStateUsing(function ($record)  {
+                        $producto = Inventario::find($record->prod2);
+                        return $producto ? $producto->img1 : null;
+                    })
+                    ->url(function ($record)  {
+                        $producto = Inventario::find($record->prod2);
+                        return $producto ? asset('storage/' . $producto->img1) : null;
+                    }) // link directo a la imagen
+                    ->openUrlInNewTab(),
+                ImageColumn::make('prod3')
+                    ->disk('public')
+                    ->visibility('public')
+                    ->size(55)
+                    ->getStateUsing(function ($record)  {
+                        $producto = Inventario::find($record->prod3);
+                        return $producto ? $producto->img1 : null;
+                    })
+                    ->url(function ($record)  {
+                        $producto = Inventario::find($record->prod3);
+                        return $producto ? asset('storage/' . $producto->img1) : null;
+                    }) // link directo a la imagen
+                    ->openUrlInNewTab(),
+                ImageColumn::make('prod4')
+                    ->disk('public')
+                    ->visibility('public')
+                    ->size(55)
+                    ->getStateUsing(function ($record)  {
+                        $producto = Inventario::find($record->prod4);
+                        return $producto ? $producto->img1 : null;
+                    })
+                    ->url(function ($record)  {
+                        $producto = Inventario::find($record->prod4);
+                        return $producto ? asset('storage/' . $producto->img1) : null;
+                    }) // link directo a la imagen
+                    ->openUrlInNewTab(),
+                ImageColumn::make('prod5')
+                    ->disk('public')
+                    ->visibility('public')
+                    ->size(55)
+                    ->getStateUsing(function ($record)  {
+                        $producto = Inventario::find($record->prod5);
+                        return $producto ? $producto->img1 : null;
+                    })
+                    ->url(function ($record)  {
+                        $producto = Inventario::find($record->prod5);
+                        return $producto ? asset('storage/' . $producto->img1) : null;
+                    }) // link directo a la imagen
+                    ->openUrlInNewTab(),
+                ImageColumn::make('prod6')
+                    ->disk('public')
+                    ->visibility('public')
+                    ->size(55)
+                    ->getStateUsing(function ($record)  {
+                        $producto = Inventario::find($record->prod6);
+                        return $producto ? $producto->img1 : null;
+                    })
+                    ->url(function ($record)  {
+                        $producto = Inventario::find($record->prod6);
+                        return $producto ? asset('storage/' . $producto->img1) : null;
+                    }) // link directo a la imagen
+                    ->openUrlInNewTab(),
             ])
             ->filters([
                 //
