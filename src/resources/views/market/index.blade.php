@@ -220,7 +220,7 @@
                       @foreach ($prods2x as $unprods2x)
                         <div class="col-6">
                           <div class="card product-card h-100">
-                            <img src="{{$unprods2x->img1 ? asset('storage/'.$unprods2x->img1) : asset('imagenes/toolsplaceholder.png')}}" class="card-img-top" alt="Taladro" style="height:150px; object-fit:cover;">
+                            <img src="{{$unprods2x->img1 ? asset('storage/'.$unprods2x->img1) : asset('imagenes/toolsplaceholder.png')}}" class="card-img-top" alt="Taladro" style="object-fit:cover;">
                             <div class="card-body d-flex flex-column p-2">
                                 <h6 class="card-title mb-1">{{$unprods2x->marca}}</h6>
                                 <p class="card-text text-truncate mb-2 small">{{$unprods2x->descripcion}}</p>
