@@ -174,7 +174,7 @@
                 {{-- Producto 1 --}}
                     <div class="col">
                         <div class="card product-card h-100 rounded">
-                            <img src="{{asset('storage/'.$producto->img1)}}" class="card-img-top" alt="Producto 1" style="height:150px; object-fit:cover;">
+                            <img src="{{asset('storage/'.$producto->img1)}}" class="card-img-top" alt="Producto 1" style="object-fit:cover;">
                             <div class="card-body d-flex flex-column p-2">
                                 <h6 class="card-title mb-1">{{$producto->marca}}</h6>
                                 <p class="card-text text-truncate mb-2 small">{{$producto->descripcion}}</p>
