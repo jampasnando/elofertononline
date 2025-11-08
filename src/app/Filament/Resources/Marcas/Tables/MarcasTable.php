@@ -17,10 +17,12 @@ class MarcasTable
         return $table
             ->columns([
                 TextColumn::make('nombre')
+                    ->sortable()
                     ->searchable(),
                 TextColumn::make('pais')
                     ->searchable(),
                 TextColumn::make('logo')
+                    ->sortable()
                     ->searchable(),
                 TextColumn::make('created_at')
                     ->dateTime()
@@ -31,8 +33,11 @@ class MarcasTable
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
                 IconColumn::make('carrusel')
+                    ->sortable()
+                    ->label('En Carrusel')
                     ->boolean(),
             ])
+            ->defaultSort('nombre')
             ->filters([
                 //
             ])

@@ -9,6 +9,9 @@ use Filament\Actions\ViewAction;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
+use App\Models\Inventario;
+use Illuminate\Support\Facades\Log;
+use Filament\Tables\Columns\ImageColumn;
 
 class Destacado2sTable
 {
@@ -18,10 +21,34 @@ class Destacado2sTable
             ->columns([
                 TextColumn::make('titulox')
                     ->searchable(),
-                TextColumn::make('imgx1')
-                    ->searchable(),
-                TextColumn::make('imgx2')
-                    ->searchable(),
+                ImageColumn::make('imgx1')
+                    ->label('Prodx1')
+                    ->disk('public')
+                    ->visibility('public')
+                    ->size(55)
+                    ->getStateUsing(function ($record)  {
+                        $producto = Inventario::find($record->imgx1);
+                        return $producto ? $producto->img1 : null;
+                    })
+                    ->url(function ($record)  {
+                        $producto = Inventario::find($record->imgx1);
+                        return $producto ? asset('storage/' . $producto->img1) : null;
+                    }) // link directo a la imagen
+                    ->openUrlInNewTab(),
+                ImageColumn::make('imgx2')
+                    ->label('Prodx2')
+                    ->disk('public')
+                    ->visibility('public')
+                    ->size(55)
+                    ->getStateUsing(function ($record)  {
+                        $producto = Inventario::find($record->imgx2);
+                        return $producto ? $producto->img1 : null;
+                    })
+                    ->url(function ($record)  {
+                        $producto = Inventario::find($record->imgx2);
+                        return $producto ? asset('storage/' . $producto->img1) : null;
+                    }) // link directo a la imagen
+                    ->openUrlInNewTab(),
                 TextColumn::make('imgx3')
                     ->searchable(),
                 TextColumn::make('imgx4')
