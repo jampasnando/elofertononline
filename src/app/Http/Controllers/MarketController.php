@@ -34,14 +34,30 @@ class MarketController extends Controller
             if ($section->tipo ==='lista1')
             {
                 $parametros = $section->parametros;
-
+                $conimagenes = $parametros['conimagenes'];
+                $categorias = $parametros['categorias'];
                 // Obtener marcas en array simple
                 $marcas = collect($parametros['marcas'])
                             ->pluck('marca')
                             ->toArray();
 
                 // Consultar inventario
-                $productos = Inventario::whereIn('marca', $marcas)->paginate(12);
+                if($conimagenes){
+                    if(count($categorias)>0){
+                        $productos = Inventario::whereIn('marca', $marcas)->whereNot('img1',NULL)->whereIn('categoria',$categorias)->paginate(12);
+                    }
+                    else{
+                        $productos = Inventario::whereIn('marca', $marcas)->whereNot('img1',NULL)->paginate(12);
+                    }
+                }
+                else{
+                    if(count($categorias)>0){
+                        $productos = Inventario::whereIn('marca', $marcas)->whereIn('categoria',$categorias)->paginate(12);
+                    }
+                    else{
+                        $productos = Inventario::whereIn('marca', $marcas)->paginate(12);
+                    }
+                }
                 $section->data = $productos;
             }
             return $section;

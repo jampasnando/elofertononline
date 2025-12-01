@@ -269,7 +269,19 @@ class SectionForm
                             TextInput::make('titulo')
                                 ->required()
                                 ->maxLength(255),
-
+                            Select::make('categorias')
+                                ->label('Categorías')
+                                ->multiple()                      // ← permite seleccionar varias
+                                ->options(
+                                    Inventario::query()
+                                        ->select('categoria')
+                                        ->distinct()              // ← evita duplicados
+                                        ->orderBy('categoria')
+                                        ->pluck('categoria', 'categoria')  // key => value
+                                )
+                                ->searchable(),               // opcional
+                                // ->required()
+                            
                             Repeater::make('marcas')
                                 ->label('Marcas')
                                 ->schema([
@@ -284,6 +296,9 @@ class SectionForm
                                     'min' => 'Debes agregar al menos una marca.',
                                 ])
                                 ->columns(1),
+                            Toggle::make('conimagenes')
+                                ->label('Que tengan foto')
+                                ->default(true),
                         ])
                         ->columnSpanFull()
                         ->statePath('parametros');
