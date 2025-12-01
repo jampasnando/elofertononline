@@ -32,6 +32,136 @@
     box-shadow: 0 4px 8px rgba(0,0,0,0.2); /* sombra sutil */
     transform: scale(1.2);                  /* pequeño zoom */
 }
+.banner-img {
+    height: 300px;        /* altura deseada tipo banner */
+    object-fit: cover;    /* mantiene la proporción y corta lo que sobra */
+}
+.product-card {
+    border: 1px solid #eee;
+    border-radius: 10px;
+    transition: transform 0.3s, box-shadow 0.3s;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.product-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
+
+.product-card .add-cart {
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.product-card:hover .add-cart {
+    opacity: 1;
+}
+
+/* Texto más compacto y atractivo */
+.card-title {
+    font-size: 0.9rem;
+}
+.card-text {
+    font-size: 0.75rem;
+    color: #555;
+}
+.featured-img-wrapper {
+    overflow: hidden;              /* evita que se vea fuera del borde */
+    border-radius: 12px;           /* bordes redondeados */
+    aspect-ratio: 3/4;             /* relación de aspecto 3:4 */
+    width: 100%;
+
+}
+
+.featured-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;             /* recorta sin deformar */
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+    border-radius: 12px;
+}
+
+.featured-img-wrapper:hover .featured-img {
+    transform: scale(1.08);        /* pequeño zoom */
+    box-shadow: 0 10px 20px rgba(0,0,0,0.25); /* sombra elegante */
+}
+.destacado2s{
+      background: whitesmoke;
+    padding: 2em;
+    border-radius: 25px;
+}
+/* @keyframes slide-up {
+  0% {
+    transform: translateY(50px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.animate-slide-up {
+  animation: slide-up 0.8s ease-out forwards;
+} */
+@keyframes slide-up {
+  0% {
+    transform: translateY(50px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.slide-up {
+  opacity: 0;
+  transform: translateY(50px);
+  transition: all 0.8s ease-out;
+}
+
+.slide-up.show {
+  animation: slide-up 0.8s ease-out forwards;
+}
+
+
+.logo-slider {
+  overflow: hidden;
+  position: relative;
+  /* width: 100%; */
+  background: #fff;
+  padding: 20px 0;
+}
+
+.logo-track {
+  display: flex;
+  width: calc(250px * 12); /* ancho = logo ancho * cantidad */
+  animation: scroll 30s linear infinite;
+}
+
+.logo-track img {
+  /* width: 250px; */
+  height: 6em;
+  margin: 0 20px;
+  filter: grayscale(100%);
+  transition: filter 0.3s ease;
+}
+
+.logo-track img:hover {
+  filter: grayscale(0%);
+}
+
+@keyframes scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
   </style>
 </head>
 <body>
