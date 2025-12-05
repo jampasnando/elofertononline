@@ -112,6 +112,7 @@ class SectionForm
                                                 return new HtmlString('<img src="'.$default.'" style="width:64px;height:64px;object-fit:cover;border-radius:8px;">');
                                             }
                                             $p = Inventario::find($id);
+                                            // Log::info('p: ',$p);
                                             if (! $p || ! $p->img1) {
                                                 return new HtmlString('<img src="'.$default.'" style="width:64px;height:64px;object-fit:cover;border-radius:8px;">');
                                             }

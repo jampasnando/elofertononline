@@ -23,6 +23,15 @@ class InventarioResource extends Resource
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
 
     protected static ?string $recordTitleAttribute = 'Inventario';
+    // public static function canAccess(): bool
+    // {
+    //     return auth()->check() && auth()->user()->role === 'administrador';
+    // }
+
+    // public static function canViewAny(): bool
+    // {
+    //     return auth()->check() && auth()->user()->role === 'administrador';
+    // }
 
     public static function form(Schema $schema): Schema
     {

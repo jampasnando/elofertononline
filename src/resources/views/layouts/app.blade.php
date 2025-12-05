@@ -263,7 +263,134 @@
   </main>
 
  <footer class="bg-secondary bg-gradient text-center py-3 text-white mt-4">
-        <small>&copy; {{ date('Y') }} - El Ofertón</small>
+        {{-- <small>&copy; {{ date('Y') }} - El Ofertón</small> --}}
+<div class="row">
+      <div class="col-6 col-md-2 mb-3">
+        <h6>
+          Dirección
+        </h6>
+        <ul class="nav flex-column">
+          <li class="nav-item mb-2">
+            Av. Beijing casi Dorgbigni<br>
+            # 1234 acera este
+          </li>
+          <li class="nav-item mb-2">
+              Teléfonos
+          </li>
+          <li class="nav-item mb-2">
+              7774444<br>
+              4294444<br>
+              6565656
+          </li>
+        </ul>
+      </div>
+      <div class="col-6 col-md-2 mb-3">
+        <h5>
+          Section
+        </h5>
+        <ul class="nav flex-column">
+          <li class="nav-item mb-2">
+            <a href="#" class="nav-link p-0 text-body-secondary">
+              Home
+            </a>
+          </li>
+          <li class="nav-item mb-2">
+            <a href="#" class="nav-link p-0 text-body-secondary">
+              Features
+            </a>
+          </li>
+          <li class="nav-item mb-2">
+            <a href="#" class="nav-link p-0 text-body-secondary">
+              Pricing
+            </a>
+          </li>
+          <li class="nav-item mb-2">
+            <a href="#" class="nav-link p-0 text-body-secondary">
+              FAQs
+            </a>
+          </li>
+          <li class="nav-item mb-2">
+            <a href="#" class="nav-link p-0 text-body-secondary">
+              About
+            </a>
+          </li>
+        </ul>
+      </div>
+      <div class="col-6 col-md-2 mb-3">
+        <h5>
+          Section
+        </h5>
+        <ul class="nav flex-column">
+          <li class="nav-item mb-2">
+            <a href="#" class="nav-link p-0 text-body-secondary">
+              Home
+            </a>
+          </li>
+          <li class="nav-item mb-2">
+            <a href="#" class="nav-link p-0 text-body-secondary">
+              Features
+            </a>
+          </li>
+          <li class="nav-item mb-2">
+            <a href="#" class="nav-link p-0 text-body-secondary">
+              Pricing
+            </a>
+          </li>
+          <li class="nav-item mb-2">
+            <a href="#" class="nav-link p-0 text-body-secondary">
+              FAQs
+            </a>
+          </li>
+          <li class="nav-item mb-2">
+            <a href="#" class="nav-link p-0 text-body-secondary">
+              About
+            </a>
+          </li>
+        </ul>
+      </div>
+      <div class="col-md-5 offset-md-1 mb-3">
+        <form>
+          <h5>
+            Suscríbete a nuestro grupo de whatsapp
+          </h5>
+          <p>
+            Ofertas semanales, mensuales y de temporada
+          </p>
+          <div class="d-flex flex-column flex-sm-row w-100 gap-2">
+            <label for="newsletter1" class="visually-hidden">
+              7775555
+            </label>
+            <input id="newsletter1" type="text" class="form-control" placeholder="7775555">
+            <button class="btn btn-primary" type="button">
+              Únirme
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="d-flex flex-column  justify-content-between py-4 my-4 border-top">
+      <p style="text-align:center;">
+        © 2025 El Ofertón Online.
+      </p>
+      <ul class="list-unstyled d-flex">
+        <li class="ms-3">
+          <a class="link-body-emphasis" href="#" aria-label="Instagram">
+            <svg class="bi" width="24" height="24">
+              <use xlink:href="#instagram">
+              </use>
+            </svg>
+          </a>
+        </li>
+        <li class="ms-3">
+          <a class="link-body-emphasis" href="#" aria-label="Facebook">
+            <svg class="bi" width="24" height="24" aria-hidden="true">
+              <use xlink:href="#facebook">
+              </use>
+            </svg>
+          </a>
+        </li>
+      </ul>
+    </div>
 
 <!-- Modal con mapa -->
 <div class="modal fade" id="mapModal" tabindex="-1" aria-labelledby="mapModalLabel" aria-hidden="true">

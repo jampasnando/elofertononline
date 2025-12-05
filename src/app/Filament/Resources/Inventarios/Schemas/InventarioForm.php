@@ -16,42 +16,55 @@ class InventarioForm
                 TextInput::make('id')
                     ->label('ID')
                     ->numeric()
+                    ->visible(fn()=>auth()->user()->role == 'administrador')
                     ->disabled(),
                 TextInput::make('idprod')
-                    ->disabled(fn () => auth()->user()->role !== 'administrador'),
+                    ->disabled(fn () => auth()->user()->role !== 'administrador')
+                    ->visible(fn()=>auth()->user()->role == 'administrador'),
                 Textarea::make('descripcion')
-                    ->disabled(fn () => auth()->user()->role !== 'administrador'),
+                    ->disabled(fn () => auth()->user()->role !== 'administrador')
+                    ->visible(fn()=>auth()->user()->role == 'administrador'),
                     // ->columnSpanFull(),
                 TextInput::make('marca')
-                    ->disabled(fn () => auth()->user()->role !== 'administrador'),
+                    ->disabled(fn () => auth()->user()->role !== 'administrador')
+                    ->visible(fn()=>auth()->user()->role == 'administrador'),
                 TextInput::make('cantidad')
                     ->disabled(fn () => auth()->user()->role !== 'administrador')
                     ->numeric()
-                    ->default(0),
+                    ->default(0)
+                    ->visible(fn()=>auth()->user()->role == 'administrador'),
                 TextInput::make('categoria')
-                    ->disabled(fn () => auth()->user()->role !== 'administrador'),
+                    ->disabled(fn () => auth()->user()->role !== 'administrador')
+                    ->visible(fn()=>auth()->user()->role == 'administrador'),
                 TextInput::make('unidad')
-                    ->disabled(fn () => auth()->user()->role !== 'administrador'),
+                    ->disabled(fn () => auth()->user()->role !== 'administrador')
+                    ->visible(fn()=>auth()->user()->role == 'administrador'),
                 TextInput::make('preciolocal')
                     ->numeric()
                     ->visible(fn () => auth()->user()->role === 'administrador')
+                    ->visible(fn()=>auth()->user()->role == 'administrador')
                     ->default(0),
                 TextInput::make('precioventa')
                     ->numeric()
                     ->disabled(fn () => auth()->user()->role !== 'administrador')
+                    ->visible(fn()=>auth()->user()->role == 'administrador')
                     ->default(0),
                 TextInput::make('comision')
                     ->numeric()
                     ->visible(fn () => auth()->user()->role === 'administrador')
+                    ->visible(fn()=>auth()->user()->role == 'administrador')
                     ->default(0),
                 TextInput::make('deposito')
                     ->disabled(fn () => auth()->user()->role !== 'administrador')
+                    ->visible(fn()=>auth()->user()->role == 'administrador')
                     ->default(1),
                 TextInput::make('proveedor')
-                    ->disabled(fn () => auth()->user()->role !== 'administrador'),
+                    ->disabled(fn () => auth()->user()->role !== 'administrador')
+                    ->visible(fn()=>auth()->user()->role == 'administrador'),
                 Textarea::make('imagenes')
                     ->columnSpanFull()
-                    ->disabled(fn () => auth()->user()->role !== 'administrador'),
+                    ->disabled(fn () => auth()->user()->role !== 'administrador')
+                    ->visible(fn()=>auth()->user()->role == 'administrador'),
                 FileUpload::make('img1')
                     ->image()
                     ->disk('public')
