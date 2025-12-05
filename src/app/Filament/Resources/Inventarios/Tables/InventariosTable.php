@@ -46,10 +46,12 @@ class InventariosTable
                     ->numeric()
                     ->visible(fn () => auth()->user()->role === 'administrador')
                     ->sortable()
+                    ->visible(fn()=>auth()->user()->role == 'administrador')
                     ->label('PComp'),
                 TextColumn::make('precioventa')
                     ->numeric()
                     ->sortable()
+                    ->visible(fn()=>auth()->user()->role == 'administrador')
                     ->label('PVenta'),
                 TextColumn::make('comision')
                     ->numeric()
@@ -59,6 +61,7 @@ class InventariosTable
                     ->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('proveedor')
                     ->searchable()
+                    ->visible(fn()=>auth()->user()->role == 'administrador')
                     ->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('img1')
                     ->limit(10)
