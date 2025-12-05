@@ -22,6 +22,7 @@ class InventarioInfolist
                 TextEntry::make('categoria'),
                 TextEntry::make('unidad'),
                 TextEntry::make('preciolocal')
+                    ->label('PrecioC')
                     ->numeric()
                     ->visible(fn () => auth()->user()->role === 'administrador'),
                 TextEntry::make('precioventa')
