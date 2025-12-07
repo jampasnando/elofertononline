@@ -7,7 +7,7 @@
         <!-- Primera columna -->
         <div class="col-md-6">
             <div class="p-4 h-100 bg-light border rounded-3 shadow-sm">
-                <h6 class="mb-3">{{$data->parametros[0]['titulox']}}</h6>
+                <h class="mb-3">{{$data->parametros[0]['titulox']}}</h>
                 <div class="row g-3">
                       @foreach ($data->data as $index => $unprods2x)
                         @if($index<4)
@@ -34,7 +34,7 @@
         <!-- Segunda columna -->
         <div class="col-md-6">
             <div class="p-4 h-100 bg-light border rounded-3 shadow-sm">
-                <h6 class="mb-3">{{$data->parametros[0]['tituloy']}}</h6>
+                <h class="mb-3">{{$data->parametros[0]['tituloy']}}</h>
                 <div class="row g-3">
                      @foreach ($data->data as $index => $unprods2y)
                         @if($index > 3)

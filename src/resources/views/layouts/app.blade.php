@@ -1,3 +1,4 @@
+
 <!doctype html>
 <html lang="es">
 <head>
@@ -10,6 +11,8 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <!-- Bootstrap Icons -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Kanit:wght@300;400;600&display=swap" rel="stylesheet">
+
   <style>
     .icon-btn {
       background: none;
@@ -145,8 +148,8 @@
   /* width: 250px; */
   height: 6em;
   margin: 0 20px;
-  filter: grayscale(100%);
-  transition: filter 0.3s ease;
+  /* filter: grayscale(100%); */
+  /* transition: filter 0.3s ease; */
 }
 
 .logo-track img:hover {
@@ -161,9 +164,59 @@
     transform: translateX(-50%);
   }
 }
+.whatsapp-btn {
+    position: fixed;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 9999;
+    background: white;
+    padding: 8px;
+    border-radius: 50%;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+}
+
+.whatsapp-btn img {
+    width: 45px;
+    height: 45px;
+    object-fit: contain;
+}
+
+/* Ajustes en pantallas pequeñas (evitar tap targets fuera de pantalla) */
+@media (max-width: 420px) {
+  .whatsapp-float {
+    width: 48px;
+    height: 48px;
+    margin-right: 6px;
+    border-radius: 24px 0 0 24px;
+  }
+  .whatsapp-float svg { width: 24px; height: 24px; }
+}
+.social-icon {
+    width: 24px;
+    height: 24px;
+    object-fit: contain;
+    display: block;
+}
+.icon-btn svg {
+    width: 24px;
+    height: 24px;
+    display: block;
+    stroke: #6c757d;   /* gris */
+    stroke-width: 2;
+    fill: transparent; /* borde solamente */
+    transition: 0.25s ease;
+}
+
+.icon-btn:hover svg {
+    fill: #6c757d !important; /* se rellena en hover */
+    stroke: none;
+}
 
   </style>
 </head>
+{{-- @vite(['resources/css/app.css', 'resources/js/app.js']) --}}
+
 <body>
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
   <div class="container">
@@ -203,6 +256,33 @@
     <!-- Derecha: Íconos (colapsable) -->
     <div class="collapse navbar-collapse justify-content-end order-lg-3 order-4" id="navbarContenido">
       <div class="d-flex align-items-center ms-auto mt-2 mt-lg-0">
+        <!-- Facebook -->
+        <a href="{{$configapp->facebook ?? '#'}}"
+          target="_blank"
+          class="icon-btn"
+          aria-label="Facebook">
+            <svg xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24">
+                <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
+            </svg>
+        </a>
+
+        <!-- TikTok -->
+        <a href="{{$configapp->tiktok ?? '#'}}"
+          target="_blank"
+          class="icon-btn"
+          aria-label="TikTok">
+            <svg xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24">
+                <path d="M20 7.5c-2 0-3.8-1.2-4.6-3h-2.4v11.2a4 4 0 1 1-3-3.9V9.9a6.4 6.4 0 1 0 7 6.3V9.1c1.1.8 2.4 1.2 3.8 1.2V7.5z"
+                      stroke="Gray"
+                      stroke-width="1.8"
+                      fill="Gray"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"/>
+            </svg>
+        </a>
+
         <button class="icon-btn" aria-label="Likes">
             <i class="bi bi-house"></i>
         </button>
@@ -261,6 +341,23 @@
   <main class="container-fluid px-0 py-2">
     @yield('content')
   </main>
+@php
+    // Número sin símbolos: cambiar si tu país no es Bolivia (591)
+    $whatsappPhone = '59162611118';
+    $whatsappMessage = 'más información por favor...';
+    $waTextEncoded = urlencode($whatsappMessage);
+    // Enlace recomendado: wa.me para móviles y web
+    $waLink = "https://wa.me/{$whatsappPhone}?text={$waTextEncoded}";
+@endphp
+
+<a 
+    href="https://wa.me/59179760327?text=Más%20información%20por%20favor..."
+    target="_blank"
+    class="whatsapp-btn"
+>
+    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg"
+         alt="WhatsApp" />
+</a>
 
  <footer class="bg-secondary bg-gradient text-center py-3 text-white mt-4">
         {{-- <small>&copy; {{ date('Y') }} - El Ofertón</small> --}}
@@ -408,7 +505,7 @@
 </div>
 
 <!-- popup aÑadir al carrito -->
-<div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+<div class="position-fixed bottom-0 end-0 p-3" style="z-index: 9999">
     <div id="toastCarrito" class="toast align-items-center text-bg-success border-0" role="alert">
         <div class="d-flex">
             <div class="toast-body">

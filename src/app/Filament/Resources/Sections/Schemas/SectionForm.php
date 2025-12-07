@@ -19,6 +19,7 @@ use Filament\Forms\Components\ColorPicker;
 use Filament\Forms\Components\Toggle;
 use Filament\Schemas\Components\Fieldset;
 use App\Models\Marca;
+use Filament\Forms\Components\RichEditor;
 
 
 class SectionForm
@@ -79,12 +80,58 @@ class SectionForm
                                         ->required(),
                                 ])
                         ->columnSpanFull();
+                case 'libre':
+                    return FieldSet::make('parametros')
+                        ->schema([
+                            RichEditor::make('contenido')
+                            ->json()
+                        ]);
                 case 'destacados1':
                     return Fieldset::make('parametros')
+                        ->label('Parámetros')
                         ->schema([
-                            TextInput::make('titulo')
-                                ->label('Título de la sección')
-                                ->required(),
+                            Section::make('')
+                                ->schema([
+                                    TextInput::make('titulo')
+                                    ->label('Título de la sección')
+                                    ->required()
+                                    ->columnSpan(3),
+                                    Select::make('titulofont')
+                                    ->label('Tipo letra')
+                                    ->options([
+                                        ''=>'Normal',
+                                        'font-bebas'=>'Bebas',
+                                        'font-kanit'=>'Kanit',
+                                        'font-impact'=>'Impact',
+                                        'font-franklin'=>'Franklin'
+                                    ])
+                                    ->default('')
+                                    ->columnSpan(2)
+                                    ->dehydrated()
+                                    ->native(false),
+                                    Select::make('titulosize')
+                                    ->label('Tamaño')
+                                    ->options([
+                                        ''=>'Normal',
+                                        'fs-6'=>'1',
+                                        'fs-5'=>'2',
+                                        'fs-4'=>'3',
+                                        'fs-3'=>'4',
+                                        'fs-2'=>'5',
+                                        'fs-1'=>'6',
+                                    ])
+                                    ->default('')
+                                    ->placeholder('Elija')
+                                    ->dehydrated()
+                                    ->native(false),
+                                    Toggle::make('titulobold')
+                                    ->label('Negrita'),
+                                    ColorPicker::make('titulocolor')
+                                    ->label('Color'),
+                                ])
+                                ->columns(8)
+                                ->columnSpanFull(),
+                            
                             fileUpload::make('imagen_destacada')
                                         ->label('Imagen destacada')
                                         ->disk('public')
@@ -321,6 +368,7 @@ class SectionForm
                                 'destacados2' => 'Productos Destacados 2',
                                 'marcas' => 'Marcas Destacadas',
                                 'lista1' => 'Lista de productos de marcas...',
+                                'libre' => 'Libre'
 
                             ])
                             ->native(false)

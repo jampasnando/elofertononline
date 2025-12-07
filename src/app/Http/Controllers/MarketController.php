@@ -64,7 +64,9 @@ class MarketController extends Controller
         });
         // dd($sections);
         // dd($sections[0]->data[3]->img1);
-        return view('market.index', compact('sections'));
+        $configapp = \App\Models\Configapp::first();
+        // dd($configapp);
+        return view('market.index', compact('sections', 'configapp'));
         // $destacados = Destacado::first();
         // $logos = Marca::where('carrusel', true)->get();
         // $productos=[];
