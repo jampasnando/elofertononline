@@ -106,7 +106,7 @@ class SectionForm
                                         'font-franklin'=>'Franklin'
                                     ])
                                     ->default('')
-                                    ->columnSpan(2)
+                                    ->columnSpan(1)
                                     ->dehydrated()
                                     ->native(false),
                                     Select::make('titulosize')
@@ -127,7 +127,9 @@ class SectionForm
                                     Toggle::make('titulobold')
                                     ->label('Negrita'),
                                     ColorPicker::make('titulocolor')
-                                    ->label('Color'),
+                                    ->label('Color del título'),
+                                    ColorPicker::make('bgcolor')
+                                    ->label('Color de fondo'),
                                 ])
                                 ->columns(8)
                                 ->columnSpanFull(),
@@ -191,70 +193,125 @@ class SectionForm
                         ])
                         ->statePath('parametros');
                 case 'destacados2':
-                    // $productos = Inventario::all()->mapWithKeys(function ($p) {
-                    //         return [
-                    //             $p->id => "{$p->descripcion} - Bs. {$p->precioventa} - Stock: {$p->cantidad}"
-                    //         ];
-                    //     })->toArray();
-                    return Section::make('Destacados 2 Settings')
-                        ->schema([
-                            Repeater::make('parametros')
+                    return Fieldset::make('parametros')
+                        ->label('Parámetros')   
                                 ->schema([
                                     Section::make('') // Primera sección (titulox + imgx1..imgx4)xy
                                         ->schema([
-                                            ColorPicker::make('color')
-                                                ->label('Color de fondox'),
-                                                // ->columnSpanFull(),
-                                            // Toggle::make('estado'),
-                                            // TextInput::make('orden')
-                                            //     ->numeric()
-                                            //     ->default(0),
+                                                ColorPicker::make('color')
+                                                ->label('Color de fondo toda la sección'),
+                                                Select::make('titulofontX')
+                                                ->label('Tipo letraX')
+                                                ->options([
+                                                    ''=>'Normal',
+                                                    'font-bebas'=>'Bebas',
+                                                    'font-kanit'=>'Kanit',
+                                                    'font-impact'=>'Impact',
+                                                    'font-franklin'=>'Franklin'
+                                                ])
+                                                ->default('')
+                                                ->columnSpan(1)
+                                                ->dehydrated()
+                                                ->native(false),
+                                                Select::make('tamtituloX')
+                                                ->label('TamañoX')
+                                                ->options([
+                                                    ''=>'Normal',
+                                                    'fs-6'=>'1',
+                                                    'fs-5'=>'2',
+                                                    'fs-4'=>'3',
+                                                    'fs-3'=>'4',
+                                                    'fs-2'=>'5',
+                                                    'fs-1'=>'6',
+                                                ])
+                                                ->default('')
+                                                ->placeholder('Elija')
+                                                ->dehydrated()
+                                                ->native(false),
+                                                Toggle::make('negritaX')
+                                                ->label('NegritaX'),
+                                                ColorPicker::make('colorletraX')
+                                                ->label('Color tituloX'),
+                                                ColorPicker::make('bgcolorX')
+                                                ->label('Color de fondoX'),
+                                                //////////////////////// para Y ////////////////////////
+                                                Select::make('titulofontY')
+                                                ->label('Tipo letraY')
+                                                ->options([
+                                                    ''=>'Normal',
+                                                    'font-bebas'=>'Bebas',
+                                                    'font-kanit'=>'Kanit',
+                                                    'font-impact'=>'Impact',
+                                                    'font-franklin'=>'Franklin'
+                                                ])
+                                                ->default('')
+                                                ->columnSpan(1)
+                                                ->dehydrated()
+                                                ->native(false),
+                                                Select::make('tamtituloY')
+                                                ->label('TamañoY')
+                                                ->options([
+                                                    ''=>'Normal',
+                                                    'fs-6'=>'1',
+                                                    'fs-5'=>'2',
+                                                    'fs-4'=>'3',
+                                                    'fs-3'=>'4',
+                                                    'fs-2'=>'5',
+                                                    'fs-1'=>'6',
+                                                ])
+                                                ->default('')
+                                                ->placeholder('Elija')
+                                                ->dehydrated()
+                                                ->native(false),
+                                                Toggle::make('negritaY')
+                                                ->label('NegritaY'),
+                                                ColorPicker::make('colorletraY')
+                                                ->label('Color tituloY'),
+                                                ColorPicker::make('bgcolorY')
+                                                ->label('Color de fondoY'),
                                         ])
-                                ->columns(3),
-                            
-                                Section::make('Sección X')
-                                    ->schema([
-                                        TextInput::make('titulox'),
-                                        
-                                        Grid::make(2) // 4 columnas para que las imágenes vayan en una sola fila
-                                            ->schema([
-                                                Select::make('imgx1')->label('Producto 1')->options($productos)->searchable()
-                                                ->preload(),
-                                                Select::make('imgx2')->label('Producto 2')->options($productos)->searchable()
-                                                ->preload(),
-                                                Select::make('imgx3')->label('Producto 3')->options($productos)->searchable()
-                                                ->preload(),
-                                                Select::make('imgx4')->label('Producto 4')->options($productos)->searchable()
-                                                ->preload(),
-                                            ]),
-                                    ]),
+                                        ->columns(6)
+                                        ->columnSpanFull(), 
+                                                               
+                                    Section::make('Sección X')
+                                        ->schema([
+                                            TextInput::make('titulox'),
+                                            
+                                            Grid::make(2) // 4 columnas para que las imágenes vayan en una sola fila
+                                                ->schema([
+                                                    Select::make('imgx1')->label('Producto 1')->options($productos)->searchable()
+                                                    ->preload(),
+                                                    Select::make('imgx2')->label('Producto 2')->options($productos)->searchable()
+                                                    ->preload(),
+                                                    Select::make('imgx3')->label('Producto 3')->options($productos)->searchable()
+                                                    ->preload(),
+                                                    Select::make('imgx4')->label('Producto 4')->options($productos)->searchable()
+                                                    ->preload(),
+                                                ]),
+                                        ]),
 
-                                // Segunda sección (tituloy + imgy1..imgy4)
-                                Section::make('Sección Y')
-                                    ->schema([
-                                        TextInput::make('tituloy')
-                                            ->columnSpanFull(),
+                                    // Segunda sección (tituloy + imgy1..imgy4)
+                                    Section::make('Sección Y')
+                                        ->schema([
+                                            TextInput::make('tituloY')
+                                                ->columnSpanFull(),
 
-                                        Grid::make(2) // 4 columnas para que las imágenes vayan en una sola fila
-                                            ->schema([
-                                                Select::make('imgy1')->label('Producto 5')->options($productos)->searchable()
-                                                ->preload(),
-                                                Select::make('imgy2')->label('Producto 6')->options($productos)->searchable()
-                                                ->preload(),
-                                                Select::make('imgy3')->label('Producto 7')->options($productos)->searchable()
-                                                ->preload(),
-                                                Select::make('imgy4')->label('Producto 8')->options($productos)->searchable()
-                                                ->preload(),
-                                            ]),
-                                    ]),
+                                            Grid::make(2) // 4 columnas para que las imágenes vayan en una sola fila
+                                                ->schema([
+                                                    Select::make('imgy1')->label('Producto 5')->options($productos)->searchable()
+                                                    ->preload(),
+                                                    Select::make('imgy2')->label('Producto 6')->options($productos)->searchable()
+                                                    ->preload(),
+                                                    Select::make('imgy3')->label('Producto 7')->options($productos)->searchable()
+                                                    ->preload(),
+                                                    Select::make('imgy4')->label('Producto 8')->options($productos)->searchable()
+                                                    ->preload(),
+                                                ]),
+                                        ]),
 
-                                // Otros campos
+                                    // Otros campos
                                 ])
-                                ->minItems(1)
-                                ->maxItems(1),
-                            
-                            
-                        ]);
+                                ->statePath('parametros');                 
                 case 'marcas':
                     return Fieldset::make('parametros')
                         ->schema([

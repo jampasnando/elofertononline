@@ -21,7 +21,7 @@ class MarketController extends Controller
         // Si necesitas enriquecer algunos tipos de secciones
         $sections->transform(function ($section) {
             if ($section->tipo === 'destacados2') {
-                $section->data = Inventario::whereIn('id', $section->parametros[0])->get();
+                $section->data = Inventario::whereIn('id', $section->parametros)->get();
             }
             if ($section->tipo === 'destacados1') {
                 $section->data = Inventario::whereIn('id', $section->parametros['imagenes'])->get();

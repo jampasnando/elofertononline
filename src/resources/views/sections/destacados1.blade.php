@@ -1,5 +1,5 @@
 
-<div class="container my-3 slide-up">
+<div class="container my-3 slide-up" style="background-color:{{$data->parametros['bgcolor']??'transparent'}}; padding:15px; border-radius:8px;">
     <div class="{{$data->parametros['titulofont']}} {{$data->parametros['titulosize']}} w-100 text-center py-3" style="color:{{$data->parametros['titulocolor']??''}}">{{$data->parametros['titulo']}}</div>
     <div class="row g-4 align-items-start">
 
