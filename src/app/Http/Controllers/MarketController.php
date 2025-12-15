@@ -35,7 +35,9 @@ class MarketController extends Controller
             {
                 $parametros = $section->parametros;
                 $conimagenes = $parametros['conimagenes'];
-                $categorias = $parametros['categorias'];
+                $categorias = collect($parametros['categorias'])
+                                ->pluck('categoria')
+                                ->toArray();
                 // Obtener marcas en array simple
                 $marcas = collect($parametros['marcas'])
                             ->pluck('marca')
@@ -52,6 +54,7 @@ class MarketController extends Controller
                 }
                 else{
                     if(count($categorias)>0){
+
                         $productos = Inventario::whereIn('marca', $marcas)->whereIn('categoria',$categorias)->paginate(12);
                     }
                     else{
@@ -66,6 +69,7 @@ class MarketController extends Controller
         // dd($sections[0]->data[3]->img1);
         $configapp = \App\Models\Configapp::first();
         // dd($configapp);
+        // dd($sections);
         return view('market.index', compact('sections', 'configapp'));
         // $destacados = Destacado::first();
         // $logos = Marca::where('carrusel', true)->get();

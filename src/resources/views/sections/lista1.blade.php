@@ -1,7 +1,7 @@
 <div class="container mt-4 slide-up" id="lista{{$data->id}}">
     <h3>{{$data->parametros['titulo']}}</h3>
     <div class="row justify-content-left g-4">
-        @forEach($data->data as $unproductolista)
+        @foreach($data->data as $unproductolista)
             {{-- Producto 1 --}}
             <div class="col-6 col-sm-4 col-md-3 col-lg-2">
                 <div class="card product-card h-100">
@@ -16,7 +16,7 @@
                     </div>
                 </div>
             </div>
-        @endforEach
+        @endforeach
          {{-- Paginación independiente usando el límite de la lista --}}
         <div class="mt-3">
             {{ $data->data->appends(request()->query())->fragment('lista'.$data->id)->links() }}

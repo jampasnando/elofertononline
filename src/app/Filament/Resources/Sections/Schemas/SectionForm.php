@@ -66,6 +66,15 @@ class SectionForm
                     ];
                     })->toArray();
             }
+            if($type == 'lista1') {
+                $listacategorias = Inventario::query()
+                                 ->select('categoria')
+                                 ->distinct()
+                                 ->orderBy('categoria')
+                                 ->get()
+                                 ->pluck('categoria', 'categoria')
+                                 ->toArray();
+            }
             switch ($type) {
                 case 'carousel':
                              return Repeater::make('parametros')
@@ -374,18 +383,16 @@ class SectionForm
                             TextInput::make('titulo')
                                 ->required()
                                 ->maxLength(255),
-                            Select::make('categorias')
+                            Toggle::make('conimagenes')
+                                ->label('Que tengan foto')
+                                ->default(true),
+                            Repeater::make('categorias')
                                 ->label('Categorías')
-                                ->multiple()                      // ← permite seleccionar varias
-                                ->options(
-                                    Inventario::query()
-                                        ->select('categoria')
-                                        ->distinct()              // ← evita duplicados
-                                        ->orderBy('categoria')
-                                        ->pluck('categoria', 'categoria')  // key => value
-                                )
-                                ->searchable(),               // opcional
-                                // ->required()
+                                ->schema([
+                                    Select::make('categoria')->label('Categoría')
+                                    ->options($listacategorias)
+                                    ->searchable()
+                                ]),
                             
                             Repeater::make('marcas')
                                 ->label('Marcas')
@@ -401,14 +408,10 @@ class SectionForm
                                     'min' => 'Debes agregar al menos una marca.',
                                 ])
                                 ->columns(1),
-                            Toggle::make('conimagenes')
-                                ->label('Que tengan foto')
-                                ->default(true),
+                            
                         ])
                         ->columnSpanFull()
                         ->statePath('parametros');
-                default:
-                    return null;
             }
         }
         return $schema
