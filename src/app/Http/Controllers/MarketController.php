@@ -16,7 +16,7 @@ class MarketController extends Controller
 {
     public function index()
     {
-         $sections = Section::orderBy('orden')->get();
+         $sections = Section::where('estado','activo')->orderBy('orden')->get();
 
         // Si necesitas enriquecer algunos tipos de secciones
         $sections->transform(function ($section) {
