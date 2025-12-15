@@ -15,7 +15,6 @@
                 {{-- Producto 1 --}}
                     <div class="col">
                         <div class="card product-card h-100 rounded">
-                            {{-- <img src="{{$producto->img1 ? asset('storage/'.$producto->img1) : asset('imagenes/toolsplaceholder.png')}}" class="card-img-top" alt="Producto 1" style="object-fit:cover;"> --}}
                             <img 
                                 src="{{$producto->img1 ? asset('storage/'.$producto->img1) : asset('imagenes/toolsplaceholder.png')}}"
                                 class="card-img-top open-product-modal"
