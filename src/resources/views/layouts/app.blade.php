@@ -36,7 +36,7 @@
     transform: scale(1.2);                  /* pequeño zoom */
 }
 .banner-img {
-    height: 300px;        /* altura deseada tipo banner */
+    height: auto;        altura deseada tipo banner
     object-fit: cover;    /* mantiene la proporción y corta lo que sobra */
 }
 .product-card {
