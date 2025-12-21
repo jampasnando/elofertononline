@@ -1,4 +1,8 @@
 
+@php
+  $latitud = $configapp->latitud ?? 0; // Valor por defecto Cochabamba
+  $longitud = $configapp->longitud ?? 0; //
+@endphp
 <!doctype html>
 <html lang="es">
 <head>
@@ -12,6 +16,10 @@
   <!-- Bootstrap Icons -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Kanit:wght@300;400;600&display=swap" rel="stylesheet">
+  
+  <link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
   <style>
     .icon-btn {
@@ -212,6 +220,55 @@
     fill: #6c757d !important; /* se rellena en hover */
     stroke: none;
 }
+.footer-map {
+    background: #f2f2f2;
+    color: #444;
+}
+
+.footer-title {
+    font-weight: 600;
+    margin-bottom: 10px;
+    color: #222;
+}
+
+.footer-text {
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+#map-footer {
+    height: 180px;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.social-links a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 42px;
+    height: 42px;
+    margin-right: 10px;
+    background: gray;
+    border-radius: 50%;
+    color: lightgray;
+    font-size: 18px;
+    transition: all 0.3s ease;
+}
+
+.social-links a:hover {
+    background: lightgray;
+    color: grey;
+}
+
+.footer-divider {
+    margin: 25px 0 15px;
+}
+
+.footer-copy {
+    font-size: 13px;
+    color: #777;
+}
 
   </style>
 </head>
@@ -343,7 +400,7 @@
   </main>
 @php
     // Número sin símbolos: cambiar si tu país no es Bolivia (591)
-    $whatsappPhone = '59162611118';
+    $whatsappPhone = $configapp->whatsapp ?? '59179760327';
     $whatsappMessage = 'más información por favor...';
     $waTextEncoded = urlencode($whatsappMessage);
     // Enlace recomendado: wa.me para móviles y web
@@ -351,7 +408,7 @@
 @endphp
 
 <a 
-    href="https://wa.me/59179760327?text=Más%20información%20por%20favor..."
+    href="{{ $waLink }}"
     target="_blank"
     class="whatsapp-btn"
 >
@@ -359,116 +416,67 @@
          alt="WhatsApp" />
 </a>
 
- <footer class="bg-secondary bg-gradient text-center py-3 text-white mt-4">
+ <footer class="footer-map mt-5">
         {{-- <small>&copy; {{ date('Y') }} - El Ofertón</small> --}}
-<div class="row">
-      <div class="col-6 col-md-2 mb-3">
-        <h6>
-          Dirección
-        </h6>
-        <ul class="nav flex-column">
-          <li class="nav-item mb-2">
-            Av. Beijing casi Dorgbigni<br>
-            # 1234 acera este
-          </li>
-          <li class="nav-item mb-2">
-              Teléfonos
-          </li>
-          <li class="nav-item mb-2">
-              7774444<br>
-              4294444<br>
-              6565656
-          </li>
-        </ul>
-      </div>
-      <div class="col-6 col-md-2 mb-3">
-        <h5>
-          Section
-        </h5>
-        <ul class="nav flex-column">
-          <li class="nav-item mb-2">
-            <a href="#" class="nav-link p-0 text-body-secondary">
-              Home
-            </a>
-          </li>
-          <li class="nav-item mb-2">
-            <a href="#" class="nav-link p-0 text-body-secondary">
-              Features
-            </a>
-          </li>
-          <li class="nav-item mb-2">
-            <a href="#" class="nav-link p-0 text-body-secondary">
-              Pricing
-            </a>
-          </li>
-          <li class="nav-item mb-2">
-            <a href="#" class="nav-link p-0 text-body-secondary">
-              FAQs
-            </a>
-          </li>
-          <li class="nav-item mb-2">
-            <a href="#" class="nav-link p-0 text-body-secondary">
-              About
-            </a>
-          </li>
-        </ul>
-      </div>
-      <div class="col-6 col-md-2 mb-3">
-        <h5>
-          Section
-        </h5>
-        <ul class="nav flex-column">
-          <li class="nav-item mb-2">
-            <a href="#" class="nav-link p-0 text-body-secondary">
-              Home
-            </a>
-          </li>
-          <li class="nav-item mb-2">
-            <a href="#" class="nav-link p-0 text-body-secondary">
-              Features
-            </a>
-          </li>
-          <li class="nav-item mb-2">
-            <a href="#" class="nav-link p-0 text-body-secondary">
-              Pricing
-            </a>
-          </li>
-          <li class="nav-item mb-2">
-            <a href="#" class="nav-link p-0 text-body-secondary">
-              FAQs
-            </a>
-          </li>
-          <li class="nav-item mb-2">
-            <a href="#" class="nav-link p-0 text-body-secondary">
-              About
-            </a>
-          </li>
-        </ul>
-      </div>
-      <div class="col-md-5 offset-md-1 mb-3">
-        <form>
-          <h5>
-            Suscríbete a nuestro grupo de whatsapp
-          </h5>
-          <p>
-            Ofertas semanales, mensuales y de temporada
-          </p>
-          <div class="d-flex flex-column flex-sm-row w-100 gap-2">
-            <label for="newsletter1" class="visually-hidden">
-              7775555
-            </label>
-            <input id="newsletter1" type="text" class="form-control" placeholder="7775555">
-            <button class="btn btn-primary" type="button">
-              Únirme
-            </button>
-          </div>
-        </form>
-      </div>
+
+  <div class="container py-4">
+        <div class="row g-4">
+
+            <!-- MAPA -->
+            <div class="col-md-4" data-bs-toggle="modal" data-bs-target="#mapModal" style="cursor:pointer;">
+                <h6 class="footer-title" >Ubicación</h6>
+                <div id="map-footer"></div>
+            </div>
+
+            <!-- DIRECCIÓN -->
+            <div class="col-md-4">
+                <h6 class="footer-title">Dirección</h6>
+                <p class="footer-text">
+                    <i class="fa-solid fa-location-dot me-2"></i>
+                    Av. Beiging<br>
+                    casi Av. Topater,<br> 
+                    Cochabamba - Bolivia
+                </p>
+                <h6 class="footer-title">Atención</h6>
+                <p class="footer-text">
+                    <i class="fa-solid fa-clock me-2"></i>
+                    lunes a vierens, 8:30 a. m.a 6:30 p. m.
+                    sábados, 8:30 a. m.a 5:00 p. m.
+                </p>
+            </div>
+
+            <!-- REDES SOCIALES -->
+            <div class="col-md-4">
+                <h6 class="footer-title">Síguenos</h6>
+
+                <div class="social-links">
+                    <a href="{{$configapp->facebook}}" target="_blank">
+                        <i class="fa-brands fa-facebook-f"></i>
+                    </a>
+
+                    <a href="{{$configapp->tiktok}}" target="_blank">
+                        <i class="fa-brands fa-tiktok"></i>
+                    </a>
+
+                    <a href="{{$configapp->whatsapp}}" target="_blank">
+                        <i class="fa-brands fa-whatsapp"></i>
+                    </a>
+                </div>
+            </div>
+
+        </div>
+
+        <hr class="footer-divider">
+        <p style="text-align:center;">
+          © 2025 El Ofertón Online.
+        </p>
+        {{-- <div class="text-center footer-copy">
+            © {{ date('Y') }} Tu Empresa. Todos los derechos reservados.
+        </div> --}}
     </div>
-    <div class="d-flex flex-column  justify-content-between py-4 my-4 border-top">
-      <p style="text-align:center;">
-        © 2025 El Ofertón Online.
-      </p>
+
+    <div class="d-flex flex-column  justify-content-between">
+      
       <ul class="list-unstyled d-flex">
         <li class="ms-3">
           <a class="link-body-emphasis" href="#" aria-label="Instagram">
@@ -563,7 +571,7 @@
     modal.addEventListener('shown.bs.modal', function () {
       if (!map) {
         // Coordenadas de Cochabamba, Bolivia
-        var cochabambaCoords = [-17.3895, -66.1568];
+        var cochabambaCoords = [{{ $latitud }}, {{ $longitud }}];
 
         map = L.map('map').setView(cochabambaCoords, 13);
 
@@ -701,10 +709,26 @@
   actualizarContador();
 
 });
+</script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
 
+        // Coordenadas de la tienda (ejemplo)
+        const lat = {{ $latitud }};
+        const lng = {{ $longitud }};
 
+        const map = L.map('map-footer', {
+            zoomControl: false
+        }).setView([lat, lng], 15);
 
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; OpenStreetMap'
+        }).addTo(map);
 
+        L.marker([lat, lng])
+            .addTo(map)
+            .bindPopup("<strong>Tu Tienda</strong><br>Av. Ejemplo #123");
+    });
 </script>
 
 </body>
