@@ -11,6 +11,7 @@ use App\Models\Marca;
 use Illuminate\Support\Facades\Log;
 use App\Models\Destacado2;
 use App\Models\Section;
+use App\Models\Configapp;
 
 class MarketController extends Controller
 {
