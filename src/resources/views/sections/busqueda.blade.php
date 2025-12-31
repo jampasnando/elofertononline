@@ -2,7 +2,7 @@
     $productos = $section->data;
     $buscar = $section->titulo;
 @endphp
-<div class="container mt-4 slide-up">
+<div class="container mt-4 slide-up" id="seccionbusqueda">
     <h3>Resultados de buscar: {{$buscar}}</h3>
     <div class="row justify-content-center g-4">
         @forEach($productos as $producto)

@@ -96,7 +96,7 @@ class MarketController extends Controller
             ];
             // dd($searchSection);
             // Inserta en índice 1 (segundo elemento). Usa 0 si quieres que sea el primero.
-            $sections->splice(2, 0, [$searchSection]);
+            $sections->splice(1, 0, [$searchSection]);
         }
         
 
