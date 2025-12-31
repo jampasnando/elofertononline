@@ -15,9 +15,9 @@ use App\Models\Configapp;
 
 class MarketController extends Controller
 {
-    public function index()
+    public function obtenerSections()
     {
-         $sections = Section::where('estado','activo')->orderBy('orden')->get();
+        $sections = Section::where('estado','activo')->orderBy('orden')->get();
 
         // Si necesitas enriquecer algunos tipos de secciones
         $sections->transform(function ($section) {
@@ -66,50 +66,41 @@ class MarketController extends Controller
             }
             return $section;
         });
-        // dd($sections);
-        // dd($sections[0]->data[3]->img1);
-        $configapp = \App\Models\Configapp::first();
-        // dd($configapp);
-        // dd($sections);
-        return view('market.index', compact('sections', 'configapp'));
-        // $destacados = Destacado::first();
-        // $logos = Marca::where('carrusel', true)->get();
-        // $productos=[];
-        // if (!$destacados) {
-        //     $productos=[];
-        //     $imagen_destacada = '';
-        // }
-        // else{
-        //     $productosIds = [
-        //         $destacados->prod1,
-        //         $destacados->prod2,
-        //         $destacados->prod3,
-        //         $destacados->prod4,
-        //         $destacados->prod5,
-        //         $destacados->prod6,
-        //     ];
-        //     $productos = Inventario::whereIn('id', $productosIds)->get();
-        //     $imagen_destacada = $destacados->imgdestacada;
-        //     $productos = $productos->sortBy(function($p) use ($productosIds) {
-        //         return array_search($p->id, $productosIds);
-        //     })->values();
-        // }
+        return $sections;
+    }
+    public function index(Request $request)
+    {
+        $sections = $this->obtenerSections();
+        $configapp = Configapp::first();
 
-        // $carruseles = Carrusel::orderBy('orden')->get();
+        if($request->has('buscar')){
+            $buscar = $request->input('buscar');
+            // Realiza la búsqueda en el modelo Inventario
+            $productos = Inventario::where('descripcion', 'LIKE', "%{$buscar}%")
+                ->orWhere('marca', 'LIKE', "%{$buscar}%")
+                ->orWhere('categoria', 'LIKE', "%{$buscar}%")->limit(50)
+                ->paginate(24)
+                ->appends(['buscar' => $buscar]);
+            // Crear una sección temporal con los resultados y colocarla en la posición 1
+            // $searchSection = Section::make([
+            //     'tipo' => 'busqueda',
+            //     'titulo' => "Resultados para: {$buscar}",
+            //     'parametros' => [],
+            //     'data' => $productos,
+            // ]);
+            $searchSection = (object)[
+                'tipo' => 'busqueda',
+                'titulo' => "Resultados para: {$buscar}",
+                'parametros' => [],
+                'data' => $productos,
+            ];
+            // dd($searchSection);
+            // Inserta en índice 1 (segundo elemento). Usa 0 si quieres que sea el primero.
+            $sections->splice(2, 0, [$searchSection]);
+        }
         
-        // $listas = Lista::conProductos();
-        // $destacado2s = Destacado2::first();
-        // $prods2x = Inventario::where('id',$destacado2s->imgx1)
-        //             ->orWhere('id',$destacado2s->imgx2)
-        //             ->orWhere('id',$destacado2s->imgx3)
-        //             ->orWhere('id',$destacado2s->imgx4)
-        //             ->get();
-        // $prods2y = Inventario::where('id',$destacado2s->imgy1)
-        //             ->orWhere('id',$destacado2s->imgy2)
-        //             ->orWhere('id',$destacado2s->imgy3)
-        //             ->orWhere('id',$destacado2s->imgy4)
-        //             ->get();
-        // return view('market.index', compact('carruseles', 'destacados', 'productos', 'imagen_destacada', 'logos', 'listas','destacado2s','prods2x','prods2y'));
+
+        return view('market.index', compact('sections', 'configapp'));
     }
 
     public function create()

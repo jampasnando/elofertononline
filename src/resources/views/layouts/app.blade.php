@@ -302,7 +302,7 @@
     </div>
 
     <!-- Centro: Buscador (siempre visible) -->
-    <form class="d-flex flex-grow-1 justify-content-center order-3 order-lg-2 mx-2" action="{{route('market.buscar')}}" method="GET">
+    <form class="d-flex flex-grow-1 justify-content-center order-3 order-lg-2 mx-2" action="{{route('market.index')}}" method="GET">
         @csrf  
     <input class="form-control w-100 w-lg-75" type="search" placeholder="Buscar..." aria-label="Buscar" style="border-radius: 20px;" required name="buscar" value="{{ request('buscar') }}">
     <button class="icon-btn" aria-label="Perfil" type="submit">
