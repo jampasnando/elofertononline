@@ -17,5 +17,6 @@ class Configapp extends Model
         'tiktok',
         'latitud',
         'longitud',
+        'logo',
     ];
 }

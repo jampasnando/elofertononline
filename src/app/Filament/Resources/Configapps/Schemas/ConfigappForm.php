@@ -4,6 +4,7 @@ namespace App\Filament\Resources\Configapps\Schemas;
 
 use Filament\Forms\Components\TextInput;
 use Filament\Schemas\Schema;
+use Filament\Forms\Components\FileUpload;
 
 class ConfigappForm
 {
@@ -25,6 +26,14 @@ class ConfigappForm
                     ->numeric(),
                 TextInput::make('longitud')
                     ->numeric(),
+                FileUpload::make('logo')
+                    ->image()
+                    ->disk('public')
+                    ->directory('images')
+                    ->maxSize(1024)
+                    ->required()
+                    ->openable()
+                    ->downloadable(),
             ]);
     }
 }

@@ -286,7 +286,7 @@
     <!-- Izquierda: Logo + Menú (colapsable) -->
     <div class="collapse navbar-collapse order-lg-1 order-2" id="navbarContenido">
       <a class="navbar-brand d-lg-block d-none me-3" href="{{ route('market.index') }}">
-        <img src="{{asset('imagenes/logo.png')}}" alt="Logo" class="d-inline-block align-text-top" style="height: 2em;">
+        <img src="{{asset('storage/' . $configapp->logo)}}" alt="Logo" class="d-inline-block align-text-top" style="height: 3em;">
       </a>
       <ul class="navbar-nav">
         <li class="nav-item">
