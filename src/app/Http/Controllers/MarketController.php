@@ -169,7 +169,8 @@ class MarketController extends Controller
         // Retorna la vista con los resultados de la búsqueda
         $carruseles = Carrusel::orderBy('orden')->get();
         $logos = Marca::where('carrusel', true)->get();
+        $configapp = Configapp::first();
         $productos=[];
-        return view('market.resultadobusqueda', compact('productos','buscados','carruseles', 'logos', 'buscar'));
+        return view('market.resultadobusqueda', compact('productos','buscados','carruseles', 'logos', 'buscar', 'configapp'));
     }   
 }
