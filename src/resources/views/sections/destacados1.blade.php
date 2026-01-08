@@ -31,7 +31,7 @@
                                 <p class="card-text text-truncate mb-2 small">{{$producto->descripcion}}</p>
                                 <div class="mt-auto d-flex justify-content-between align-items-center">
                                     <span class="fw-bold text-secondary small">Bs.{{$producto->precioventa}}</span>
-                                    <button class="btn btn-success btn-sm add-cart btn-add-to-cart" data-id="{{ $producto->id }}" data-nombre="{{ $producto->descripcion }}" data-precio="{{ $producto->precioventa }}">Añadir</button>
+                                    <button class="btn btn-success btn-sm add-cart btn-add-to-cart" data-id="{{ $producto->id }}" data-nombre="{{ $producto->descripcion }}" data-precio="{{ $producto->precioventa }}" data-img="{{ $producto->img1 ? asset('storage/'.$producto->img1) : asset('imagenes/toolsplaceholder.png') }}">Añadir</button>
                                 </div>
                             </div>
                         </div>
@@ -63,7 +63,7 @@
       </div>
 
       <div class="modal-footer">
-        <button type="button" class="btn btn-success add-cart btn-add-to-cart" id="productoModalAddCartBtn" data-id="{{ $producto->id }}" data-nombre="{{ $producto->descripcion }}" data-precio="{{ $producto->precioventa }}" >Añadir al carrito</button>
+        <button type="button" class="btn btn-success add-cart btn-add-to-cart" id="productoModalAddCartBtn" data-id="{{ $producto->id }}" data-nombre="{{ $producto->descripcion }}" data-precio="{{ $producto->precioventa }}" data-img="{{ $producto->img1 ? asset('storage/'.$producto->img1) : asset('imagenes/toolsplaceholder.png') }}">Añadir al carrito</button>
         {{-- <button class="btn btn-success btn-sm add-cart btn-add-to-cart" data-id="{{ $producto->id }}" data-nombre="{{ $producto->descripcion }}" data-precio="{{ $producto->precioventa }}">Añadir</button> --}}
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
       </div>

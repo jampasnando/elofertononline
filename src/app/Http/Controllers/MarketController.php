@@ -32,6 +32,10 @@ class MarketController extends Controller
                 $section->data = Marca::whereIn('id', $section->parametros['imagenes'])->get();
                 // dd($section);
             }
+            if ($section->tipo === 'cards5') {
+                // $section->data = Marca::whereIn('id', $section->parametros['imagenes'])->get();
+                // dd($section);
+            }
             if ($section->tipo ==='lista1')
             {
                 $parametros = $section->parametros;

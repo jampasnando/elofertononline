@@ -3,7 +3,9 @@
 @section('title', 'Marketplace')
 
 @section('content')
-
+@php
+// dd($sections);
+@endphp
 @foreach($sections as $section)
     @includeIf('sections.' . $section->tipo, ['data' => $section])
 @endforeach

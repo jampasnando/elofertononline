@@ -269,6 +269,264 @@
     font-size: 13px;
     color: #777;
 }
+/* CONTENEDOR RAÍZ */
+.section-cards5 {
+    width: 100%;
+}
+
+/* CARD */
+.section-cards5__card {
+    background: #ffffff;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+/* IMAGEN */
+.section-cards5__img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* CUERPO */
+.section-cards5__body {
+    padding: 0.75rem;
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* TEXTO */
+.section-cards5__text {
+    margin: 0;
+    font-size: 0.9rem;
+    text-align: center;
+    color: #333;
+}
+
+/* SOLO ESTA SECTION → 5 COLUMNAS */
+@media (min-width: 992px) {
+    .section-cards5 .col-lg-2-custom {
+        flex: 0 0 var(--nrocols);
+        max-width: var(--nrocols);
+    }
+}
+@media (min-width: 992px) {
+    .section-cards4 .col-lg-2-custom {
+        flex: 0 0 25%;
+        max-width: 25%;
+    }
+}
+.section-cards5__card {
+    transition: 
+        transform 0.35s cubic-bezier(.4,0,.2,1),
+        box-shadow 0.35s cubic-bezier(.4,0,.2,1);
+    cursor: pointer;
+}
+
+/* HOVER / TOUCH */
+.section-cards5__card:hover,
+.section-cards5__card:focus-within {
+    transform: translateY(-6px);
+    box-shadow: 0 14px 30px rgba(0, 0, 0, 0.15);
+}
+
+/* ZOOM SUAVE DE LA IMAGEN */
+.section-cards5__img {
+    transition: transform 0.5s ease;
+}
+
+.section-cards5__card:hover .section-cards5__img,
+.section-cards5__card:focus-within .section-cards5__img {
+    transform: scale(1.05);
+}
+
+/* TEXTO MÁS VISIBLE AL HOVER */
+.section-cards5__card:hover .section-cards5__text {
+    color: #111;
+}
+/* ===== MODAL ===== */
+.section-cards__modal {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    display: none;
+}
+
+.section-cards__modal.active {
+    display: block;
+}
+
+.section-cards__modal-backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,.55);
+    backdrop-filter: blur(4px);
+}
+
+.section-cards__modal-content {
+    position: relative;
+    background: #fff;
+    width: min(1100px, 90%);
+    max-height: 85vh;
+    margin: 5vh auto;
+    border-radius: 14px;
+    padding: 1.5rem;
+    overflow-y: auto;
+    animation: modalFadeIn .35s ease;
+}
+
+/* CERRAR */
+.section-cards__modal-close {
+    position: absolute;
+    top: 12px;
+    right: 16px;
+    font-size: 1.6rem;
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+/* TITULO */
+.section-cards__modal-title {
+    margin-bottom: 1rem;
+    text-align: center;
+}
+
+/* GRID DE PRODUCTOS */
+.section-cards__products-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 1rem;
+}
+
+/* PRODUCTO */
+.section-cards__product {
+    text-align: center;
+}
+
+.section-cards__product img {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0,0,0,.1);
+}
+
+.section-cards__product p {
+    margin-top: .4rem;
+    font-size: .85rem;
+}
+
+/* RESPONSIVE */
+@media (max-width: 992px) {
+    .section-cards__products-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (max-width: 576px) {
+    .section-cards__products-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* ANIMACIÓN */
+@keyframes modalFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+/* ===== CARRITO ===== */
+
+.cart-list {
+    padding: 0;
+}
+
+.cart-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+/* MINIATURA */
+.cart-thumb {
+    width: 56px;
+    height: 56px;
+    object-fit: cover;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0,0,0,.15);
+}
+
+/* INFO */
+.cart-info {
+    flex: 1;
+}
+
+.cart-name {
+    display: block;
+    font-size: 0.9rem;
+    margin-bottom: 4px;
+}
+
+/* CONTROLES */
+.cart-controls {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.85rem;
+}
+
+.cart-qty {
+    min-width: 28px;
+    text-align: center;
+    font-weight: bold;
+}
+
+/* DERECHA */
+.cart-right {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 6px;
+}
+
+.cart-subtotal {
+    color: #198754;
+}
+
+/* TOTAL */
+.cart-total {
+    margin-top: 1rem;
+    padding: 0.75rem 1rem;
+    background: #f8f9fa;
+    border-radius: 10px;
+    display: flex;
+    justify-content: space-between;
+    font-size: 1.05rem;
+    font-weight: bold;
+    color: #198754;
+}
+.cart-item {
+    animation: cartFade .25s ease;
+}
+
+@keyframes cartFade {
+    from { opacity: 0; transform: translateY(8px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
 
   </style>
 </head>
@@ -610,41 +868,49 @@
       return;
     }
 
-    let total = 0;
-    let html = '<ul class="list-group">';
-    carrito.forEach((p, i) => {
-      const subtotal = p.precio * p.cantidad;
-      total += subtotal;
-      html += `
-        <li class="list-group-item d-flex justify-content-between align-items-center">
-          <button class="btn btn-sm btn-light btn-remove" data-index="${i}">❌</button>
-          <div class="flex-grow-1 mx-2 text-truncate">
-            <span >${p.nombre}</span><br>
-            <small style="font-size:0.8em;color:gray;width:150px;display:flex;justify-content:space-between;align-items:center;">
-              <button class="btn btn-sm btn-outline-secondary btn-restar" data-index="${i}">-</button>
-              <span style="font-size:1.3em;font-wieght:bold;"> ${p.cantidad} </span>
-              <button class="btn btn-sm btn-outline-secondary btn-sumar" data-index="${i}">+</button>
-              x Bs.${p.precio}
-            </small>
-            
-          </div>
-          <div>
-            <strong>Bs.${subtotal}</strong>
-            
-          </div>
-        </li>`;
-    });
-    html += `</ul>
-      <div class="mt-3 text-end fw-bold">
-        <ul class="list-group">
-          <li class="list-group-item d-flex justify-content-between align-items-center" style="color:green;">
-            <span>Total a pagar:</span>
-            <span>Bs.${total}</span>
-          </li>
-        </ul>
-      </div>`;
+    let html = `<ul class="list-group cart-list">`;
+let total = 0;
 
-    cont.innerHTML = html;
+carrito.forEach((p, i) => {
+  const subtotal = p.precio * p.cantidad;
+  total += subtotal;
+
+  html += `
+      <li class="list-group-item cart-item">
+        
+        <img src="${p.img}" class="cart-thumb" alt="${p.nombre}">
+
+        <div class="cart-info">
+          <strong class="cart-name">${p.nombre}</strong>
+
+          <div class="cart-controls">
+            <button class="btn btn-sm btn-outline-secondary btn-restar" data-index="${i}">−</button>
+            <span class="cart-qty">${p.cantidad}</span>
+            <button class="btn btn-sm btn-outline-secondary btn-sumar" data-index="${i}">+</button>
+            <span class="cart-price" style="border:1px solid lightgreen;border-radius:4px;background:lightyellow;">c/u Bs. ${p.precio}</span>
+          </div>
+        </div>
+
+        <div class="cart-right">
+          <button class="btn btn-sm btn-light btn-remove" data-index="${i}" title="Eliminar">✕</button>
+          <strong class="cart-subtotal">Bs. ${subtotal}</strong>
+        </div>
+
+      </li>
+    `;
+  });
+
+  html += `
+    </ul>
+
+    <div class="cart-total">
+      <span>Total a pagar</span>
+      <span>Bs. ${total}</span>
+    </div>
+  `;
+
+  cont.innerHTML = html;
+
 
     // listeners dinámicos
     cont.querySelectorAll('.btn-remove').forEach(btn => {
@@ -685,13 +951,13 @@
       const id = btn.dataset.id;
       const nombre = btn.dataset.nombre;
       const precio = parseFloat(btn.dataset.precio);
-
+      const img = btn.dataset.img;
       // Buscar si ya está en carrito
       const index = carrito.findIndex(p => p.id === id);
       if (index >= 0) {
         carrito[index].cantidad += 1;
       } else {
-        carrito.push({ id, nombre, precio, cantidad: 1 });
+        carrito.push({ id, nombre, precio, cantidad: 1 , img });
       }
 
       guardarYActualizar();
@@ -729,6 +995,23 @@
             .addTo(map)
             .bindPopup("<strong>Tu Tienda</strong><br>Av. Ejemplo #123");
     });
+</script>
+<script>
+function openCardModal(id) {
+    const modal = document.getElementById(id);
+    if (!modal) return;
+
+    modal.classList.add('active');
+    document.body.style.overflow = 'hidden';
+}
+
+function closeCardModal(id) {
+    const modal = document.getElementById(id);
+    if (!modal) return;
+
+    modal.classList.remove('active');
+    document.body.style.overflow = '';
+}
 </script>
 
 </body>

@@ -40,8 +40,8 @@ class SectionForm
         
         function generateFormComponent($type)
         {
-            if($type != 'marcas' && $type != 'lista1') {
-                $productos = Inventario::all()->mapWithKeys(function ($p) {
+            if($type != 'marcas' && $type != 'lista1' && $type != 'lista2') {
+                $productos = Inventario::where('cantidad', '>', 0)->get()->mapWithKeys(function ($p) {
                     if($p->img1 == NULL) {
                         $foto= 'NoFoto';
                     }
@@ -89,6 +89,41 @@ class SectionForm
                                         ->required(),
                                 ])
                         ->columnSpanFull();
+                case 'cards5':
+                             return Repeater::make('parametros')
+                                ->label('Cards')
+                                ->minItems(1)
+                                ->schema([
+                                    fileUpload::make('imagen')
+                                        ->label('Una Imagen')
+                                        ->disk('public')
+                                        ->directory('cards')
+                                        ->visibility('public')
+                                        ->required(),
+                                    TextArea::make('texto')
+                                        ->label('Texto de la card'),
+                                    TextInput::make('productos')
+                                        ->label('SKUs de productos (separados por coma)')
+                                       ->dehydrateStateUsing(function ($state) {
+                                            // Guardar siempre como array en el JSON
+                                            if (is_string($state)) {
+                                                $arr = array_filter(array_map('trim', explode(',', $state)));
+                                                return array_values($arr);
+                                            }
+                                            if (is_array($state)) {
+                                                return array_values($state);
+                                            }
+                                            return [];
+                                        })
+                                        ->formatStateUsing(function ($state) {
+                                            // Mostrar como "a, b, c" en el formulario al editar
+                                            if (is_array($state)) {
+                                                return implode(', ', $state);
+                                            }
+                                            return $state;
+                                        }),
+                                ])
+                                ->columns(5);
                 case 'libre':
                     return FieldSet::make('parametros')
                         ->schema([
@@ -146,7 +181,7 @@ class SectionForm
                             fileUpload::make('imagen_destacada')
                                         ->label('Imagen destacada')
                                         ->disk('public')
-                                        ->directory('destacaddos')
+                                        ->directory('destacados')
                                         ->visibility('public')
                                         ->required(),
                            Repeater::make('imagenes')
@@ -428,8 +463,9 @@ class SectionForm
                                 'destacados2' => 'Productos Destacados 2',
                                 'marcas' => 'Marcas Destacadas',
                                 'lista1' => 'Lista de productos de marcas...',
-                                'libre' => 'Libre'
-
+                                'lista2' => 'Lista de productos de categorias...',
+                                'libre' => 'Libre',
+                                'cards5' => 'Cards',
                             ])
                             ->native(false)
                             ->reactive()
