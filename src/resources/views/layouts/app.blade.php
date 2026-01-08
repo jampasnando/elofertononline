@@ -543,8 +543,9 @@
 
     <!-- Izquierda: Logo + Menú (colapsable) -->
     <div class="collapse navbar-collapse order-lg-1 order-2" id="navbarContenido">
-      <a class="navbar-brand d-lg-block d-none me-3" href="{{ route('market.index') }}">
-        <img src="{{asset('storage/' . $configapp->logo)}}" alt="Logo" class="d-inline-block align-text-top" style="height: 3em;">
+      <div style="width:8em;"></div>
+      <a class="navbar-brand d-lg-block d-none me-3" href="{{ route('market.index') }}" style="position: absolute;top:0;">
+        <img src="{{asset('storage/' . $configapp->logo)}}" alt="Logo" class="d-inline-block align-text-top" style="height: 6em;">
       </a>
       <ul class="navbar-nav">
         <li class="nav-item">
@@ -619,7 +620,7 @@
     <div class="bg-light border-bottom py-1">
         <div class="container d-flex justify-content-between align-items-center">
             <!-- Select de categorías -->
-            <div class="dropdown">
+            <div class="dropdown" style="margin-left:10em;">
                 <button class="btn btn-sm btn-warning dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" style="border-radius: 15px;padding: 5px 20px;">
                     <i class="bi bi-list"></i>
                     Categorías

@@ -28,6 +28,7 @@ class ConfigappForm
                     ->numeric(),
                 FileUpload::make('logo')
                     ->image()
+                    ->imageEditor()
                     ->disk('public')
                     ->directory('images')
                     ->maxSize(1024)
