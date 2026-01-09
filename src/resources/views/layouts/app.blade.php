@@ -998,6 +998,25 @@ carrito.forEach((p, i) => {
         L.marker([lat, lng])
             .addTo(map)
             .bindPopup("<strong>Tu Tienda</strong><br>Av. Ejemplo #123");
+        const modal = new bootstrap.Modal(document.getElementById('productoModal'));
+
+        document.querySelectorAll(".open-product-modal").forEach(img => {
+            img.addEventListener("click", () => {
+                // Llenar modal
+                document.getElementById("productoModalLabel").textContent = img.dataset.marca;
+                document.getElementById("productoModalImg").src = img.dataset.img;
+                document.getElementById("productoModalDescripcion").textContent = img.dataset.descripcion;
+                document.getElementById("productoModalPrecio").textContent = img.dataset.precio;
+
+                // Añadir evento al botón agregar carrito
+                const addBtn = document.getElementById("productoModalAddCartBtn");
+                addBtn.setAttribute("data-id", img.dataset.id);
+                addBtn.setAttribute("data-nombre", img.dataset.descripcion);
+                addBtn.setAttribute("data-precio", img.dataset.precio);
+                addBtn.setAttribute("data-img", img.dataset.img);
+                modal.show();
+            });
+        });
     });
 </script>
 <script>

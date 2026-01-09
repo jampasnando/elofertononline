@@ -79,27 +79,27 @@
   </div>
 </div>
 <script>
-document.addEventListener("DOMContentLoaded", () => {
-    const modal = new bootstrap.Modal(document.getElementById('productoModal'));
+// document.addEventListener("DOMContentLoaded", () => {
+//     const modal = new bootstrap.Modal(document.getElementById('productoModal'));
 
-    document.querySelectorAll(".open-product-modal").forEach(img => {
-        img.addEventListener("click", () => {
-            // Llenar modal
-            document.getElementById("productoModalLabel").textContent = img.dataset.marca;
-            document.getElementById("productoModalImg").src = img.dataset.img;
-            document.getElementById("productoModalDescripcion").textContent = img.dataset.descripcion;
-            document.getElementById("productoModalPrecio").textContent = img.dataset.precio;
+//     document.querySelectorAll(".open-product-modal").forEach(img => {
+//         img.addEventListener("click", () => {
+//             // Llenar modal
+//             document.getElementById("productoModalLabel").textContent = img.dataset.marca;
+//             document.getElementById("productoModalImg").src = img.dataset.img;
+//             document.getElementById("productoModalDescripcion").textContent = img.dataset.descripcion;
+//             document.getElementById("productoModalPrecio").textContent = img.dataset.precio;
 
-            // Añadir evento al botón agregar carrito
-            const addBtn = document.getElementById("productoModalAddCartBtn");
-            addBtn.setAttribute("data-id", img.dataset.id);
-            addBtn.setAttribute("data-nombre", img.dataset.descripcion);
-            addBtn.setAttribute("data-precio", img.dataset.precioventa);
-
-            modal.show();
-        });
-    });
-});
+//             // Añadir evento al botón agregar carrito
+//             const addBtn = document.getElementById("productoModalAddCartBtn");
+//             addBtn.setAttribute("data-id", img.dataset.id);
+//             addBtn.setAttribute("data-nombre", img.dataset.descripcion);
+//             addBtn.setAttribute("data-precio", img.dataset.precio);
+//             addBtn.setAttribute("data-img", img.dataset.img);
+//             modal.show();
+//         });
+//     });
+// });
 document.addEventListener('hidden.bs.modal', function (event) {
     // Eliminar todos los backdrops que queden
     document.querySelectorAll('.modal-backdrop').forEach(function(el){

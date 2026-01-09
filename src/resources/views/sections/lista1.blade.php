@@ -21,7 +21,7 @@
                         <p class="card-text text-truncate mb-2 small">{{$unproductolista->descripcion}}</p>
                         <div class="mt-auto d-flex justify-content-between align-items-center">
                             <span class="fw-bold text-secondary small">Bs.{{$unproductolista->precioventa}}</span>
-                            <button class="btn btn-success btn-sm add-cart btn-add-to-cart" data-id="{{ $unproductolista->id }}" data-nombre="{{ $unproductolista->descripcion }}" data-precio="{{ $unproductolista->precioventa }}">Añadir</button>
+                            <button class="btn btn-success btn-sm add-cart btn-add-to-cart" data-id="{{ $unproductolista->id }}" data-nombre="{{ $unproductolista->descripcion }}" data-precio="{{ $unproductolista->precioventa }}" data-img="{{ $unproductolista->img1 ? asset('storage/'.$unproductolista->img1) : asset('imagenes/toolsplaceholder.png') }}">Añadir</button>
                         </div>
                     </div>
                 </div>

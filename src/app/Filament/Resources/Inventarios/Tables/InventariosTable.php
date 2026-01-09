@@ -9,6 +9,7 @@ use Filament\Actions\ViewAction;
 use Filament\Actions\CreateAction;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
+use Filament\Tables\Columns\ImageColumn;
 
 class InventariosTable
 {
@@ -63,9 +64,10 @@ class InventariosTable
                     ->searchable()
                     ->visible(fn()=>auth()->user()->role == 'administrador')
                     ->toggleable(isToggledHiddenByDefault: true),
-                TextColumn::make('img1')
-                    ->limit(10)
-                    ->sortable()
+                ImageColumn::make('img1')
+                    ->imagesize('50px', '50px')
+                    ->visibility('public')
+                    ->disk('public')
                     ->tooltip(fn ($record) => $record->img1),
                 TextColumn::make('img2')
                     ->limit(10)
