@@ -1,6 +1,7 @@
 @php
     $nrocols = 100 / count($data->parametros);
     use App\Models\Inventario;
+    $whatsappPhone = $configapp->whatsapp ?? '59179760327';
 @endphp
 <div class="section-cards5 slide-up" style="--nrocols: {{$nrocols}}%;">
     <div class="container my-4">
@@ -61,7 +62,12 @@
                                             <p class="card-text text-truncate mb-2 small">{{$producto->descripcion}}</p>
                                             <div class="mt-auto d-flex justify-content-between align-items-center">
                                                 <span class="fw-bold text-secondary small">Bs.{{$producto->precioventa}}</span>
-                                                <button class="btn btn-success btn-sm add-cart btn-add-to-cart" data-id="{{ $producto->id }}" data-nombre="{{ $producto->descripcion }}" data-precio="{{ $producto->precioventa }}" data-img="{{ $producto->img1 ? asset('storage/'.$producto->img1) : asset('imagenes/toolsplaceholder.png') }}">Añadir</button>
+                                                <span>
+                                                    <a href="https://wa.me/{{$whatsappPhone}}?text=Consulta%20por%20producto:%20{{ urlencode($producto->idprod) }}" target="_blank" class="btn btn-sm btn-outline-success add-cart">
+                                                        <i class="bi bi-whatsapp"></i>
+                                                    </a>
+                                                    <button class="btn btn-success btn-sm add-cart btn-add-to-cart" data-id="{{ $producto->id }}" data-nombre="{{ $producto->descripcion }}" data-precio="{{ $producto->precioventa }}" data-img="{{ $producto->img1 ? asset('storage/'.$producto->img1) : asset('imagenes/toolsplaceholder.png') }}">Añadir</button>
+                                                </span>
                                             </div>
                                         </div>
                                     </div>

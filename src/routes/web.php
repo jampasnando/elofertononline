@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\CarritoController;
 
 // Route::get('/', function () {
 //     return view('welcome');
@@ -11,3 +12,4 @@ Route::get('buscar', [App\Http\Controllers\MarketController::class, 'buscar'])->
 // Route::post('buscar',function(){
 //     echo "hola";
 // });
+Route::post('registrarcarrito', [CarritoController::class, 'registrarCarrito'])->name('registrarcarrito');

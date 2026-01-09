@@ -169,4 +169,5 @@ class MarketController extends Controller
         $productos=[];
         return view('market.resultadobusqueda', compact('productos','buscados','carruseles', 'logos', 'buscar', 'configapp'));
     }   
+    
 }

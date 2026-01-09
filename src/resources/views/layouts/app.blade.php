@@ -796,7 +796,9 @@
       </div>
       <div class="modal-footer">
         <button class="btn btn-outline-danger" data-bs-dismiss="modal">Cerrar</button>
-        <button class="btn btn-success">Finalizar Compra</button>
+        <button class="btn btn-success" onclick="contactarVentas()">
+          <i class="bi bi-whatsapp"></i> Contactar a VENTAS
+        </button>
       </div>
     </div>
   </div>
@@ -810,9 +812,10 @@
   <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 
 <script>
+    let carrito=[];
     document.addEventListener('DOMContentLoaded', function() {
     const elementos = document.querySelectorAll('.slide-up');
-
+    
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
@@ -846,7 +849,7 @@
       }
     });
 
-      let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+      carrito = JSON.parse(localStorage.getItem('carrito')) || [];
 
   function actualizarContador() {
     const elements = document.querySelectorAll('.cartCount');
@@ -868,7 +871,7 @@
       cont.innerHTML = '<p>Tu carrito está vacío.</p>';
       return;
     }
-
+    console.log(carrito);
     let html = `<ul class="list-group cart-list">`;
 let total = 0;
 
@@ -1012,6 +1015,42 @@ function closeCardModal(id) {
 
     modal.classList.remove('active');
     document.body.style.overflow = '';
+}
+function contactarVentas() {
+    if (!Array.isArray(carrito) || carrito.length === 0) {
+        alert('El carrito está vacío');
+        return;
+    }
+
+    fetch('{{ route("registrarcarrito") }}', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRF-TOKEN': '{{ csrf_token() }}'
+        },
+        body: JSON.stringify({
+            productos: carrito,
+            estado: 'pendiente',
+            comentarios: null
+        })
+    })
+    .then(res => res.json())
+    .then(data => {
+        console.log(data);
+        if (data.success) {
+          const carritoId = data.carritoId;
+          const telefono = '{{$configapp->whatsapp}}'; // Bolivia
+          const mensaje = `Hola, acabo de realizar un pedido.%0AID del carrito: ${carritoId}`;
+          const urlWhatsapp = `https://wa.me/${telefono}?text=${mensaje}`;
+          window.open(urlWhatsapp, '_blank');
+        } else {
+            alert('Ocurrió un error al registrar el carrito');
+        }
+    })
+    .catch(err => {
+        console.error(err);
+        alert('Error de conexión');
+    });
 }
 </script>
 

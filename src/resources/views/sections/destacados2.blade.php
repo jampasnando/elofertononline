@@ -1,5 +1,5 @@
 @php
-    // dd($data);
+    $whatsappPhone = $configapp->whatsapp ?? '59179760327';
 @endphp
 <div class="container my-5 data slide-up border-0 rounded-3" style="padding: 2em;background:{{ $data->parametros['color'] }}">
     <div class="row g-4"> <!-- g-4 da separación entre las dos columnas -->
@@ -23,10 +23,15 @@
                                         <div class="mt-auto d-flex justify-content-between align-items-center">
                                             <span
                                                 class="fw-bold text-secondary small">Bs.{{ $unprods2x->precioventa }}</span>
-                                            <button class="btn btn-success btn-sm add-cart btn-add-to-cart"
-                                                data-id="{{ $unprods2x->id }}"
-                                                data-nombre="{{ $unprods2x->descripcion }}"
-                                                data-precio="{{ $unprods2x->precioventa }}">Añadir</button>
+                                            <span>
+                                                <a href="https://wa.me/{{$whatsappPhone}}?text=Consulta%20por%20producto:%20{{ urlencode($unprods2x->idprod) }}" target="_blank" class="btn btn-sm btn-outline-success add-cart">
+                                                    <i class="bi bi-whatsapp"></i>
+                                                </a>
+                                                <button class="btn btn-success btn-sm add-cart btn-add-to-cart"
+                                                    data-id="{{ $unprods2x->id }}"
+                                                    data-nombre="{{ $unprods2x->descripcion }}"
+                                                    data-precio="{{ $unprods2x->precioventa }}">Añadir</button>
+                                            </span>
                                         </div>
                                     </div>
                                 </div>
@@ -56,10 +61,15 @@
                                         <div class="mt-auto d-flex justify-content-between align-items-center">
                                             <span
                                                 class="fw-bold text-secondary small">Bs.{{ $unprods2y->precioventa }}</span>
-                                            <button class="btn btn-success btn-sm add-cart btn-add-to-cart"
-                                                data-id="{{ $unprods2y->id }}"
-                                                data-nombre="{{ $unprods2y->descripcion }}"
-                                                data-precio="{{ $unprods2y->precioventa }}">Añadir</button>
+                                            <span>
+                                                <a href="https://wa.me/{{$whatsappPhone}}?text=Consulta%20por%20producto:%20{{ urlencode($unprods2y->idprod) }}" target="_blank" class="btn btn-sm btn-outline-success add-cart">
+                                                    <i class="bi bi-whatsapp"></i>
+                                                </a>
+                                                <button class="btn btn-success btn-sm add-cart btn-add-to-cart"
+                                                    data-id="{{ $unprods2y->id }}"
+                                                    data-nombre="{{ $unprods2y->descripcion }}"
+                                                    data-precio="{{ $unprods2y->precioventa }}">Añadir</button>
+                                            </span>
                                         </div>
                                     </div>
                                 </div>
