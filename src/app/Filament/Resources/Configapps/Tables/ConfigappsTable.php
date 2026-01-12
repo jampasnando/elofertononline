@@ -40,6 +40,8 @@ class ConfigappsTable
                 ImageColumn::make('logo')
                     ->label('Logo')
                     ->square(),
+                TextColumn::make('horario')
+                    ->wrap()
             ])
             ->filters([
                 //
