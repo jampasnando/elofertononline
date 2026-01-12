@@ -469,7 +469,10 @@ class SectionForm
                             ])
                             ->native(false)
                             ->reactive()
-                            ->required(),
+                            ->required()
+                            ->columnSpan(2),
+                        TextInput::make('descripcion')
+                            ->columnSpan(4),
                         Select::make('estado')
                             ->options([
                                 'activo' => 'Activo',
@@ -480,11 +483,10 @@ class SectionForm
                             ->required(),
                         TextInput::make('orden')
                             ->numeric()
-                            ->label('Orden de aparición')
                             ->required()
                             ->default(0),
                     ])
-                    ->columns(3)
+                    ->columns(8)
                     ->columnSpanFull(),
                 
                 Section::make('')

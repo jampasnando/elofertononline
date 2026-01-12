@@ -8,7 +8,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-
+  <link rel="shortcut icon" href="{{ asset('storage/images/logo.png') }}">
   <title>@yield('title', 'Mi Proyecto Laravel')</title>
 
   <!-- Bootstrap CSS -->
@@ -699,8 +699,7 @@
                 <h6 class="footer-title">Atención</h6>
                 <p class="footer-text">
                     <i class="fa-solid fa-clock me-2"></i>
-                    lunes a vierens, 8:30 a. m.a 6:30 p. m.
-                    sábados, 8:30 a. m.a 5:00 p. m.
+                    {!! nl2br($configapp->horario ?? 'Lun - Vie: 8:00 - 18:00') !!}
                 </p>
             </div>
 
@@ -803,6 +802,44 @@
     </div>
   </div>
 </div>
+
+
+<!-- Modal Producto -->
+<div class="modal fade" id="productoModal" tabindex="-1" aria-labelledby="productoModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content">
+      
+      <div class="modal-header">
+        <h5 class="modal-title" id="productoModalLabel"></h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+
+      <div class="modal-body">
+        <div class="text-center mb-3">
+          <img id="productoModalImg" class="img-fluid rounded" style="max-height: 300px; object-fit:cover;">
+        </div>
+
+        <p id="productoModalDescripcion"></p>
+
+        <h5 class="fw-bold text-success">Precio: <span id="productoModalPrecio"></span> Bs.</h5>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-success add-cart btn-add-to-cart" id="productoModalAddCartBtn" 
+          {{-- data-id="{{ $producto->id }}" 
+          data-nombre="{{ $producto->descripcion }}" 
+          data-precio="{{ $producto->precioventa }}" 
+          data-img="{{ $producto->img1 ? asset('storage/'.$producto->img1) : asset('imagenes/toolsplaceholder.png') }}" --}}
+          >
+          Añadir al carrito
+        </button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
 
 </footer>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>

@@ -12,6 +12,7 @@ class Section extends Model
         'parametros',
         'estado',
         'orden',
+        'descripcion',
     ];  
     protected $casts = [
         'parametros' => 'array',

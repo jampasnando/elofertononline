@@ -17,8 +17,17 @@ class SectionsTable
             ->columns([
                 TextColumn::make('tipo')
                     ->searchable(),
+                TextColumn::make('descripcion')
+                    ->limit(30)
+                    ->searchable()
+                    ->tooltip(fn ($record) => $record->descripcion),
                 TextColumn::make('estado')
-                    ->searchable(),
+                    ->searchable()
+                    ->badge()
+                    ->colors([
+                        'success' => 'activo',
+                        'danger' => 'inactivo',
+                    ]),
                 TextColumn::make('orden')
                     ->numeric()
                     ->sortable(),

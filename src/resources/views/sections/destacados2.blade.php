@@ -16,7 +16,13 @@
                             <div class="col-6">
                                 <div class="card product-card h-100">
                                     <img src="{{ $unprods2x->img1 ? asset('storage/' . $unprods2x->img1) : asset('imagenes/toolsplaceholder.png') }}"
-                                        class="card-img-top" alt="Taladro" style="object-fit:cover;">
+                                        class="card-img-top open-product-modal" alt="Taladro" style="object-fit:cover;"
+                                        data-id="{{ $unprods2x->id }}"
+                                        data-marca="{{ $unprods2x->marca }}"
+                                        data-descripcion="{{ $unprods2x->descripcion }}"
+                                        data-precio="{{ $unprods2x->precioventa }}"
+                                        data-img="{{ $unprods2x->img1 ? asset('storage/'.$unprods2x->img1) : asset('imagenes/toolsplaceholder.png') }}"
+                                        >
                                     <div class="card-body d-flex flex-column p-2">
                                         <h6 class="card-title mb-1">{{ $unprods2x->marca }}</h6>
                                         <p class="card-text text-truncate mb-2 small">{{ $unprods2x->descripcion }}</p>
@@ -30,7 +36,9 @@
                                                 <button class="btn btn-success btn-sm add-cart btn-add-to-cart"
                                                     data-id="{{ $unprods2x->id }}"
                                                     data-nombre="{{ $unprods2x->descripcion }}"
-                                                    data-precio="{{ $unprods2x->precioventa }}">Añadir</button>
+                                                    data-precio="{{ $unprods2x->precioventa }}"
+                                                    data-img="{{ $unprods2x->img1 ? asset('storage/'.$unprods2x->img1) : asset('imagenes/toolsplaceholder.png') }}"
+                                                    >Añadir</button>
                                             </span>
                                         </div>
                                     </div>
@@ -54,7 +62,13 @@
                             <div class="col-6">
                                 <div class="card product-card h-100">
                                     <img src="{{ $unprods2y->img1 ? asset('storage/' . $unprods2y->img1) : asset('imagenes/toolsplaceholder.png') }}"
-                                        class="card-img-top" alt="Taladro" style="height:150px; object-fit:cover;">
+                                        class="card-img-top open-product-modal" alt="Taladro" style="height:150px; object-fit:cover;"
+                                        data-id="{{ $unprods2y->id }}"
+                                        data-marca="{{ $unprods2y->marca }}"
+                                        data-descripcion="{{ $unprods2y->descripcion }}"
+                                        data-precio="{{ $unprods2y->precioventa }}"
+                                        data-img="{{ $unprods2y->img1 ? asset('storage/'.$unprods2y->img1) : asset('imagenes/toolsplaceholder.png') }}"    
+                                    >
                                     <div class="card-body d-flex flex-column p-2">
                                         <h6 class="card-title mb-1">{{ $unprods2y->marca }}</h6>
                                         <p class="card-text text-truncate mb-2 small">{{ $unprods2y->descripcion }}</p>
@@ -68,7 +82,9 @@
                                                 <button class="btn btn-success btn-sm add-cart btn-add-to-cart"
                                                     data-id="{{ $unprods2y->id }}"
                                                     data-nombre="{{ $unprods2y->descripcion }}"
-                                                    data-precio="{{ $unprods2y->precioventa }}">Añadir</button>
+                                                    data-precio="{{ $unprods2y->precioventa }}"
+                                                    data-img="{{ $unprods2y->img1 ? asset('storage/'.$unprods2y->img1) : asset('imagenes/toolsplaceholder.png') }}"
+                                                    >Añadir</button>
                                             </span>
                                         </div>
                                     </div>

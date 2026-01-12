@@ -5,6 +5,7 @@ namespace App\Filament\Resources\Configapps\Schemas;
 use Filament\Forms\Components\TextInput;
 use Filament\Schemas\Schema;
 use Filament\Forms\Components\FileUpload;
+use Filament\Forms\Components\Textarea;
 
 class ConfigappForm
 {
@@ -27,14 +28,18 @@ class ConfigappForm
                 TextInput::make('longitud')
                     ->numeric(),
                 FileUpload::make('logo')
+                    ->label('Logo (siempre debe ser logo.png)')
                     ->image()
                     ->imageEditor()
                     ->disk('public')
+                    ->preserveFilenames(true)
                     ->directory('images')
                     ->maxSize(1024)
                     ->required()
                     ->openable()
                     ->downloadable(),
+                Textarea::make('horario')
+                    ->rows(3),
             ]);
     }
 }

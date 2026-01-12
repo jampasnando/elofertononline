@@ -50,7 +50,7 @@
 
     </div>
 </div>
-<!-- Modal Producto -->
+{{-- <!-- Modal Producto -->
 <div class="modal fade" id="productoModal" tabindex="-1" aria-labelledby="productoModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered modal-lg">
     <div class="modal-content">
@@ -77,7 +77,7 @@
 
     </div>
   </div>
-</div>
+</div> --}}
 <script>
 // document.addEventListener("DOMContentLoaded", () => {
 //     const modal = new bootstrap.Modal(document.getElementById('productoModal'));

@@ -18,5 +18,6 @@ class Configapp extends Model
         'latitud',
         'longitud',
         'logo',
+        'horario',
     ];
 }

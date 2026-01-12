@@ -28,8 +28,33 @@
             </div>
         @endforeach
          {{-- Paginación independiente usando el límite de la lista --}}
-        <div class="mt-3">
+        <div class="mt-3" style="border-bottom: 1px solid #ddd; padding-bottom: 5px;">
             {{ $data->data->appends(request()->query())->fragment('lista'.$data->id)->links() }}
         </div>
         </div>
 </div>
+<style>
+    .pagination .page-link {
+    transition: all 0.2s ease-in-out;
+    font-size: 0.8rem;
+    padding: 6px 10px;
+    color: gray;
+}
+
+.pagination .page-link:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+    
+}
+
+.pagination .active .page-link {
+    font-weight: bold;
+    transform: scale(1.1);
+    background: lightgreen;
+}
+.pagination .disabled .page-link {
+    color: #ccc;
+    pointer-events: none;
+}
+
+</style>

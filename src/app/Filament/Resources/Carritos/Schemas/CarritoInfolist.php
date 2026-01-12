@@ -23,9 +23,10 @@ class CarritoInfolist
                 TextEntry::make('estado')
                     ->badge()
                     ->color(fn (?string $state) => match ($state) {
-                        'nuevo' => 'warning',
+                        'pendiente' => 'warning',
                         'contactado' => 'info',
-                        'entregado' => 'success',
+                        'cancelado' => 'danger',
+                        'confirmado' => 'success',
                         default => 'gray',
                     }),
 
@@ -52,7 +53,9 @@ class CarritoInfolist
                 
                 TextEntry::make('resumen_productos')
                     ->label('Resumen')
-                    ->weight('bold')
+                    ->weight('extrabold')
+                    ->alignEnd()
+                    ->size('lg')
                     ->badge()
                     ->color('success')
                     ->columnSpanFull(),
