@@ -4,7 +4,7 @@ namespace App\Filament\Resources\Sections\Schemas\SectionTypes;
 
 use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\FileUpload;
-use Filament\Forms\Components\TextArea;;
+use Filament\Forms\Components\TextArea;
 use Filament\Forms\Components\TextInput;
 
 class Cards5Type
