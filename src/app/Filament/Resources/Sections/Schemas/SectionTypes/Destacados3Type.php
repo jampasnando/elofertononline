@@ -15,7 +15,7 @@ use Filament\Forms\Components\Placeholder;
 use Illuminate\Support\HtmlString;
 use App\Models\Inventario;
 use Filament\Actions\Action;
-use Filament\Forms\Components\TextArea;
+use Filament\Forms\Components\Textarea;
 
 class Destacados3Type
 {
@@ -85,7 +85,7 @@ class Destacados3Type
                                             ->directory('destacados3')
                                             ->visibility('public')
                                             ->required(),
-                                        TextArea::make('texto')
+                                        Textarea::make('texto')
                                             ->label('Texto de la card'),
                                         TextInput::make('productos')
                                             ->label('SKUs de productos (separados por coma)')

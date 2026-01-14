@@ -4,7 +4,7 @@ namespace App\Filament\Resources\Sections\Schemas\SectionTypes;
 
 use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\FileUpload;
-use Filament\Forms\Components\TextArea;
+use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 
 class Cards5Type
@@ -21,7 +21,7 @@ class Cards5Type
                                         ->directory('cards')
                                         ->visibility('public')
                                         ->required(),
-                                    TextArea::make('texto')
+                                    Textarea::make('texto')
                                         ->label('Texto de la card'),
                                     TextInput::make('productos')
                                         ->label('SKUs de productos (separados por coma)')
