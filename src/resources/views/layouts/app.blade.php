@@ -352,10 +352,9 @@
     color: #111;
 }
 /* ===== MODAL ===== */
-.section-cards__modal {
-    position: fixed;
+/* .section-cards__modal {
     inset: 0;
-    z-index: 1000;
+    z-index: 5000;
     display: none;
 }
 
@@ -380,7 +379,7 @@
     padding: 1.5rem;
     overflow-y: auto;
     animation: modalFadeIn .35s ease;
-}
+} */
 
 /* CERRAR */
 .section-cards__modal-close {
@@ -987,8 +986,12 @@ carrito.forEach((p, i) => {
   }
 
   // añadir al carrito
-  document.querySelectorAll('.btn-add-to-cart').forEach(btn => {
-    btn.addEventListener('click', () => {
+  // document.querySelectorAll('.btn-add-to-cart').forEach(btn => {
+  //   btn.addEventListener('click', () => {
+  document.addEventListener('click', (event) => {
+    const btn = event.target.closest('.btn-add-to-cart');
+    if (!btn) return;
+      console.log('Añadiendo al carrito...');
       const id = btn.dataset.id;
       const nombre = btn.dataset.nombre;
       const precio = parseFloat(btn.dataset.precio);
@@ -1006,7 +1009,7 @@ carrito.forEach((p, i) => {
       const toast = new bootstrap.Toast(document.getElementById('toastCarrito'));
       toast.show();
     });
-  });
+  // });
 
   // show modal -> renderizar
   const modalCarrito = document.getElementById('modalCarrito');
@@ -1037,8 +1040,11 @@ carrito.forEach((p, i) => {
             .bindPopup("<strong>Tu Tienda</strong><br>Av. Ejemplo #123");
         const modal = new bootstrap.Modal(document.getElementById('productoModal'));
 
-        document.querySelectorAll(".open-product-modal").forEach(img => {
-            img.addEventListener("click", () => {
+        // document.querySelectorAll(".open-product-modal").forEach(img => {
+        //     img.addEventListener("click", () => {
+        document.addEventListener("click", (event) => {
+            const img = event.target.closest('.open-product-modal');
+            if (!img) return;
                 // Llenar modal
                 document.getElementById("productoModalLabel").textContent = img.dataset.marca;
                 document.getElementById("productoModalImg").src = img.dataset.img;
@@ -1053,25 +1059,25 @@ carrito.forEach((p, i) => {
                 addBtn.setAttribute("data-img", img.dataset.img);
                 modal.show();
             });
-        });
+        // });
     });
 </script>
 <script>
-function openCardModal(id) {
-    const modal = document.getElementById(id);
-    if (!modal) return;
+// function openCardModal(id) {
+//     const modal = document.getElementById(id);
+//     if (!modal) return;
 
-    modal.classList.add('active');
-    document.body.style.overflow = 'hidden';
-}
+//     modal.classList.add('active');
+//     document.body.style.overflow = 'hidden';
+// }
 
-function closeCardModal(id) {
-    const modal = document.getElementById(id);
-    if (!modal) return;
+// function closeCardModal(id) {
+//     const modal = document.getElementById(id);
+//     if (!modal) return;
 
-    modal.classList.remove('active');
-    document.body.style.overflow = '';
-}
+//     modal.classList.remove('active');
+//     document.body.style.overflow = '';
+// }
 function contactarVentas() {
     if (!Array.isArray(carrito) || carrito.length === 0) {
         alert('El carrito está vacío');
@@ -1107,6 +1113,63 @@ function contactarVentas() {
         console.error(err);
         alert('Error de conexión');
     });
+}
+
+
+
+function openCardModal(sectionId, index, titulo) {
+    const modal = document.getElementById('modalProductos_' + sectionId);
+    const grid = document.getElementById('modalProductosGrid_' + sectionId);
+    const titleEl = document.getElementById('modalTitulo_' + sectionId);
+    // console.log('Abriendo modal para sección:', sectionId, 'índice:', index, ' y titulo: ', titulo, 'titleEl:', titleEl);
+    titleEl.textContent = titulo;
+    grid.innerHTML = '';
+
+    const cardsData = window.cardsDataMap[sectionId];
+    console.log('cardsData:', cardsData);
+    const cardData = cardsData.find(c => c.index === index);
+    if (!cardData) return;
+
+    cardData.productos.forEach(producto => {
+        const html = `
+            <div class="section-cards__product">
+                <div class="card product-card h-100 rounded">
+                    <img 
+                        src="${producto.img1 ? '{{ asset("storage/") }}' + '/' + producto.img1 : '{{ asset("imagenes/toolsplaceholder.png") }}'}"
+                        class="card-img-top open-product-modal"
+                        alt="Producto"
+                        style="object-fit:cover; cursor:pointer;"
+                        data-id="${producto.id}"
+                        data-marca="${producto.marca}"
+                        data-descripcion="${producto.descripcion}"
+                        data-precio="${producto.precioventa}"
+                        data-img="${producto.img1 ? '{{ asset("storage/") }}' + '/' + producto.img1 : '{{ asset("imagenes/toolsplaceholder.png") }}'}"
+                    >
+                    <div class="card-body d-flex flex-column p-2">
+                        <h6 class="card-title mb-1">${producto.marca}</h6>
+                        <p class="card-text text-truncate mb-2 small">${producto.descripcion}</p>
+                        <div class="mt-auto d-flex justify-content-between align-items-center">
+                            <span class="fw-bold text-secondary small">Bs.${producto.precioventa}</span>
+                            <span>
+                                <a href="https://wa.me/{{ $whatsappPhone }}?text=Consulta%20por%20producto:%20${encodeURIComponent(producto.idprod)}" target="_blank" class="btn btn-sm btn-outline-success add-cart">
+                                    <i class="bi bi-whatsapp"></i>
+                                </a>
+                                <button class="btn btn-success btn-sm add-cart btn-add-to-cart" data-id="${producto.id}" data-nombre="${producto.descripcion}" data-precio="${producto.precioventa}" data-img="${producto.img1 ? '{{ asset("storage/") }}' + '/' + producto.img1 : '{{ asset("imagenes/toolsplaceholder.png") }}'}">Añadirx</button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `;
+        grid.insertAdjacentHTML('beforeend', html);
+    });
+
+    modal.classList.add('active');
+}
+
+function closeCardModal(sectionId) {
+    const modal = document.getElementById('modalProductos_' + sectionId);
+    modal.classList.remove('active');
 }
 </script>
 

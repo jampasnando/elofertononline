@@ -51,19 +51,19 @@ class MarketController extends Controller
                 // Consultar inventario
                 if($conimagenes){
                     if(count($categorias)>0){
-                        $productos = Inventario::whereIn('marca', $marcas)->whereNot('img1',NULL)->whereIn('categoria',$categorias)->paginate(12);
+                        $productos = Inventario::whereIn('marca', $marcas)->whereNot('img1',NULL)->whereIn('categoria',$categorias)->paginate(10);
                     }
                     else{
-                        $productos = Inventario::whereIn('marca', $marcas)->whereNot('img1',NULL)->paginate(12);
+                        $productos = Inventario::whereIn('marca', $marcas)->whereNot('img1',NULL)->paginate(10);
                     }
                 }
                 else{
                     if(count($categorias)>0){
 
-                        $productos = Inventario::whereIn('marca', $marcas)->whereIn('categoria',$categorias)->paginate(12);
+                        $productos = Inventario::whereIn('marca', $marcas)->whereIn('categoria',$categorias)->paginate(10);
                     }
                     else{
-                        $productos = Inventario::whereIn('marca', $marcas)->paginate(12);
+                        $productos = Inventario::whereIn('marca', $marcas)->paginate(10);
                     }
                 }
                 $section->data = $productos;
