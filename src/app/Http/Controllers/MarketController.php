@@ -81,6 +81,7 @@ class MarketController extends Controller
             $buscar = $request->input('buscar');
             // Realiza la búsqueda en el modelo Inventario
             $productos = Inventario::where('descripcion', 'LIKE', "%{$buscar}%")
+                ->orWhere('idprod','LIKE', "%{$buscar}%")
                 ->orWhere('marca', 'LIKE', "%{$buscar}%")
                 ->orWhere('categoria', 'LIKE', "%{$buscar}%")->limit(50)
                 ->paginate(24)
