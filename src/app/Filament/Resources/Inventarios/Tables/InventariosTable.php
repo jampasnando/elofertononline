@@ -17,7 +17,7 @@ class InventariosTable
     {
         return $table
             ->columns([
-                
+
                 TextColumn::make('id')
                     ->label('ID')
                     ->numeric()
@@ -54,6 +54,18 @@ class InventariosTable
                     ->sortable()
                     ->visible(fn()=>auth()->user()->role == 'administrador')
                     ->label('PVenta'),
+                TextColumn::make('oferta')
+                    ->badge()
+                    ->label('Oferta')
+                    ->getStateUsing(fn ($record) =>
+                        $record?->ofertas?->isNotEmpty() ? 'EN OFERTA' : null
+                    )
+                    ->colors([
+                        'danger' => 'EN OFERTA',
+                    ])
+                    ->tooltip(function($record){
+                        return $record?->ofertas?->isNotEmpty() ? $record->ofertas->first()->precio_oferta : null;
+                    }),
                 TextColumn::make('comision')
                     ->numeric()
                     ->visible(fn () => auth()->user()->role === 'administrador')
@@ -88,8 +100,8 @@ class InventariosTable
                     DeleteBulkAction::make()
                     ->disabled(fn () => auth()->user()->role !== 'administrador'),
                 ]),
-                
+
             ]);
-            
+
     }
 }
