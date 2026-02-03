@@ -2,7 +2,7 @@
 @php
     $nrocols = 100 / count($data->parametros);
     use App\Models\Inventario;
-    $whatsappPhone = $configapp->whatsapp ?? '59179760327';
+    $whatsappPhone = $configapp->whatsapp ?? '591797603274';
     $sectionId = 'cards5_' . $data->id; // ID único por sección
 @endphp
 <div class="section-cards5 slide-up" style="--nrocols: {{$nrocols}}%;">
