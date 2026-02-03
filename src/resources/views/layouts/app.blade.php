@@ -398,7 +398,7 @@
     text-align: center;
 }
 
-/* GRID DE PRODUCTOS */
+/* GRID DE PRODUCTOS xxx*/
 /* .section-cards__products-grid {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
