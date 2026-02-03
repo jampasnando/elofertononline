@@ -16,7 +16,7 @@
   <!-- Bootstrap Icons -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Kanit:wght@300;400;600&display=swap" rel="stylesheet">
-  
+
   <link
   rel="stylesheet"
   href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
@@ -324,7 +324,7 @@
     }
 }
 .section-cards5__card {
-    transition: 
+    transition:
         transform 0.35s cubic-bezier(.4,0,.2,1),
         box-shadow 0.35s cubic-bezier(.4,0,.2,1);
     cursor: pointer;
@@ -399,12 +399,17 @@
 }
 
 /* GRID DE PRODUCTOS */
-.section-cards__products-grid {
+/* .section-cards__products-grid {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
     gap: 1rem;
+} */
+.section-cards__products-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1rem;
+    justify-content: center;
 }
-
 /* PRODUCTO */
 .section-cards__product {
     text-align: center;
@@ -561,13 +566,13 @@
 
     <!-- Centro: Buscador (siempre visible) -->
     <form class="d-flex flex-grow-1 justify-content-center order-3 order-lg-2 mx-2" action="{{route('market.index')}}" method="GET">
-        @csrf  
+        @csrf
     <input class="form-control w-100 w-lg-75" type="search" placeholder="Buscar..." aria-label="Buscar" style="border-radius: 20px;" required name="buscar" value="{{ request('buscar') }}">
     <button class="icon-btn" aria-label="Perfil" type="submit">
             <i class="bi bi-search"></i>
         </button>
     </form>
-    
+
     <!-- Derecha: Íconos (colapsable) -->
     <div class="collapse navbar-collapse justify-content-end order-lg-3 order-4" id="navbarContenido">
       <div class="d-flex align-items-center ms-auto mt-2 mt-lg-0">
@@ -610,7 +615,7 @@
         <button class="icon-btn" aria-label="Perfil">
             <i class="bi bi-person-circle"></i>
         </button>
-        
+
       </div>
     </div>
 
@@ -665,7 +670,7 @@
     $waLink = "https://wa.me/{$whatsappPhone}?text={$waTextEncoded}";
 @endphp
 
-<a 
+<a
     href="{{ $waLink }}"
     target="_blank"
     class="whatsapp-btn"
@@ -692,7 +697,7 @@
                 <p class="footer-text">
                     <i class="fa-solid fa-location-dot me-2"></i>
                     Av. Beiging<br>
-                    casi Av. Topater,<br> 
+                    casi Av. Topater,<br>
                     Cochabamba - Bolivia
                 </p>
                 <h6 class="footer-title">Atención</h6>
@@ -733,7 +738,7 @@
     </div>
 
     <div class="d-flex flex-column  justify-content-between">
-      
+
       <ul class="list-unstyled d-flex">
         <li class="ms-3">
           <a class="link-body-emphasis" href="#" aria-label="Instagram">
@@ -807,7 +812,7 @@
 <div class="modal fade" id="productoModal" tabindex="-1" aria-labelledby="productoModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered modal-lg">
     <div class="modal-content">
-      
+
       <div class="modal-header">
         <h5 class="modal-title" id="productoModalLabel"></h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
@@ -824,10 +829,10 @@
       </div>
 
       <div class="modal-footer">
-        <button type="button" class="btn btn-success add-cart btn-add-to-cart" id="productoModalAddCartBtn" 
-          {{-- data-id="{{ $producto->id }}" 
-          data-nombre="{{ $producto->descripcion }}" 
-          data-precio="{{ $producto->precioventa }}" 
+        <button type="button" class="btn btn-success add-cart btn-add-to-cart" id="productoModalAddCartBtn"
+          {{-- data-id="{{ $producto->id }}"
+          data-nombre="{{ $producto->descripcion }}"
+          data-precio="{{ $producto->precioventa }}"
           data-img="{{ $producto->img1 ? asset('storage/'.$producto->img1) : asset('imagenes/toolsplaceholder.png') }}" --}}
           >
           Añadir al carrito
@@ -851,7 +856,7 @@
     let carrito=[];
     document.addEventListener('DOMContentLoaded', function() {
     const elementos = document.querySelectorAll('.slide-up');
-    
+
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
@@ -917,7 +922,7 @@ carrito.forEach((p, i) => {
 
   html += `
       <li class="list-group-item cart-item">
-        
+
         <img src="${p.img}" class="cart-thumb" alt="${p.nombre}">
 
         <div class="cart-info">
@@ -1134,7 +1139,7 @@ function openCardModal(sectionId, index, titulo) {
         const html = `
             <div class="section-cards__product">
                 <div class="card product-card h-100 rounded">
-                    <img 
+                    <img
                         src="${producto.img1 ? '{{ asset("storage/") }}' + '/' + producto.img1 : '{{ asset("imagenes/toolsplaceholder.png") }}'}"
                         class="card-img-top open-product-modal"
                         alt="Producto"
