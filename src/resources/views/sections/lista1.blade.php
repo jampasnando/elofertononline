@@ -8,7 +8,7 @@
             {{-- Producto 1 --}}
             <div class="col-6 col-sm-4 col-md-3 col-lg-2-4">
                 <div class="card product-card h-100 rounded">
-                    <img 
+                    <img
                         src="{{$unproductolista->img1 ? asset('storage/'.$unproductolista->img1) : asset('imagenes/toolsplaceholder.png')}}"
                         class="card-img-top open-product-modal"
                         alt="unProductolista"
@@ -23,7 +23,17 @@
                         <h6 class="card-title mb-1">{{$unproductolista->marca}}</h6>
                         <p class="card-text text-truncate mb-2 small">{{$unproductolista->descripcion}}</p>
                         <div class="mt-auto d-flex justify-content-between align-items-center">
-                            <span class="fw-bold text-secondary small">Bs.{{$unproductolista->precioventa}}</span>
+                            @php
+                                $precioantes = $unproductolista->precioantes ?? $unproductolista->precioventa;
+                                $preciotachado = '';
+                                if($unproductolista->precioventa != $precioantes){
+                                    $preciotachado = '<span class="text text-decoration-line-through small" style="color:red;">Bs.' . $precioantes . '</span><br>';
+                                }
+                            @endphp
+                            <div>
+                                {!! $preciotachado !!}
+                                <span class="fw-bold text-secondary small">Bs.{{$unproductolista->precioventa}}</span>
+                            </div>
                             <span>
                                 <a href="https://wa.me/{{$whatsappPhone}}?text=Consulta%20por%20producto:%20{{ urlencode($unproductolista->idprod) }}" target="_blank" class="btn btn-sm btn-outline-success add-cart">
                                             <i class="bi bi-whatsapp"></i>
@@ -59,7 +69,7 @@
 .pagination .page-link:hover {
     transform: translateY(-2px);
     box-shadow: 0 4px 10px rgba(0,0,0,0.15);
-    
+
 }
 
 .pagination .active .page-link {

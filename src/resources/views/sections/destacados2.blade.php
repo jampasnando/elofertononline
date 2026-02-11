@@ -27,8 +27,17 @@
                                         <h6 class="card-title mb-1">{{ $unprods2x->marca }}</h6>
                                         <p class="card-text text-truncate mb-2 small">{{ $unprods2x->descripcion }}</p>
                                         <div class="mt-auto d-flex justify-content-between align-items-center">
-                                            <span
-                                                class="fw-bold text-secondary small">Bs.{{ $unprods2x->precioventa }}</span>
+                                            @php
+                                                $precioantes = $unprods2x->precioantes ?? $unprods2x->precioventa;
+                                                $preciotachado = '';
+                                                if ($unprods2x->precioventa != $precioantes) {
+                                                    $preciotachado = '<span class="text text-decoration-line-through small" style="color:red;">Bs.' . $precioantes . '</span><br>';
+                                                }
+                                            @endphp
+                                            <div>
+                                                {!! $preciotachado !!}
+                                                <span class="fw-bold text-secondary small">Bs.{{ $unprods2x->precioventa }}</span>
+                                            </div>
                                             <span>
                                                 <a href="https://wa.me/{{$whatsappPhone}}?text=Consulta%20por%20producto:%20{{ urlencode($unprods2x->idprod) }}" target="_blank" class="btn btn-sm btn-outline-success add-cart">
                                                     <i class="bi bi-whatsapp"></i>
@@ -67,14 +76,23 @@
                                         data-marca="{{ $unprods2y->marca }}"
                                         data-descripcion="{{ $unprods2y->descripcion }}"
                                         data-precio="{{ $unprods2y->precioventa }}"
-                                        data-img="{{ $unprods2y->img1 ? asset('storage/'.$unprods2y->img1) : asset('imagenes/toolsplaceholder.png') }}"    
+                                        data-img="{{ $unprods2y->img1 ? asset('storage/'.$unprods2y->img1) : asset('imagenes/toolsplaceholder.png') }}"
                                     >
                                     <div class="card-body d-flex flex-column p-2">
                                         <h6 class="card-title mb-1">{{ $unprods2y->marca }}</h6>
                                         <p class="card-text text-truncate mb-2 small">{{ $unprods2y->descripcion }}</p>
                                         <div class="mt-auto d-flex justify-content-between align-items-center">
-                                            <span
-                                                class="fw-bold text-secondary small">Bs.{{ $unprods2y->precioventa }}</span>
+                                            @php
+                                                $precioantes = $unprods2y->precioantes ?? $unprods2y->precioventa;
+                                                $preciotachado = '';
+                                                if ($unprods2y->precioventa != $precioantes) {
+                                                    $preciotachado = '<span class="text text-decoration-line-through small" style="color:red;">Bs.' . $precioantes . '</span><br>';
+                                                }
+                                            @endphp
+                                            <div>
+                                                {!! $preciotachado !!}
+                                                <span class="fw-bold text-secondary small">Bs.{{ $unprods2y->precioventa }}</span>
+                                            </div>
                                             <span>
                                                 <a href="https://wa.me/{{$whatsappPhone}}?text=Consulta%20por%20producto:%20{{ urlencode($unprods2y->idprod) }}" target="_blank" class="btn btn-sm btn-outline-success add-cart">
                                                     <i class="bi bi-whatsapp"></i>

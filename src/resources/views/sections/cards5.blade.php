@@ -10,7 +10,7 @@
         <div class="row g-3">
             @foreach($data->parametros as $i=>$card)
                 @php
-                    $productos = Inventario::whereIn('idprod', $card['productos'] ?? [])->get();
+                    // $productos = Inventario::whereIn('idprod', $card['productos'] ?? [])->get();
                 @endphp
                 <div class="col-12 col-sm-6 col-md-4 col-lg-2-custom">
                     <div class="section-cards5__card h-100" onclick="openCardModal('{{ $sectionId }}', {{ $i }}, {{ json_encode($card['texto'] ?? '') }})" style="cursor:pointer;">
@@ -50,10 +50,31 @@ if (!window.cardsDataMap) {
 }
 
 window.cardsDataMap['{{ $sectionId }}'] = {!! json_encode(collect($data->parametros)->map(function($card, $i) {
+    $productos = Inventario::with('ofertaActiva')
+            ->whereIn('idprod', $card['productos'] ?? [])
+            ->get()
+            ->map(function ($producto) {
+                $producto->precioantes = $producto->precioventa;
+                // Log::info('Producto original: ' . json_encode($producto)); // Log the product data with precioantes
+                $precioFinal = $producto->ofertaActiva
+                    ? $producto->ofertaActiva->precio_oferta
+                    : $producto->precioventa;
+                $producto->precioventa = $precioFinal;
+                // return [
+                //     'id' => $producto->idprod,
+                //     'nombre' => $producto->nombre,
+                //     'precio' => $precioFinal,
+                //     'precio_normal' => $producto->precioventa,
+                //     'en_oferta' => (bool) $producto->ofertaActiva,
+                //     'imagen' => $producto->imagen ?? null,
+                // ];
+                return $producto;
+            });
     return [
         'index' => $i,
         'texto' => $card['texto'] ?? 'Productos',
-        'productos' => Inventario::whereIn('idprod', $card['productos'] ?? [])->get()
+        // 'productos' => Inventario::whereIn('idprod', $card['productos'] ?? [])->get()
+        'productos' => $productos
     ];
 })) !!};
 

@@ -22,10 +22,28 @@ class MarketController extends Controller
         // Si necesitas enriquecer algunos tipos de secciones
         $sections->transform(function ($section) {
             if ($section->tipo === 'destacados2') {
-                $section->data = Inventario::whereIn('id', $section->parametros)->get();
+                $section->data = Inventario::whereIn('id', $section->parametros)
+                ->get()
+                ->transform(function ($producto) {
+                    $producto->precioantes = $producto->precioventa;
+                    $precioFinal = $producto->ofertaActiva
+                        ? $producto->ofertaActiva->precio_oferta
+                        : $producto->precioventa;
+                    $producto->precioventa = $precioFinal;
+                    return $producto;
+                });
             }
             if ($section->tipo === 'destacados1') {
-                $section->data = Inventario::whereIn('id', $section->parametros['imagenes'])->get();
+                $section->data = Inventario::whereIn('id', $section->parametros['imagenes'])
+                ->get()
+                ->transform(function ($producto) {
+                    $producto->precioantes = $producto->precioventa;
+                    $precioFinal = $producto->ofertaActiva
+                        ? $producto->ofertaActiva->precio_oferta
+                        : $producto->precioventa;
+                    $producto->precioventa = $precioFinal;
+                    return $producto;
+                });
                 // dd($section);
             }
             if ($section->tipo === 'marcas') {
@@ -52,18 +70,51 @@ class MarketController extends Controller
                 if($conimagenes){
                     if(count($categorias)>0){
                         $productos = Inventario::whereIn('marca', $marcas)->whereNot('img1',NULL)->whereIn('categoria',$categorias)->paginate(10);
+                        $productos->getCollection()->transform(function ($producto) {
+                            $producto->precioantes = $producto->precioventa;
+                            $precioFinal = $producto->ofertaActiva
+                                ? $producto->ofertaActiva->precio_oferta
+                                : $producto->precioventa;
+                            $producto->precioventa = $precioFinal;
+                            return $producto;
+                        });
                     }
                     else{
                         $productos = Inventario::whereIn('marca', $marcas)->whereNot('img1',NULL)->paginate(10);
+                        $productos->getCollection()->transform(function ($producto) {
+                            $producto->precioantes = $producto->precioventa;
+                            $precioFinal = $producto->ofertaActiva
+                                ? $producto->ofertaActiva->precio_oferta
+                                : $producto->precioventa;
+                            $producto->precioventa = $precioFinal;
+                            return $producto;
+                        });
                     }
                 }
                 else{
                     if(count($categorias)>0){
 
                         $productos = Inventario::whereIn('marca', $marcas)->whereIn('categoria',$categorias)->paginate(10);
+                        $productos->getCollection()->transform(function ($producto) {
+                            $producto->precioantes = $producto->precioventa;
+                            $precioFinal = $producto->ofertaActiva
+                                ? $producto->ofertaActiva->precio_oferta
+                                : $producto->precioventa;
+                            $producto->precioventa = $precioFinal;
+                            return $producto;
+                        });
+
                     }
                     else{
                         $productos = Inventario::whereIn('marca', $marcas)->paginate(10);
+                        $productos->getCollection()->transform(function ($producto) {
+                            $producto->precioantes = $producto->precioventa;
+                            $precioFinal = $producto->ofertaActiva
+                                ? $producto->ofertaActiva->precio_oferta
+                                : $producto->precioventa;
+                            $producto->precioventa = $precioFinal;
+                            return $producto;
+                        });
                     }
                 }
                 $section->data = $productos;
@@ -103,7 +154,7 @@ class MarketController extends Controller
             // Inserta en índice 1 (segundo elemento). Usa 0 si quieres que sea el primero.
             $sections->splice(1, 0, [$searchSection]);
         }
-        
+
 
         return view('market.index', compact('sections', 'configapp'));
     }
@@ -169,6 +220,6 @@ class MarketController extends Controller
         $configapp = Configapp::first();
         $productos=[];
         return view('market.resultadobusqueda', compact('productos','buscados','carruseles', 'logos', 'buscar', 'configapp'));
-    }   
-    
+    }
+
 }

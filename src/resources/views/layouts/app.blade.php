@@ -1131,11 +1131,16 @@ function openCardModal(sectionId, index, titulo) {
     grid.innerHTML = '';
 
     const cardsData = window.cardsDataMap[sectionId];
-    console.log('cardsData:', cardsData);
+    console.log('cardsDatax:', cardsData);
     const cardData = cardsData.find(c => c.index === index);
     if (!cardData) return;
 
     cardData.productos.forEach(producto => {
+        console.log('Producto:', producto);
+        let preciotachado = '';
+        if(producto.precioventa != producto.precioantes){
+            preciotachado = '<span class="text text-decoration-line-through small" style="color:red;">Bs.' + producto.precioantes + '</span><br>';
+        }
         const html = `
             <div class="section-cards__product">
                 <div class="card product-card h-100 rounded">
@@ -1154,7 +1159,10 @@ function openCardModal(sectionId, index, titulo) {
                         <h6 class="card-title mb-1">${producto.marca}</h6>
                         <p class="card-text text-truncate mb-2 small">${producto.descripcion}</p>
                         <div class="mt-auto d-flex justify-content-between align-items-center">
-                            <span class="fw-bold text-secondary small">Bs.${producto.precioventa}</span>
+                            <div style="text-align:left;">
+                                ${preciotachado}
+                                <span class="fw-bold text-secondary small">Bs.${producto.precioventa}</span>
+                            </div>
                             <span>
                                 <a href="https://wa.me/{{ $whatsappPhone }}?text=Consulta%20por%20producto:%20${encodeURIComponent(producto.idprod)}" target="_blank" class="btn btn-sm btn-outline-success add-cart">
                                     <i class="bi bi-whatsapp"></i>

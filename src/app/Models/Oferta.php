@@ -17,4 +17,10 @@ class Oferta extends Model
     {
         return $this->belongsTo(Inventario::class);
     }
+    public function getPrecioFinalAttribute()
+    {
+        return $this->ofertaActiva
+            ? $this->ofertaActiva->precio_oferta
+            : $this->precioventa;
+    }
 }

@@ -23,7 +23,7 @@
                 @endphp
                 <div class="col-12 col-sm-6 col-md-4 col-lg-2-custom">
                     <div class="section-cards5__card h-100" onclick="openCardModal('{{ $sectionId }}', {{ $i }}, {{ json_encode($card['texto'] ?? '') }})" style="cursor:pointer;">
-                        
+
                         <img
                             src="{{ asset('storage/' . $card['imagen']) }}"
                             class="section-cards5__img"
@@ -56,7 +56,7 @@
                             @forelse($productos as $producto)
                                 <div class="section-cards__product">
                                     <div class="card product-card h-100 rounded">
-                                        <img 
+                                        <img
                                             src="{{$producto->img1 ? asset('storage/'.$producto->img1) : asset('imagenes/toolsplaceholder.png')}}"
                                             class="card-img-top open-product-modal"
                                             alt="Producto"
@@ -111,10 +111,31 @@
 }
 
 window.cardsDataMap['{{ $sectionId }}'] = {!! json_encode(collect($data->parametros['cards'])->map(function($card, $i) {
+    $productos = Inventario::with('ofertaActiva')
+            ->whereIn('idprod', $card['productos'] ?? [])
+            ->get()
+            ->map(function ($producto) {
+                $producto->precioantes = $producto->precioventa;
+                // Log::info('Producto original: ' . json_encode($producto)); // Log the product data with precioantes
+                $precioFinal = $producto->ofertaActiva
+                    ? $producto->ofertaActiva->precio_oferta
+                    : $producto->precioventa;
+                $producto->precioventa = $precioFinal;
+                // return [
+                //     'id' => $producto->idprod,
+                //     'nombre' => $producto->nombre,
+                //     'precio' => $precioFinal,
+                //     'precio_normal' => $producto->precioventa,
+                //     'en_oferta' => (bool) $producto->ofertaActiva,
+                //     'imagen' => $producto->imagen ?? null,
+                // ];
+                return $producto;
+            });
     return [
         'index' => $i,
         'texto' => $card['texto'] ?? 'Productos',
-        'productos' => Inventario::whereIn('idprod', $card['productos'] ?? [])->get()
+        // 'productos' => Inventario::whereIn('idprod', $card['productos'] ?? [])->get()
+        'productos' => $productos
     ];
 })) !!};
 document.addEventListener('hidden.bs.modal', function (event) {

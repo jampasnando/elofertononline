@@ -18,7 +18,7 @@
                 {{-- Producto 1 --}}
                     <div class="col">
                         <div class="card product-card h-100 rounded">
-                            <img 
+                            <img
                                 src="{{$producto->img1 ? asset('storage/'.$producto->img1) : asset('imagenes/toolsplaceholder.png')}}"
                                 class="card-img-top open-product-modal"
                                 alt="Producto"
@@ -33,7 +33,17 @@
                                 <h6 class="card-title mb-1">{{$producto->marca}}</h6>
                                 <p class="card-text text-truncate mb-2 small">{{$producto->descripcion}}</p>
                                 <div class="mt-auto d-flex justify-content-between align-items-center">
-                                    <span class="fw-bold text-secondary small">Bs.{{$producto->precioventa}}</span>
+                                    @php
+                                        $precioantes = $producto->precioantes ?? $producto->precioventa;
+                                        $preciotachado = '';
+                                        if($producto->precioventa != $precioantes){
+                                            $preciotachado = '<span class="text text-decoration-line-through small" style="color:red;">Bs.' . $precioantes . '</span><br>';
+                                        }
+                                    @endphp
+                                    <div>
+                                        {!! $preciotachado !!}
+                                        <span class="fw-bold text-secondary small">Bs.{{$producto->precioventa}}</span>
+                                    </div>
                                     <span>
                                          <a href="https://wa.me/{{$whatsappPhone}}?text=Consulta%20por%20producto:%20{{ urlencode($producto->idprod) }}" target="_blank" class="btn btn-sm btn-outline-success add-cart">
                                             <i class="bi bi-whatsapp"></i>
@@ -54,7 +64,7 @@
 <div class="modal fade" id="productoModal" tabindex="-1" aria-labelledby="productoModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered modal-lg">
     <div class="modal-content">
-      
+
       <div class="modal-header">
         <h5 class="modal-title" id="productoModalLabel"></h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
