@@ -9,6 +9,8 @@ use App\Http\Controllers\CarritoController;
 Route::get('/', [App\Http\Controllers\MarketController::class, 'index'])->name('market.index');
 Route::get('market', [App\Http\Controllers\MarketController::class, 'index'])->name('market.index');
 Route::get('buscar', [App\Http\Controllers\MarketController::class, 'buscar'])->name('market.buscar');
+Route::get('vistaprevia', [App\Http\Controllers\MarketController::class, 'vistaprevia'])->name('market.vistaprevia');
+
 // Route::post('buscar',function(){
 //     echo "hola";
 // });

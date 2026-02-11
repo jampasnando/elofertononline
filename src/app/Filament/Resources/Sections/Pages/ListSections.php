@@ -29,6 +29,9 @@ class ListSections extends ListRecords
             'Inactivos' => Tab::make()
                 ->modifyQueryUsing(fn (Builder $query) => $query->where('estado', 'inactivo'))
                 ->badge(Section::query()->where('estado', 'inactivo')->count()),
+            'Borradores' => Tab::make()
+                ->modifyQueryUsing(fn (Builder $query) => $query->where('estado', 'borrador'))
+                ->badge(Section::query()->where('estado', 'borrador')->count()),
         ];
     }
 }

@@ -15,9 +15,9 @@ use App\Models\Configapp;
 
 class MarketController extends Controller
 {
-    public function obtenerSections()
+    public function obtenerSections($estado = 'activo')
     {
-        $sections = Section::where('estado','activo')->orderBy('orden')->get();
+        $sections = Section::where('estado',$estado)->orderBy('orden')->get();
 
         // Si necesitas enriquecer algunos tipos de secciones
         $sections->transform(function ($section) {
@@ -158,7 +158,30 @@ class MarketController extends Controller
 
         return view('market.index', compact('sections', 'configapp'));
     }
+public function vistaprevia(Request $request)
+    {
+        $sections = $this->obtenerSections('borrador');
+        $configapp = Configapp::first();
 
+        if($request->has('buscar')){
+            $buscar = $request->input('buscar');
+            // Realiza la búsqueda en el modelo Inventario
+            $productos = Inventario::where('descripcion', 'LIKE', "%{$buscar}%")
+                ->orWhere('idprod','LIKE', "%{$buscar}%")
+                ->orWhere('marca', 'LIKE', "%{$buscar}%")
+                ->orWhere('categoria', 'LIKE', "%{$buscar}%")->limit(50)
+                ->paginate(24)
+                ->appends(['buscar' => $buscar]);
+            $searchSection = (object)[
+                'tipo' => 'busqueda',
+                'titulo' => "Resultados para: {$buscar}",
+                'parametros' => [],
+                'data' => $productos,
+            ];
+            $sections->splice(1, 0, [$searchSection]);
+        }
+        return view('vistaprevia.index', compact('sections', 'configapp'));
+    }
     public function create()
     {
         //

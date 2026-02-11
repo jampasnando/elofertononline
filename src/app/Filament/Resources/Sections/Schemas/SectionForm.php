@@ -54,11 +54,12 @@ class SectionForm
                             ->required()
                             ->columnSpan(2),
                         TextInput::make('descripcion')
-                            ->columnSpan(4),
+                            ->columnSpan(3),
                         Select::make('estado')
                             ->options([
                                 'activo' => 'Activo',
                                 'inactivo' => 'Inactivo',
+                                'borrador'=>'Borrador',
                             ])
                             ->default('activo')
                             ->native(false)
@@ -68,7 +69,7 @@ class SectionForm
                             ->required()
                             ->default(0),
                     ])
-                    ->columns(8)
+                    ->columns(7)
                     ->columnSpanFull(),
 
                 Section::make('')
