@@ -57,14 +57,42 @@ class InventariosTable
                 TextColumn::make('oferta')
                     ->badge()
                     ->label('Oferta')
-                    ->getStateUsing(fn ($record) =>
-                        $record?->ofertas?->isNotEmpty() ? 'EN OFERTA' : null
-                    )
+                    ->getStateUsing(function ($record){
+                        $ofertas = $record?->ofertas;
+                        if (!$ofertas?->isNotEmpty()) {
+                            return null;
+                        }
+
+                        $now = now();
+                        foreach ($ofertas as $oferta) {
+                            if (
+                                $oferta->estado === 'activo' ||
+                                $now->isBetween($oferta->fecha_inicio, $oferta->fecha_fin)
+                            ) {
+                                return 'EN OFERTA';
+                            }
+                        }
+                        return null;
+                    })
                     ->colors([
                         'danger' => 'EN OFERTA',
                     ])
                     ->tooltip(function($record){
-                        return $record?->ofertas?->isNotEmpty() ? $record->ofertas->first()->precio_oferta : null;
+                        $ofertas = $record?->ofertas;
+                        if (!$ofertas?->isNotEmpty()) {
+                            return null;
+                        }
+
+                        $now = now();
+                        foreach ($ofertas as $oferta) {
+                            if (
+                                $oferta->estado === 'activo' ||
+                                $now->isBetween($oferta->fecha_inicio, $oferta->fecha_fin)
+                            ) {
+                                return $oferta->precio_oferta;
+                            }
+                        }
+                        return null;
                     }),
                 TextColumn::make('comision')
                     ->numeric()

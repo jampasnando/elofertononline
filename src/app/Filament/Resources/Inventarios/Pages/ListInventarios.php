@@ -2,9 +2,13 @@
 
 namespace App\Filament\Resources\Inventarios\Pages;
 
-use App\Filament\Resources\Inventarios\InventarioResource;
+use App\Models\Inventario;
 use Filament\Actions\CreateAction;
 use Filament\Resources\Pages\ListRecords;
+use Filament\Schemas\Components\Tabs\Tab;
+use Illuminate\Database\Eloquent\Builder;
+use App\Filament\Resources\Inventarios\InventarioResource;
+
 
 class ListInventarios extends ListRecords
 {
@@ -16,4 +20,16 @@ class ListInventarios extends ListRecords
             CreateAction::make(),
         ];
     }
+    // public function getTabs(): array
+    // {
+    //     return [
+
+    //         'Todo' => Tab::make()
+    //             ->modifyQueryUsing(fn (Builder $query) => $query->where('estado', 'activo'))
+    //             ->badge(Inventario::query()->where('estado', 'activo')->count()),
+    //         'Inactivos' => Tab::make()
+    //             ->modifyQueryUsing(fn (Builder $query) => $query->where('estado', 'inactivo'))
+    //             ->badge(Inventario::query()->where('estado', 'inactivo')->count())
+    //     ];
+    // }
 }
