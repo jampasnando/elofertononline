@@ -8,6 +8,7 @@ use Filament\Schemas\Components\Tabs\Tab;
 use Illuminate\Database\Eloquent\Builder;
 use App\Filament\Resources\Sections\SectionResource;
 use App\Models\Section;
+use Filament\Actions\Action;
 
 class ListSections extends ListRecords
 {
@@ -17,6 +18,12 @@ class ListSections extends ListRecords
     {
         return [
             CreateAction::make(),
+            Action::make('view_drafts')
+                ->label('Vista previa')
+                ->button()
+                ->url(route('market.vistaprevia'))
+                ->openUrlInNewTab()
+                ->color('info'),
         ];
     }
     public function getTabs(): array
