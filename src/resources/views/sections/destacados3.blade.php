@@ -99,7 +99,7 @@
 <div class="section-cards__modal" id="modalProductos_{{ $sectionId }}">
     <div class="section-cards__modal-backdrop" onclick="closeCardModal('{{ $sectionId }}')"></div>
     <div class="section-cards__modal-content">
-        <button class="section-cards__modal-close" onclick="closeCardModal('{{ $sectionId }}')">×</button>
+        <button class="section-cards__modal-close" style="top: -7px; right: 0; font-weight: bold;" onclick="closeCardModal('{{ $sectionId }}')">×</button>
         <h3 class="section-cards__modal-title" id="modalTitulo_{{ $sectionId }}"></h3>
         <div class="section-cards__products-grid" id="modalProductosGrid_{{ $sectionId }}"></div>
     </div>
