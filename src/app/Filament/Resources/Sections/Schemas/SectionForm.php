@@ -61,7 +61,7 @@ class SectionForm
                                 'inactivo' => 'Inactivo',
                                 'borrador'=>'Borrador',
                             ])
-                            ->default('activo')
+                            ->default('borrador')
                             ->native(false)
                             ->required(),
                         TextInput::make('orden')
