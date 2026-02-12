@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\Carritos\Schemas;
 
+use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Textarea;
 use Filament\Schemas\Schema;
@@ -13,7 +14,15 @@ class CarritoForm
         return $schema
             ->components([
                 TextInput::make('productos'),
-                TextInput::make('estado'),
+                Select::make('estado')
+                ->options([
+                    'pendiente' => 'Pendiente',
+                    'contactado' => 'Contactado',
+                    'confirmado' => 'Confirmado',
+                    'cancelado' => 'Cancelado',
+                ])
+                ->default('pendiente')
+                ->required(),
                 Textarea::make('comentario')
                     ->columnSpanFull(),
             ]);

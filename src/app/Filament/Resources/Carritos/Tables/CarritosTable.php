@@ -35,14 +35,15 @@ class CarritosTable
                     ->color('success'),
                 TextColumn::make('comentario')
                     ->limit(50)
-                    ->toggleable(isToggledHiddenByDefault: true),
+                    ->wrap()
+                    // ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
                 //
             ])
             ->recordActions([
                 ViewAction::make(),
-                EditAction::make(),
+                // EditAction::make(),
             ])
             ->toolbarActions([
                 BulkActionGroup::make([

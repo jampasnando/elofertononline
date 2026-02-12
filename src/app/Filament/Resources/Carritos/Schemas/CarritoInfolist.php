@@ -2,15 +2,30 @@
 
 namespace App\Filament\Resources\Carritos\Schemas;
 
-use Filament\Infolists\Components\ImageEntry;
-use Filament\Infolists\Components\RepeatableEntry;
-use Filament\Infolists\Components\TextEntry;
+use App\Models\Inventario;
 use Filament\Schemas\Schema;
 use Filament\Schemas\Components\Section;
+use Filament\Infolists\Components\TextEntry;
+use Filament\Infolists\Components\ImageEntry;
+use Filament\Infolists\Components\RepeatableEntry;
+use Illuminate\Support\Facades\Log;
+
 class CarritoInfolist
 {
-    public static function configure(Schema $schema): Schema
+    public static function configure(Schema $schema, $record = null): Schema
     {
+        $inventarios = collect(); // 👈 SIEMPRE inicializa
+
+        if ($record && $record->productos) {
+
+            $productosIds = collect($record->productos)
+                ->pluck('id')
+                ->filter()
+                ->toArray();
+
+            $inventarios = Inventario::whereIn('id', $productosIds)
+                ->pluck('stock', 'id');
+        }
         return $schema
             ->schema([
                 TextEntry::make('created_at')
@@ -34,15 +49,39 @@ class CarritoInfolist
                     ->label('Productos')
                     ->schema([
                         ImageEntry::make('img')
-                            ->height(60)
+                            ->imageHeight(60)
                             ->circular(),
 
                         TextEntry::make('nombre')
                             ->weight('bold')
+                            ->color(function ($state, $item) use ($inventarios) {
+
+                                $stock = $inventarios[$item['id'] ?? null] ?? 0;
+
+                                return $stock < $state ? 'danger' : null;
+                            })
+                            ->tooltip(function ($state, $item) use ($inventarios) {
+
+                                $stock = $inventarios[$item['id'] ?? null] ?? 0;
+
+                                return "Stock actual: {$stock}";
+                            })
                             ->columnSpan(2),
 
                         TextEntry::make('cantidad')
-                            ->label('Cant.'),
+                            ->label('Cant.')
+                            ->color(function ($state, $item) use ($inventarios) {
+
+                                $stock = $inventarios[$item['id'] ?? null] ?? 0;
+
+                                return $stock < $state ? 'danger' : null;
+                            })
+                            ->tooltip(function ($state, $item) use ($inventarios) {
+
+                                $stock = $inventarios[$item['id'] ?? null] ?? 0;
+
+                                return "Stock actual: {$stock}";
+                            }),
 
                         TextEntry::make('precio')
                             ->label('Precio')
@@ -50,7 +89,7 @@ class CarritoInfolist
                     ])
                     ->columns(5),
 
-                
+
                 TextEntry::make('resumen_productos')
                     ->label('Resumen')
                     ->weight('extrabold')
