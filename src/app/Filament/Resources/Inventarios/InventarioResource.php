@@ -2,19 +2,20 @@
 
 namespace App\Filament\Resources\Inventarios;
 
-use App\Filament\Resources\Inventarios\Pages\CreateInventario;
-use App\Filament\Resources\Inventarios\Pages\EditInventario;
-use App\Filament\Resources\Inventarios\Pages\ListInventarios;
-use App\Filament\Resources\Inventarios\Pages\ViewInventario;
-use App\Filament\Resources\Inventarios\Schemas\InventarioForm;
-use App\Filament\Resources\Inventarios\Schemas\InventarioInfolist;
-use App\Filament\Resources\Inventarios\Tables\InventariosTable;
-use App\Models\Inventario;
 use BackedEnum;
-use Filament\Resources\Resource;
-use Filament\Schemas\Schema;
-use Filament\Support\Icons\Heroicon;
+use ProductosEnOferta;
+use App\Models\Inventario;
 use Filament\Tables\Table;
+use Filament\Schemas\Schema;
+use Filament\Resources\Resource;
+use Filament\Support\Icons\Heroicon;
+use App\Filament\Resources\Inventarios\Pages\EditInventario;
+use App\Filament\Resources\Inventarios\Pages\ViewInventario;
+use App\Filament\Resources\Inventarios\Pages\ListInventarios;
+use App\Filament\Resources\Inventarios\Pages\CreateInventario;
+use App\Filament\Resources\Inventarios\Schemas\InventarioForm;
+use App\Filament\Resources\Inventarios\Tables\InventariosTable;
+use App\Filament\Resources\Inventarios\Schemas\InventarioInfolist;
 
 class InventarioResource extends Resource
 {
@@ -64,5 +65,4 @@ class InventarioResource extends Resource
             'edit' => EditInventario::route('/{record}/edit'),
         ];
     }
-
 }

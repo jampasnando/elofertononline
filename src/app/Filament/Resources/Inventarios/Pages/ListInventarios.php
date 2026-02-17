@@ -4,6 +4,7 @@ namespace App\Filament\Resources\Inventarios\Pages;
 
 use App\Models\Inventario;
 use Filament\Actions\CreateAction;
+use App\Livewire\ProductosEnOferta;
 use Filament\Resources\Pages\ListRecords;
 use Filament\Schemas\Components\Tabs\Tab;
 use Illuminate\Database\Eloquent\Builder;
@@ -32,4 +33,10 @@ class ListInventarios extends ListRecords
     //             ->badge(Inventario::query()->where('estado', 'inactivo')->count())
     //     ];
     // }
+    protected function getHeaderWidgets(): array
+    {
+        return [
+            ProductosEnOferta::class,
+        ];
+    }
 }

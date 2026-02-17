@@ -24,8 +24,8 @@ class InventariosTable
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('idprod')
-                    ->searchable()
-                    ->toggleable(isToggledHiddenByDefault: true),
+                    ->searchable(),
+                    // ->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('descripcion')
                     ->label('Descripción')
                     ->limit(30)
@@ -111,10 +111,12 @@ class InventariosTable
                     ->tooltip(fn ($record) => $record->img1),
                 TextColumn::make('img2')
                     ->limit(10)
-                    ->tooltip(fn ($record) => $record->img2),
+                    ->tooltip(fn ($record) => $record->img2)
+                    ->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('img3')
                     ->limit(10)
-                    ->tooltip(fn ($record) => $record->img3),
+                    ->tooltip(fn ($record) => $record->img3)
+                    ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
                 //
