@@ -2,13 +2,15 @@
 
 namespace App\Filament\Resources\Inventarios\Tables;
 
-use Filament\Actions\BulkActionGroup;
-use Filament\Actions\DeleteBulkAction;
+use Filament\Tables\Table;
 use Filament\Actions\EditAction;
 use Filament\Actions\ViewAction;
 use Filament\Actions\CreateAction;
+use Filament\Tables\Filters\Filter;
+use Filament\Actions\BulkActionGroup;
+use Filament\Actions\DeleteBulkAction;
+use Illuminate\Database\Eloquent\Builder;
 use Filament\Tables\Columns\TextColumn;
-use Filament\Tables\Table;
 use Filament\Tables\Columns\ImageColumn;
 
 class InventariosTable
@@ -119,7 +121,9 @@ class InventariosTable
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
-                //
+                Filter::make('sin_stock')
+                ->label('Sin stock')
+                ->query(fn (Builder $query) => $query->where('cantidad', 0)),
             ])
             ->recordActions([
                 ViewAction::make(),
