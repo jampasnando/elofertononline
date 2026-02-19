@@ -19,7 +19,7 @@ class ListSections extends ListRecords
         return [
             CreateAction::make(),
             Action::make('view_drafts')
-                ->label('Vista previa')
+                ->label('Vista borrador')
                 ->button()
                 ->url(route('market.vistaprevia'))
                 ->openUrlInNewTab()
