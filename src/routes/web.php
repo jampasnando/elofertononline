@@ -15,3 +15,8 @@ Route::get('vistaprevia', [App\Http\Controllers\MarketController::class, 'vistap
 //     echo "hola";
 // });
 Route::post('registrarcarrito', [CarritoController::class, 'registrarCarrito'])->name('registrarcarrito');
+
+Route::resource("compras","App\Http\Controllers\CompraController");
+Route::get("detalleunacompra","App\Http\Controllers\CompraController@detalleunacompra")->name("compras.detalleunacompra");
+Route::get("datatablecompras","App\Http\Controllers\DatatableController@compras")->name("datatablecontrcompras");
+
