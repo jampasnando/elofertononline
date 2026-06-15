@@ -630,12 +630,17 @@
                     Categorías
                 </button>
                 <ul class="dropdown-menu shadow-sm">
+                    @foreach($categorias as $categoria)
+                        <li><a class="dropdown-item" href="{{ route('market.index', ['categoria' => $categoria]) }}">{{ $categoria }}</a></li>
+                    @endforeach
+                </ul>
+                {{-- <ul class="dropdown-menu shadow-sm">
                     <li><a class="dropdown-item" href="#">Herramientas</a></li>
                     <li><a class="dropdown-item" href="#">Jardinería</a></li>
                     <li><a class="dropdown-item" href="#">Cerrajería</a></li>
                     <li><a class="dropdown-item" href="#">Carpintería</a></li>
                     <li><a class="dropdown-item" href="#">Otros</a></li>
-                </ul>
+                </ul> --}}
             </div>
 
             <!-- Opciones de texto -->

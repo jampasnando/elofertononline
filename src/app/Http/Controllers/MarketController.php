@@ -137,26 +137,31 @@ class MarketController extends Controller
                 ->orWhere('categoria', 'LIKE', "%{$buscar}%")->limit(50)
                 ->paginate(24)
                 ->appends(['buscar' => $buscar]);
-            // Crear una sección temporal con los resultados y colocarla en la posición 1
-            // $searchSection = Section::make([
-            //     'tipo' => 'busqueda',
-            //     'titulo' => "Resultados para: {$buscar}",
-            //     'parametros' => [],
-            //     'data' => $productos,
-            // ]);
             $searchSection = (object)[
                 'tipo' => 'busqueda',
                 'titulo' => "Resultados para: {$buscar}",
                 'parametros' => [],
                 'data' => $productos,
             ];
-            // dd($searchSection);
-            // Inserta en índice 1 (segundo elemento). Usa 0 si quieres que sea el primero.
             $sections->splice(1, 0, [$searchSection]);
         }
+        if($request->has('categoria')){
+            $categoria = $request->input('categoria');
+            // Realiza la búsqueda en el modelo Inventario
+            $productos = Inventario::where('categoria', $categoria)->limit(50)
+                ->paginate(24)
+                ->appends(['categoria' => $categoria]);
+            $searchSection = (object)[
+                'tipo' => 'busqueda',
+                'titulo' => "Resultados para categoría: {$categoria}",
+                'parametros' => [],
+                'data' => $productos,
+            ];
+            $sections->splice(1, 0, [$searchSection]);
+        }
+        $categorias = Inventario::select('categoria')->distinct()->orderBy('categoria')->pluck('categoria');
 
-
-        return view('market.index', compact('sections', 'configapp'));
+        return view('market.index', compact('sections', 'configapp', 'categorias'));
     }
 public function vistaprevia(Request $request)
     {
