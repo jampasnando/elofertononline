@@ -525,7 +525,48 @@
 .cart-item {
     animation: cartFade .25s ease;
 }
+.categorias-marquee {
+    width: 60%;
+    overflow: hidden;
+    white-space: nowrap;
+    position: relative;
+}
 
+.categorias-track {
+    display: flex;
+    width: max-content;
+    animation: scrollCategorias 200s linear infinite;
+}
+
+.categoria-item {
+    flex: 0 0 20%; /* 5 elementos visibles */
+    min-width: 200px;
+    text-align: center;
+    padding: 0.5rem 1rem;
+}
+.categorias-track a {
+    text-decoration: none;
+    color: #333;
+    font-weight: 500;
+    transition: color 0.3s ease;
+    border:1px solid lightgray;
+    padding: 5px 7px;
+    margin: 0 10px;
+    font-size: 0.8em;
+    border-radius: 10px;
+}
+.categorias-track:hover {
+    animation-play-state: paused;
+}
+
+@keyframes scrollCategorias {
+    from {
+        transform: translateX(0);
+    }
+    to {
+        transform: translateX(-50%);
+    }
+}
 @keyframes cartFade {
     from { opacity: 0; transform: translateY(8px); }
     to   { opacity: 1; transform: translateY(0); }
@@ -644,13 +685,30 @@
             </div>
 
             <!-- Opciones de texto -->
-            <div class="d-none d-lg-flex gap-5">
+            {{-- <div class="d-none d-lg-flex gap-5">
             <a href="#" class="text-decoration-none text-dark small">Hogar</a>
             <a href="#" class="text-decoration-none text-dark small">Jardinería</a>
             <a href="#" class="text-decoration-none text-dark small">Herramientas</a>
             <a href="#" class="text-decoration-none text-dark small">Cerrajería</a>
             <a href="#" class="text-decoration-none text-dark small">Carpintería</a>
             <a href="#" class="text-decoration-none text-dark small">Otros</a>
+            </div> --}}
+            <div class="categorias-marquee">
+                <div class="categorias-track">
+                    {{-- Primera copia --}}
+                    @foreach($categorias as $categoria)
+                        <a href="{{ route('market.index', ['categoria' => $categoria->id,'nombrecategoria' => $categoria->nombre]) }}">
+                            {{ $categoria->nombre }}
+                        </a>&nbsp;|&nbsp;
+                    @endforeach
+
+                    {{-- Segunda copia para efecto infinito --}}
+                    @foreach($categorias as $categoria)
+                        <a href="{{ route('market.index', ['categoria' => $categoria->id,'nombrecategoria' => $categoria->nombre]) }}">
+                            {{ $categoria->nombre }}
+                        </a> &nbsp;|&nbsp;
+                    @endforeach
+                </div>
             </div>
             <div class="d-block d-lg-none">
               <button class="icon-btn position-relative" aria-label="Carrito" data-bs-toggle="modal" data-bs-target="#modalCarrito">
