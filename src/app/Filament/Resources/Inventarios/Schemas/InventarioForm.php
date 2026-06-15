@@ -5,6 +5,7 @@ namespace App\Filament\Resources\Inventarios\Schemas;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\FileUpload;
+use Filament\Forms\Components\Select;
 use Filament\Schemas\Schema;
 
 class InventarioForm
@@ -33,9 +34,10 @@ class InventarioForm
                     ->numeric()
                     ->default(0)
                     ->visible(fn()=>auth()->user()->role == 'administrador'),
-                TextInput::make('categoria')
+                Select::make('categoria')
                     ->disabled(fn () => auth()->user()->role !== 'administrador')
-                    ->visible(fn()=>auth()->user()->role == 'administrador'),
+                    ->visible(fn()=>auth()->user()->role == 'administrador')
+                    ->relationship('categoria', 'nombre'),
                 TextInput::make('unidad')
                     ->disabled(fn () => auth()->user()->role !== 'administrador')
                     ->visible(fn()=>auth()->user()->role == 'administrador'),
