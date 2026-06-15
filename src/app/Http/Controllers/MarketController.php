@@ -2,16 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Carrusel;
+use App\Models\Categoria;
+use App\Models\Configapp;
+use App\Models\Destacado2;
 use App\Models\Destacado;
 use App\Models\Inventario;
 use App\Models\Lista;
 use App\Models\Marca;
-use Illuminate\Support\Facades\Log;
-use App\Models\Destacado2;
 use App\Models\Section;
-use App\Models\Configapp;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class MarketController extends Controller
 {
@@ -147,20 +148,20 @@ class MarketController extends Controller
         }
         if($request->has('categoria')){
             $categoria = $request->input('categoria');
+            $nombrecategoria = $request->input('nombrecategoria');
             // Realiza la búsqueda en el modelo Inventario
             $productos = Inventario::where('categoria', $categoria)->limit(50)
                 ->paginate(24)
                 ->appends(['categoria' => $categoria]);
             $searchSection = (object)[
                 'tipo' => 'busqueda',
-                'titulo' => "Resultados para categoría: {$categoria}",
+                'titulo' => "{$nombrecategoria}",
                 'parametros' => [],
                 'data' => $productos,
             ];
             $sections->splice(1, 0, [$searchSection]);
         }
-        $categorias = Inventario::select('categoria')->distinct()->orderBy('categoria')->pluck('categoria');
-
+        $categorias = Categoria::orderBy('nombre')->get();
         return view('market.index', compact('sections', 'configapp', 'categorias'));
     }
 public function vistaprevia(Request $request)

@@ -631,7 +631,7 @@
                 </button>
                 <ul class="dropdown-menu shadow-sm">
                     @foreach($categorias as $categoria)
-                        <li><a class="dropdown-item" href="{{ route('market.index', ['categoria' => $categoria]) }}">{{ $categoria }}</a></li>
+                        <li><a class="dropdown-item" href="{{ route('market.index', ['categoria' => $categoria->id,'nombrecategoria' => $categoria->nombre]) }}">{{ $categoria->nombre }}</a></li>
                     @endforeach
                 </ul>
                 {{-- <ul class="dropdown-menu shadow-sm">
