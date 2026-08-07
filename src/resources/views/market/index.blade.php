@@ -15,27 +15,19 @@
     document.addEventListener('DOMContentLoaded', function() {
         var el = document.getElementById('seccionbusqueda');
         if (!el) return;
-        el.focus();
-            el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            return;
-        // Para navegadores sin header fijo, usa scrollIntoView
-        // var header = document.querySelector('.navbar, header');
-        // if (!header) {
-        //     el.setAttribute('tabindex','-1');
-        //     el.focus();
-        //     el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        //     return;
-        // }
 
-        // // Si hay header fijo, compensa su altura
-        // var headerOffset = header.offsetHeight || 0;
-        // var elementPosition = el.getBoundingClientRect().top + window.pageYOffset;
-        // var offsetPosition = elementPosition - headerOffset - 10; // pequeño padding
-        // window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
+        var header = document.querySelector('header, .navbar, .topbar');
+        var headerOffset = header ? header.offsetHeight : 0;
+        var elementPosition = el.getBoundingClientRect().top + window.pageYOffset;
+        var offsetPosition = elementPosition - headerOffset - 8;
 
-        // // Llevar foco para accesibilidad
-        // el.setAttribute('tabindex','-1');
-        // el.focus();
+        el.setAttribute('tabindex', '-1');
+        el.focus({ preventScroll: true });
+
+        window.scrollTo({
+            top: Math.max(offsetPosition, 0),
+            behavior: 'smooth'
+        });
     });
     </script>
 @endif
