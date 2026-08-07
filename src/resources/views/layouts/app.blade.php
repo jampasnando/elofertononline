@@ -670,7 +670,7 @@
                     <i class="bi bi-list"></i>
                     Categorías
                 </button>
-                <ul class="dropdown-menu shadow-sm">
+                <ul class="dropdown-menu shadow-sm" style="max-height: 300px; overflow-y: auto;">
                     @foreach($categorias as $categoria)
                         <li><a class="dropdown-item" href="{{ route('market.index', ['categoria' => $categoria->id,'nombrecategoria' => $categoria->nombre]) }}">{{ $categoria->nombre }}</a></li>
                     @endforeach
