@@ -526,7 +526,7 @@
     animation: cartFade .25s ease;
 }
 .categorias-marquee {
-    width: 60%;
+    width: 70%;
     overflow: hidden;
     white-space: nowrap;
     position: relative;
