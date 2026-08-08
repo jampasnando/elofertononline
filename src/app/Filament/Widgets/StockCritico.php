@@ -6,10 +6,12 @@ use App\Models\Inventario;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Filament\Widgets\TableWidget as BaseWidget;
+use Illuminate\Support\Facades\DB;
 
 class StockCritico extends BaseWidget
 {
     protected static ?string $heading = 'Stock crítico';
+    protected static ?int $sort = 5;
 
     protected static ?string $pollingInterval = null;
 
@@ -25,35 +27,35 @@ class StockCritico extends BaseWidget
             ->addDay()
             ->startOfDay();
 
+        /*
+         * Primero calculamos cuánto se vendió de cada producto
+         * durante los últimos 30 días.
+         */
+        $ventasPorProducto = DB::table('detalleventas as dv')
+            ->join('ventas as v', 'v.idventa', '=', 'dv.idventa')
+            ->where('v.fecha', '>=', $fechaInicio)
+            ->where('v.fecha', '<', $fechaFin)
+            ->select('dv.idprod')
+            ->selectRaw('SUM(dv.cuantos) as vendidos')
+            ->groupBy('dv.idprod');
+
+        /*
+         * Después unimos ese pequeño resultado con inventarios.
+         *
+         * Importante:
+         * primero filtramos productos con stock <= 5.
+         */
         return $table
             ->query(
                 Inventario::query()
-                    ->leftJoin(
-                        'detalleventas as dv',
-                        'inventarios.id',
+                    ->leftJoinSub(
+                        $ventasPorProducto,
+                        'vp',
+                        'vp.idprod',
                         '=',
-                        'dv.idprod'
+                        'inventarios.id'
                     )
-                    ->leftJoin(
-                        'ventas as v',
-                        function ($join) use ($fechaInicio, $fechaFin) {
-                            $join->on(
-                                'v.idventa',
-                                '=',
-                                'dv.idventa'
-                            )
-                            ->where(
-                                'v.fecha',
-                                '>=',
-                                $fechaInicio
-                            )
-                            ->where(
-                                'v.fecha',
-                                '<',
-                                $fechaFin
-                            );
-                        }
-                    )
+                    ->where('inventarios.cantidad', '<=', 5)
                     ->select([
                         'inventarios.id',
                         'inventarios.idprod',
@@ -64,49 +66,14 @@ class StockCritico extends BaseWidget
                         'inventarios.precioventa',
                     ])
                     ->selectRaw(
-                        'COALESCE(SUM(
-                            CASE
-                                WHEN v.id IS NOT NULL
-                                THEN dv.cuantos
-                                ELSE 0
-                            END
-                        ), 0) as vendidos'
+                        'COALESCE(vp.vendidos, 0) as vendidos'
                     )
                     ->selectRaw(
                         'CASE
-                            WHEN COALESCE(SUM(
-                                CASE
-                                    WHEN v.id IS NOT NULL
-                                    THEN dv.cuantos
-                                    ELSE 0
-                                END
-                            ), 0) > 0
-                            THEN inventarios.cantidad /
-                                (
-                                    SUM(
-                                        CASE
-                                            WHEN v.id IS NOT NULL
-                                            THEN dv.cuantos
-                                            ELSE 0
-                                        END
-                                    ) / 30
-                                )
+                            WHEN COALESCE(vp.vendidos, 0) > 0
+                            THEN inventarios.cantidad / (vp.vendidos / 30)
                             ELSE NULL
                         END as dias_stock'
-                    )
-                    ->where(function ($query) {
-                        $query
-                            ->where('inventarios.cantidad', '<=', 5)
-                            ->orWhere('inventarios.cantidad', '<=', 0);
-                    })
-                    ->groupBy(
-                        'inventarios.id',
-                        'inventarios.idprod',
-                        'inventarios.descripcion',
-                        'inventarios.marca',
-                        'inventarios.cantidad',
-                        'inventarios.unidad',
-                        'inventarios.precioventa'
                     )
                     ->orderByRaw(
                         'CASE
@@ -114,7 +81,13 @@ class StockCritico extends BaseWidget
                             ELSE 1
                         END'
                     )
-                    ->orderBy('dias_stock')
+                    ->orderByRaw(
+                        'CASE
+                            WHEN vp.vendidos > 0
+                            THEN inventarios.cantidad / (vp.vendidos / 30)
+                            ELSE 999999
+                        END'
+                    )
             )
             ->columns([
                 Tables\Columns\TextColumn::make('descripcion')
@@ -164,7 +137,10 @@ class StockCritico extends BaseWidget
                             return 'AGOTADO';
                         }
 
-                        if ($record->dias_stock !== null && $record->dias_stock <= 7) {
+                        if (
+                            $record->dias_stock !== null &&
+                            $record->dias_stock <= 7
+                        ) {
                             return 'REPOSICIÓN URGENTE';
                         }
 
