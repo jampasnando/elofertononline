@@ -54,13 +54,7 @@ class StockCritico extends BaseWidget
                         'inventarios.unidad',
                     ])
                     ->selectRaw('COALESCE(vp.vendidos, 0) as vendidos')
-                    ->selectRaw(
-                        'CASE
-                            WHEN COALESCE(vp.vendidos, 0) > 0
-                            THEN inventarios.cantidad / (vp.vendidos / 30)
-                            ELSE NULL
-                        END as dias_stock'
-                    )
+
                     ->limit(10)
             )
             ->columns([
@@ -78,8 +72,21 @@ class StockCritico extends BaseWidget
 
                 Tables\Columns\TextColumn::make('dias_stock')
                     ->label('Días de stock')
-                    ->numeric(decimalPlaces: 1)
-                    ->suffix(' días'),
+                    ->state(function ($record) {
+                        $vendidos = (float) $record->vendidos;
+                        $cantidad = (float) $record->cantidad;
+
+                        if ($vendidos <= 0) {
+                            return null;
+                        }
+
+                        return $cantidad / ($vendidos / 30);
+                    })
+                    ->formatStateUsing(fn ($state) =>
+                        $state !== null
+                            ? number_format((float) $state, 1) . ' días'
+                            : 'Sin ventas'
+                    ),
             ])
             ->paginated(false);
     }
