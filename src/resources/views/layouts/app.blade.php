@@ -156,6 +156,7 @@
   /* width: 250px; */
   height: 6em;
   margin: 0 20px;
+  cursor: pointer;
   /* filter: grayscale(100%); */
   /* transition: filter 0.3s ease; */
 }
