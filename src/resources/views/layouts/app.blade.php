@@ -608,8 +608,8 @@
     <!-- Centro: Buscador (siempre visible) -->
     <form class="d-flex flex-grow-1 justify-content-center order-3 order-lg-2 mx-2" action="{{route('market.index')}}" method="GET">
         @csrf
-    <input class="form-control w-100 w-lg-75" type="search" placeholder="Buscar..." aria-label="Buscar" style="border-radius: 20px;" required name="buscar" value="{{ request('buscar') }}">
-    <button class="icon-btn" aria-label="Perfil" type="submit">
+    <input class="form-control w-100 w-lg-75" type="search" placeholder="Buscar..." aria-label="Buscar" style="border-radius: 20px;" required name="buscar" value="{{ request('buscar') }}" id="searchInput">
+    <button class="icon-btn" aria-label="Perfil" type="submit" id="searchButton">
             <i class="bi bi-search"></i>
         </button>
     </form>
@@ -1246,6 +1246,15 @@ function openCardModal(sectionId, index, titulo) {
 function closeCardModal(sectionId) {
     const modal = document.getElementById('modalProductos_' + sectionId);
     modal.classList.remove('active');
+}
+function buscamarca(marca) {
+    const input = document.getElementById('searchInput');
+    input.value = marca;
+    const query = input.value.trim().toLowerCase();
+    if (!query) return;
+
+    // Redirigir a la ruta de búsqueda con el parámetro 'buscar'
+    window.location.href = `{{ route('market.index') }}?buscar=${encodeURIComponent(query)}`;
 }
 </script>
 
