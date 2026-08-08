@@ -45,6 +45,13 @@ class StockCritico extends BaseWidget
          * Importante:
          * primero filtramos productos con stock <= 5.
          */
+        dd(
+            Inventario::query()
+                ->where('inventarios.cantidad', '<=', 5)
+                ->limit(10)
+                ->get()
+                ->toArray()
+        );
         return $table
             ->query(
                 Inventario::query()
