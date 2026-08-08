@@ -88,74 +88,11 @@ class StockCritico extends BaseWidget
                             ELSE 999999
                         END'
                     )
+                    ->limit(10)
             )
             ->columns([
-                Tables\Columns\TextColumn::make('descripcion')
-                    ->label('Producto')
-                    ->searchable()
-                    ->wrap(),
-
-                Tables\Columns\TextColumn::make('marca')
-                    ->label('Marca')
-                    ->toggleable(),
-
-                Tables\Columns\TextColumn::make('cantidad')
-                    ->label('Stock')
-                    ->numeric(decimalPlaces: 2)
-                    ->sortable()
-                    ->color(fn ($state) => match (true) {
-                        $state <= 0 => 'danger',
-                        $state <= 2 => 'danger',
-                        default => 'warning',
-                    }),
-
-                Tables\Columns\TextColumn::make('unidad')
-                    ->label('Unidad'),
-
-                Tables\Columns\TextColumn::make('vendidos')
-                    ->label('Vendidos 30 días')
-                    ->numeric(decimalPlaces: 2)
-                    ->sortable(),
-
-                Tables\Columns\TextColumn::make('dias_stock')
-                    ->label('Días de stock')
-                    ->numeric(decimalPlaces: 1)
-                    ->suffix(' días')
-                    ->sortable()
-                    ->placeholder('Sin ventas')
-                    ->color(fn ($state) => match (true) {
-                        $state === null => 'gray',
-                        $state <= 3 => 'danger',
-                        $state <= 7 => 'warning',
-                        default => 'success',
-                    }),
-
-                Tables\Columns\TextColumn::make('estado')
-                    ->label('Estado')
-                    ->state(function ($record) {
-                        if ($record->cantidad <= 0) {
-                            return 'AGOTADO';
-                        }
-
-                        if (
-                            $record->dias_stock !== null &&
-                            $record->dias_stock <= 7
-                        ) {
-                            return 'REPOSICIÓN URGENTE';
-                        }
-
-                        return 'STOCK BAJO';
-                    })
-                    ->badge()
-                    ->color(function ($state) {
-                        return match ($state) {
-                            'AGOTADO' => 'danger',
-                            'REPOSICIÓN URGENTE' => 'warning',
-                            default => 'gray',
-                        };
-                    }),
+                // tus columnas actuales
             ])
-            ->defaultSort('dias_stock', 'asc')
-            ->paginated([10]);
+            ->paginated(false);
     }
 }
