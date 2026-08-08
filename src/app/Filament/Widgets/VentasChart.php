@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\DB;
 class VentasChart extends ChartWidget
 {
     protected ?string $heading = "Ventas y utilidad - últimos 30 días";
-
+    protected static ?int $sort = 2;
     protected function getData(): array
     {
         $inicio = now()

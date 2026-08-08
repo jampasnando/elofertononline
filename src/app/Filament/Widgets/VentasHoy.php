@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\DB;
 
 class VentasHoy extends StatsOverviewWidget
 {
+    protected static ?int $sort = 1;
     protected function getStats(): array
     {
         $hoy = now()->startOfDay();
