@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\DB;
 class ResumenFinanciero extends StatsOverviewWidget
 {
     protected static ?int $sort = 3;
+    protected  ?string $pollingInterval = null;
     protected function getStats(): array
     {
         $inicioMes = now()->startOfMonth();

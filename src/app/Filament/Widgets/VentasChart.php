@@ -9,6 +9,7 @@ class VentasChart extends ChartWidget
 {
     protected ?string $heading = "Ventas y utilidad - últimos 30 días";
     protected static ?int $sort = 2;
+    protected  ?string $pollingInterval = null;
     protected int | string | array $columnSpan = 'full';
     protected function getData(): array
     {
