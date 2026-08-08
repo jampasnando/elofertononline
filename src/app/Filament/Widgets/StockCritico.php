@@ -6,6 +6,7 @@ use App\Models\Inventario;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Filament\Widgets\TableWidget as BaseWidget;
+use Illuminate\Support\Facades\DB;
 
 class StockCritico extends BaseWidget
 {
