@@ -8,6 +8,15 @@ use Illuminate\Database\Eloquent\Model;
 class Inventario extends Model
 {
     //
+    protected $table = 'inventarios';
+    protected $primaryKey = 'id';
+    public $timestamps = false;
+    protected $casts = [
+        "cantidad" => "float",
+        "preciolocal" => "float",
+        "precioventa" => "float",
+        "comision" => "float",
+    ];
     protected $fillable = ['idprod', 'marca', 'cantidad', 'categoria', 'unidad', 'preciolocal', 'precioventa', 'comision', 'deposito', 'proveedor', 'descripcion', 'imagenes', 'img1', 'img2', 'img3'];
 
     public function ofertas()

@@ -12,6 +12,7 @@ class ProductosMasVendidos extends BaseWidget
     protected static ?string $heading = 'Productos más vendidos - últimos 30 días';
 
     protected static ?string $pollingInterval = null;
+    protected static ?int $sort = 4;
 
     protected int | string | array $columnSpan = 'full';
 
@@ -35,6 +36,16 @@ class ProductosMasVendidos extends BaseWidget
                     ->selectRaw('SUM(dv.preciofinal * dv.cuantos) as facturacion')
                     ->selectRaw(
                         'SUM((dv.preciofinal - dv.preciolocal) * dv.cuantos) as utilidad'
+                    )
+                    ->selectRaw(
+                        'CASE
+                            WHEN SUM(dv.preciofinal * dv.cuantos) > 0
+                            THEN (
+                                SUM((dv.preciofinal - dv.preciolocal) * dv.cuantos)
+                                / SUM(dv.preciofinal * dv.cuantos)
+                            ) * 100
+                            ELSE 0
+                        END as margen'
                     )
                     ->groupBy(
                         'i.id',
@@ -74,6 +85,17 @@ class ProductosMasVendidos extends BaseWidget
                     ->money('BOB')
                     ->sortable()
                     ->color(fn ($state) => $state >= 0 ? 'success' : 'danger'),
+                Tables\Columns\TextColumn::make('margen')
+                    ->label('Margen')
+                    ->numeric(decimalPlaces: 1)
+                    ->suffix('%')
+                    ->sortable()
+                    ->color(fn ($state) => match (true) {
+                        $state >= 30 => 'success',
+                        $state >= 15 => 'warning',
+                        default => 'danger',
+                    }),
+
             ])
             ->defaultSort('unidades', 'desc')
             ->paginated([10]);
