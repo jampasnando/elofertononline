@@ -13,6 +13,7 @@ class StockCritico extends BaseWidget
     protected static ?string $heading = 'Stock crítico';
 
     protected static ?string $pollingInterval = null;
+    protected static ?int $sort = 5;
 
     protected int | string | array $columnSpan = 'full';
 
