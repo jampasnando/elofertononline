@@ -17,10 +17,42 @@ class StockCritico extends BaseWidget
 
     public function table(Table $table): Table
     {
+        $fechaInicio = now()
+            ->subDays(29)
+            ->startOfDay();
+
+        $fechaFin = now()
+            ->addDay()
+            ->startOfDay();
+
+        $ventasPorProducto = DB::table('detalleventas as dv')
+            ->join('ventas as v', 'v.idventa', '=', 'dv.idventa')
+            ->where('v.fecha', '>=', $fechaInicio)
+            ->where('v.fecha', '<', $fechaFin)
+            ->select('dv.idprod')
+            ->selectRaw('SUM(dv.cuantos) as vendidos')
+            ->groupBy('dv.idprod');
+
         return $table
             ->query(
                 Inventario::query()
+                    ->leftJoinSub(
+                        $ventasPorProducto,
+                        'vp',
+                        'vp.idprod',
+                        '=',
+                        'inventarios.id'
+                    )
                     ->where('inventarios.cantidad', '<=', 5)
+                    ->select([
+                        'inventarios.id',
+                        'inventarios.idprod',
+                        'inventarios.descripcion',
+                        'inventarios.marca',
+                        'inventarios.cantidad',
+                        'inventarios.unidad',
+                    ])
+                    ->selectRaw('COALESCE(vp.vendidos, 0) as vendidos')
                     ->limit(10)
             )
             ->columns([
@@ -32,6 +64,9 @@ class StockCritico extends BaseWidget
 
                 Tables\Columns\TextColumn::make('marca')
                     ->label('Marca'),
+
+                Tables\Columns\TextColumn::make('vendidos')
+                    ->label('Vendidos 30 días'),
             ])
             ->paginated(false);
     }
