@@ -238,6 +238,7 @@ public function vistaprevia(Request $request)
 
         // Realiza la búsqueda en el modelo Inventario
         $buscados = Inventario::where('descripcion', 'LIKE', "%{$buscar}%")
+            ->where('cantidad', '>', 0)
             ->orWhere('marca', 'LIKE', "%{$buscar}%")
             ->orWhere('categoria', 'LIKE', "%{$buscar}%")->limit(50)
             ->paginate(24)
