@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\Inventarios\Schemas;
 
+use App\Models\Categoria;
 use App\Models\Marca;
 use App\Models\Proveedor;
 use Filament\Forms\Components\FileUpload;
@@ -29,7 +30,7 @@ class InventarioForm
                     ->visible(fn()=>auth()->user()->role == 'administrador'),
                     // ->columnSpanFull(),
                 Select::make('marca')
-                    ->options(fn () => Marca::pluck('nombre', 'id'))
+                    ->options(fn () => Marca::pluck('nombre', 'nombre'))
                     ->disabled(fn () => auth()->user()->role !== 'administrador')
                     ->visible(fn()=>auth()->user()->role == 'administrador'),
                 TextInput::make('cantidad')
@@ -40,7 +41,7 @@ class InventarioForm
                 Select::make('categoria')
                     ->disabled(fn () => auth()->user()->role !== 'administrador')
                     ->visible(fn()=>auth()->user()->role == 'administrador')
-                    ->relationship('categoria', 'nombre'),
+                    ->options(fn () => Categoria::pluck('nombre', 'nombre')),
                 TextInput::make('unidad')
                     ->disabled(fn () => auth()->user()->role !== 'administrador')
                     ->visible(fn()=>auth()->user()->role == 'administrador'),
@@ -62,9 +63,10 @@ class InventarioForm
                 TextInput::make('deposito')
                     ->disabled(fn () => auth()->user()->role !== 'administrador')
                     ->visible(fn()=>auth()->user()->role == 'administrador')
+                    ->readOnly()
                     ->default(1),
                 Select::make('proveedor')
-                    ->options(fn () => Proveedor::pluck('nombre', 'id'))
+                    ->options(fn () => Proveedor::pluck('nombre', 'nombre'))
                     ->disabled(fn () => auth()->user()->role !== 'administrador')
                     ->visible(fn()=>auth()->user()->role == 'administrador'),
                 Textarea::make('imagenes')
