@@ -3,6 +3,7 @@
 namespace App\Filament\Resources\Inventarios\Schemas;
 
 use App\Models\Marca;
+use App\Models\Proveedor;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
@@ -62,7 +63,8 @@ class InventarioForm
                     ->disabled(fn () => auth()->user()->role !== 'administrador')
                     ->visible(fn()=>auth()->user()->role == 'administrador')
                     ->default(1),
-                TextInput::make('proveedor')
+                Select::make('proveedor')
+                    ->options(fn () => Proveedor::pluck('nombre', 'id'))
                     ->disabled(fn () => auth()->user()->role !== 'administrador')
                     ->visible(fn()=>auth()->user()->role == 'administrador'),
                 Textarea::make('imagenes')
