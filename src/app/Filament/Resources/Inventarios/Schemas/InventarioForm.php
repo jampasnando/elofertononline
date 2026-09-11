@@ -2,10 +2,11 @@
 
 namespace App\Filament\Resources\Inventarios\Schemas;
 
-use Filament\Forms\Components\TextInput;
-use Filament\Forms\Components\Textarea;
+use App\Models\Marca;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Select;
+use Filament\Forms\Components\Textarea;
+use Filament\Forms\Components\TextInput;
 use Filament\Schemas\Schema;
 
 class InventarioForm
@@ -26,7 +27,8 @@ class InventarioForm
                     ->disabled(fn () => auth()->user()->role !== 'administrador')
                     ->visible(fn()=>auth()->user()->role == 'administrador'),
                     // ->columnSpanFull(),
-                TextInput::make('marca')
+                Select::make('marca')
+                    ->options(fn () => Marca::pluck('nombre', 'id'))
                     ->disabled(fn () => auth()->user()->role !== 'administrador')
                     ->visible(fn()=>auth()->user()->role == 'administrador'),
                 TextInput::make('cantidad')
