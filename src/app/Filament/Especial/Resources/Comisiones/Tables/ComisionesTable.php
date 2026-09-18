@@ -16,7 +16,7 @@ class ComisionesTable
     {
         return $table
             ->columns([
-                TextColumn::make('vendedor.nombre')
+                TextColumn::make('vendedorRelacion.nombre')
                     ->searchable()
                     ->label('Vendedor')
                     ->sortable(),
@@ -41,8 +41,8 @@ class ComisionesTable
                     ->sortable(),
             ])
             ->filters([
-                SelectFilter::make('vendedor')
-                    ->relationship('vendedor', 'nombre')
+                SelectFilter::make('vendedorRelacion')
+                    ->relationship('vendedorRelacion', 'nombre')
                     ->label('Vendedor'),
             ])
             ->recordActions([

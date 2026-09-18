@@ -8,7 +8,7 @@ class Detalleventa extends Model
 {
     protected $table = 'detalleventas';
 
-    public function vendedor()
+    public function vendedorRelacion()
     {
         return $this->belongsTo(Vendedor::class, 'vendedor', 'id');
     }
