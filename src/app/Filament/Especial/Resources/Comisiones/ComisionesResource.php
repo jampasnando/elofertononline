@@ -18,7 +18,7 @@ use Filament\Tables\Table;
 class ComisionesResource extends Resource
 {
     protected static ?string $model = Detalleventa::class;
-
+    protected static ?string $navigationLabel = 'Comisiones';
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
 
     protected static ?string $recordTitleAttribute = 'vendedor';
