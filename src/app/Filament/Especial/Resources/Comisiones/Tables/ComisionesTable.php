@@ -18,6 +18,10 @@ class ComisionesTable
     {
         return $table
             ->columns([
+                TextColumn::make('vendedorRelacion.id')
+                    ->searchable()
+                    ->label('IdV')
+                    ->sortable(),
                 TextColumn::make('vendedorRelacion.nombre')
                     ->searchable()
                     ->label('Vendedor')
