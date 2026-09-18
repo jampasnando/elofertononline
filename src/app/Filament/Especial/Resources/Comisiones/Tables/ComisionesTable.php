@@ -12,6 +12,8 @@ use Filament\Tables\Table;
 
 class ComisionesTable
 {
+    protected static ?string $pluralModelLabel = 'Comisiones';
+    protected static ?string $slug = 'comisiones';
     public static function configure(Table $table): Table
     {
         return $table
