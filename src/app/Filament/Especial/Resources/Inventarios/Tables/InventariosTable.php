@@ -55,7 +55,7 @@ class InventariosTable
                 TextColumn::make('precioventa')
                     ->numeric()
                     ->sortable()
-                    ->visible(fn()=>auth()->user()->role == 'administrador')
+                    // ->visible(fn()=>auth()->user()->role == 'administrador')
                     ->label('PVenta'),
                 TextColumn::make('oferta')
                     ->badge()
