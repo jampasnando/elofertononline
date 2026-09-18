@@ -20,7 +20,7 @@ class VentasTable
                     ->dateTime()
                     ->sortable(),
 
-                TextColumn::make('cliente.nombre')
+                TextColumn::make('cliente')
                     ->searchable()
                     ->sortable()
                     ->label('Cliente'),
