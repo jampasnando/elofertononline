@@ -29,6 +29,9 @@ class DetalleventasTable
                 TextColumn::make('precioventa')
                     ->money('BOB')
                     ->sortable(),
+                TextColumn::make('preciofinal')
+                    ->money('BOB')
+                    ->sortable(),
             ])
             ->filters([
                 //

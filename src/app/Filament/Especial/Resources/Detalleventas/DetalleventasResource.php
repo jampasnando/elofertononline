@@ -43,8 +43,8 @@ class DetalleventasResource extends Resource
     {
         return [
             'index' => ListDetalleventas::route('/'),
-            'create' => CreateDetalleventas::route('/create'),
-            'edit' => EditDetalleventas::route('/{record}/edit'),
+            // 'create' => CreateDetalleventas::route('/create'),
+            // 'edit' => EditDetalleventas::route('/{record}/edit'),
         ];
     }
 }
