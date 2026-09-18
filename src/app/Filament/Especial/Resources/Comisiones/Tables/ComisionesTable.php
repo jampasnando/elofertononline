@@ -9,6 +9,7 @@ use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Columns\Summarizers\Sum;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
+use Illuminate\Support\Facades\DB;
 
 class ComisionesTable
 {
@@ -47,11 +48,13 @@ class ComisionesTable
                         Sum::make()
                             ->label('Sin pago')
                             ->money('BOB')
-                            ->query(fn ($query) => $query->whereNull('pagocomision')),
+                            ->query(fn ($query) => $query->whereNull('pagocomision'))
+                            ->using(fn ($query) => $query->sum(DB::raw('comision * cuantos'))),
                         Sum::make()
                             ->label('Pagadas')
                             ->money('BOB')
-                            ->query(fn ($query) => $query->whereNotNull('pagocomision')),
+                            ->query(fn ($query) => $query->whereNotNull('pagocomision'))
+                            ->using(fn ($query) => $query->sum(DB::raw('comision * cuantos'))),
                     ])
                     ->sortable(),
                 TextColumn::make('pagocomision')
