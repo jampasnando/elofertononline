@@ -39,7 +39,16 @@ class ComisionesTable
                     ->sortable(),
                 TextColumn::make('comision')
                     ->money('BOB')
-                    ->summarize(Sum::make()->money('BOB'))
+                    ->summarize([
+                        Sum::make()
+                            ->label('Sin pago')
+                            ->money('BOB')
+                            ->query(fn ($query) => $query->whereNull('pagocomision')),
+                        Sum::make()
+                            ->label('Pagadas')
+                            ->money('BOB')
+                            ->query(fn ($query) => $query->whereNotNull('pagocomision')),
+                    ])
                     ->sortable(),
                 TextColumn::make('pagocomision')
                     ->date('d/m/Y H:i')
