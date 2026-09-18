@@ -61,6 +61,7 @@ class ComisionesTable
                     ->date('d/m/Y H:i')
                     ->sortable(),
             ])
+            ->paginationPageOptions([10, 25, 50, 100, 250,500])
             ->filters([
                 SelectFilter::make('vendedorRelacion')
                     ->relationship('vendedorRelacion', 'nombre')
