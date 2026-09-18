@@ -43,8 +43,8 @@ class VentasResource extends Resource
     {
         return [
             'index' => ListVentas::route('/'),
-            'create' => CreateVentas::route('/create'),
-            'edit' => EditVentas::route('/{record}/edit'),
+            // 'create' => CreateVentas::route('/create'),
+            // 'edit' => EditVentas::route('/{record}/edit'),
         ];
     }
 }
