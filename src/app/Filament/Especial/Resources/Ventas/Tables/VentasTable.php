@@ -19,7 +19,8 @@ class VentasTable
                 TextColumn::make('fecha')
                     ->dateTime()
                     ->sortable(),
-
+                TextColumn::make('idventa')
+                    ->searchable(),
                 TextColumn::make('cliente')
                     ->searchable()
                     ->sortable()
