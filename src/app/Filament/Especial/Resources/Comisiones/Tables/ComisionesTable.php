@@ -39,6 +39,9 @@ class ComisionesTable
                     ->money('BOB')
                     ->summarize(Sum::make()->money('BOB'))
                     ->sortable(),
+                TextColumn::make('pagocomision')
+                    ->date('d/m/Y H:i')
+                    ->sortable(),
             ])
             ->filters([
                 SelectFilter::make('vendedorRelacion')
