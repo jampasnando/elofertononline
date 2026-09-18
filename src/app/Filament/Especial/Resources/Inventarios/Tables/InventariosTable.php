@@ -103,10 +103,10 @@ class InventariosTable
                 //     ->sortable(),
                 TextColumn::make('deposito')
                     ->toggleable(isToggledHiddenByDefault: true),
-                TextColumn::make('proveedor')
-                    ->searchable()
-                    ->visible(fn()=>auth()->user()->role == 'administrador')
-                    ->toggleable(isToggledHiddenByDefault: true),
+                // TextColumn::make('proveedor')
+                //     ->searchable()
+                //     ->visible(fn()=>auth()->user()->role == 'administrador')
+                //     ->toggleable(isToggledHiddenByDefault: true),
                 ImageColumn::make('img1')
                     ->imagesize('50px', '50px')
                     ->visibility('public')
