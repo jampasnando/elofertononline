@@ -50,6 +50,11 @@ class InventarioForm
                     ->visible(fn () => auth()->user()->role === 'administrador')
                     ->visible(fn()=>auth()->user()->role == 'administrador')
                     ->default(0),
+                TextInput::make('preciosus')
+                    ->numeric()
+                    ->disabled(fn () => auth()->user()->role !== 'administrador')
+                    ->visible(fn()=>auth()->user()->role == 'administrador')
+                    ->default(0),
                 TextInput::make('precioventa')
                     ->numeric()
                     ->disabled(fn () => auth()->user()->role !== 'administrador')

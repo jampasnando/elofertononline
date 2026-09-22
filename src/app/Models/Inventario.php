@@ -14,10 +14,11 @@ class Inventario extends Model
     protected $casts = [
         "cantidad" => "float",
         "preciolocal" => "float",
+        "preciosus" => "float",
         "precioventa" => "float",
         "comision" => "float",
     ];
-    protected $fillable = ['idprod', 'marca', 'cantidad', 'categoria', 'unidad', 'preciolocal', 'precioventa', 'comision', 'deposito', 'proveedor', 'descripcion', 'imagenes', 'img1', 'img2', 'img3'];
+    protected $fillable = ['idprod', 'marca', 'cantidad', 'categoria', 'unidad', 'preciolocal', 'preciosus', 'precioventa', 'comision', 'deposito', 'proveedor', 'descripcion', 'imagenes', 'img1', 'img2', 'img3'];
 
     public function ofertas()
     {

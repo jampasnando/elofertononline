@@ -56,6 +56,11 @@ class InventariosTable
                     ->sortable()
                     ->visible(fn()=>auth()->user()->role == 'administrador')
                     ->label('PVenta'),
+                TextColumn::make('preciosus')
+                    ->numeric()
+                    ->sortable()
+                    ->visible(fn()=>auth()->user()->role == 'administrador')
+                    ->label('PSus'),
                 TextColumn::make('oferta')
                     ->badge()
                     ->label('Oferta')
