@@ -33,7 +33,7 @@ class ListInventarios extends ListRecords
                 ->icon('heroicon-o-currency-dollar')
                 ->visible(fn () => auth()->user()->role === 'administrador')
                 ->modalHeading('Actualizar precios de venta por cotización del dólar')
-                ->modalDescription('Ingrese la cotización del dólar en bolivianos. Antes de aplicar, se creará una copia de seguridad de la tabla inventarios con la fecha y hora del cambio.')
+                ->modalDescription('Ingrese la cotización del dólar en bolivianos. Antes de aplicar, se creará una copia de seguridad de la tabla inventarios con la fecha y hora del cambio. El precio de venta se actualizará redondeando hacia arriba al entero más cercano.')
                 ->form([
                     TextInput::make('cotizacion_dolar')
                         ->label('Cotización del dólar (Bs.)')

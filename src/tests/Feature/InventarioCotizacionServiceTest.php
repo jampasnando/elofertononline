@@ -22,7 +22,7 @@ class InventarioCotizacionServiceTest extends TestCase
             'unidad' => 'und',
             'preciolocal' => 10,
             'precioventa' => 0,
-            'preciosus' => 25,
+            'preciosus' => 1.25,
             'comision' => 0,
             'deposito' => 'A',
             'proveedor' => 'Prov',
@@ -36,7 +36,7 @@ class InventarioCotizacionServiceTest extends TestCase
         $service = new InventarioCotizacionService();
         $result = $service->aplicarCotizacion(7.2);
 
-        $this->assertSame(180.0, round((float) Inventario::first()->precioventa, 2));
+        $this->assertSame(9, (int) Inventario::first()->precioventa);
         $this->assertNotEmpty($result['tabla_backup']);
         $this->assertTrue(Schema::hasTable($result['tabla_backup']));
         $this->assertMatchesRegularExpression('/^inventarios_backup_\d{8}_\d{6}$/', $result['tabla_backup']);

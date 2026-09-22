@@ -23,7 +23,7 @@ class InventarioCotizacionService
 
         foreach ($inventarios as $inventario) {
             $precioSus = (float) ($inventario->preciosus ?? 0);
-            $precioVenta = $precioSus > 0 ? round($precioSus * $cotizacion, 2) : (float) ($inventario->precioventa ?? 0);
+            $precioVenta = $precioSus > 0 ? (int) ceil($precioSus * $cotizacion) : (float) ($inventario->precioventa ?? 0);
 
             DB::table('inventarios')
                 ->where('id', $inventario->id)
