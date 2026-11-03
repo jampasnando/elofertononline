@@ -23,6 +23,16 @@ class CompraResource extends Resource
 
     protected static ?string $recordTitleAttribute = 'compra';
 
+    public static function canAccess(): bool
+    {
+        return auth()->check() && auth()->user()->role === 'administrador';
+    }
+
+    public static function canViewAny(): bool
+    {
+        return auth()->check() && auth()->user()->role === 'administrador';
+    }
+
     public static function form(Schema $schema): Schema
     {
         return CompraForm::configure($schema);
