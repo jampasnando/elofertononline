@@ -11,6 +11,10 @@ class VentasChart extends ChartWidget
     protected static ?int $sort = 2;
     protected  ?string $pollingInterval = null;
     protected int | string | array $columnSpan = 'full';
+    public static function canView(): bool
+    {
+        return auth()->check() && auth()->user()->role === 'administrador';
+    }
     protected function getData(): array
     {
         $inicio = now()

@@ -16,6 +16,10 @@ class StockCritico extends BaseWidget
     protected static ?int $sort = 5;
 
     protected int | string | array $columnSpan = 'full';
+    public static function canView(): bool
+    {
+        return auth()->check() && auth()->user()->role === 'administrador';
+    }
 
     public function table(Table $table): Table
     {
