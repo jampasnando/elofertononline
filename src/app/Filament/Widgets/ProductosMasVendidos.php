@@ -15,6 +15,10 @@ class ProductosMasVendidos extends BaseWidget
     protected static ?int $sort = 4;
 
     protected int | string | array $columnSpan = 'full';
+    public static function canView(): bool
+    {
+        return auth()->check() && auth()->user()->role === 'administrador';
+    }
 
     public function table(Table $table): Table
     {
