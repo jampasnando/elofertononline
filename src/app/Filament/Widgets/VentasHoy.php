@@ -11,6 +11,12 @@ class VentasHoy extends StatsOverviewWidget
 {
     protected static ?int $sort = 1;
     protected  ?string $pollingInterval = null;
+
+    public static function canView(): bool
+    {
+        return auth()->check() && auth()->user()->role === 'administrador';
+    }
+
     protected function getStats(): array
     {
         $hoy = now()->startOfDay();

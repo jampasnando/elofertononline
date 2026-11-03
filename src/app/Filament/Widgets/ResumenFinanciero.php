@@ -11,6 +11,12 @@ class ResumenFinanciero extends StatsOverviewWidget
 {
     protected static ?int $sort = 3;
     protected  ?string $pollingInterval = null;
+
+    public static function canView(): bool
+    {
+        return auth()->check() && auth()->user()->role === 'administrador';
+    }
+
     protected function getStats(): array
     {
         $inicioMes = now()->startOfMonth();
