@@ -23,7 +23,7 @@ class MarketController extends Controller
         // Si necesitas enriquecer algunos tipos de secciones
         $sections->transform(function ($section) {
             if ($section->tipo === 'destacados2') {
-                $section->data = Inventario::whereIn('id', $section->parametros)
+                $section->data = Inventario::where('cantidad', '>', 0)->whereIn('id', $section->parametros)
                 ->get()
                 ->transform(function ($producto) {
                     $producto->precioantes = $producto->precioventa;
@@ -35,7 +35,7 @@ class MarketController extends Controller
                 });
             }
             if ($section->tipo === 'destacados1') {
-                $section->data = Inventario::whereIn('id', $section->parametros['imagenes'])
+                $section->data = Inventario::where('cantidad', '>', 0)->whereIn('id', $section->parametros['imagenes'])
                 ->get()
                 ->transform(function ($producto) {
                     $producto->precioantes = $producto->precioventa;
@@ -70,7 +70,7 @@ class MarketController extends Controller
                 // Consultar inventario
                 if($conimagenes){
                     if(count($categorias)>0){
-                        $productos = Inventario::whereIn('marca', $marcas)->whereNot('img1',NULL)->whereIn('categoria',$categorias)->paginate(10);
+                        $productos = Inventario::where('cantidad', '>', 0)->whereIn('marca', $marcas)->whereNot('img1',NULL)->whereIn('categoria',$categorias)->paginate(10);
                         $productos->getCollection()->transform(function ($producto) {
                             $producto->precioantes = $producto->precioventa;
                             $precioFinal = $producto->ofertaActiva
@@ -81,7 +81,7 @@ class MarketController extends Controller
                         });
                     }
                     else{
-                        $productos = Inventario::whereIn('marca', $marcas)->whereNot('img1',NULL)->paginate(10);
+                        $productos = Inventario::where('cantidad', '>', 0)->whereIn('marca', $marcas)->whereNot('img1',NULL)->paginate(10);
                         $productos->getCollection()->transform(function ($producto) {
                             $producto->precioantes = $producto->precioventa;
                             $precioFinal = $producto->ofertaActiva
@@ -95,7 +95,7 @@ class MarketController extends Controller
                 else{
                     if(count($categorias)>0){
 
-                        $productos = Inventario::whereIn('marca', $marcas)->whereIn('categoria',$categorias)->paginate(10);
+                        $productos = Inventario::where('cantidad', '>', 0)->whereIn('marca', $marcas)->whereIn('categoria',$categorias)->paginate(10);
                         $productos->getCollection()->transform(function ($producto) {
                             $producto->precioantes = $producto->precioventa;
                             $precioFinal = $producto->ofertaActiva
@@ -107,7 +107,7 @@ class MarketController extends Controller
 
                     }
                     else{
-                        $productos = Inventario::whereIn('marca', $marcas)->paginate(10);
+                        $productos = Inventario::where('cantidad', '>', 0)->whereIn('marca', $marcas)->paginate(10);
                         $productos->getCollection()->transform(function ($producto) {
                             $producto->precioantes = $producto->precioventa;
                             $precioFinal = $producto->ofertaActiva
